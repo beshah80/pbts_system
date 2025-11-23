@@ -1,0 +1,31 @@
+{
+  "name": "pbts-system",
+  "version": "1.0.0",
+  "description": "Public Bus Transport System - Monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "shared",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "dev:admin": "cd apps/admin && npm run dev",
+    "dev:driver": "cd apps/driver && npm run dev",
+    "dev:passenger": "cd apps/passenger && npm run dev",
+    "dev:backend": "cd backend && npm run dev"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

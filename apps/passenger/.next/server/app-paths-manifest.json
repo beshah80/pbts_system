@@ -1,0 +1,8 @@
+{
+  "/api/routes/route": "app/api/routes/route.js",
+  "/map/page": "app/map/page.js",
+  "/home/page": "app/home/page.js",
+  "/routes/[id]/page": "app/routes/[id]/page.js",
+  "/tracking/[routeId]/page": "app/tracking/[routeId]/page.js",
+  "/feedback/page": "app/feedback/page.js"
+}

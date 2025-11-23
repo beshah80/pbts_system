@@ -1,0 +1,285 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Bus {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  plateNumber       String   @unique
+  busNumber         String   @unique
+  busType           BusType
+  status            BusStatus
+  capacity          Int
+  currentPassengers Int      @default(0)
+  currentRouteId    String?  @db.ObjectId
+  driverId          String?  @db.ObjectId
+  lastMaintenance   DateTime
+  nextMaintenance   DateTime
+  mileage           Int
+  fuelLevel         Int
+  gpsEnabled        Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  driver    Driver?    @relation(fields: [driverId], references: [id])
+  route     Route?     @relation(fields: [currentRouteId], references: [id])
+  schedules Schedule[]
+  incidents Incident[]
+  feedback  Feedback[]
+  revenue   Revenue[]
+
+  @@map("buses")
+}
+
+model Driver {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  firstName       String
+  lastName        String
+  licenseNumber   String       @unique
+  phoneNumber     String
+  email           String?
+  address         String
+  dateOfBirth     DateTime
+  hireDate        DateTime
+  status          DriverStatus
+  experience      Int
+  rating          Float        @default(0)
+  totalTrips      Int          @default(0)
+  emergencyName   String
+  emergencyPhone  String
+  emergencyRelation String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  buses     Bus[]
+  schedules Schedule[]
+  incidents Incident[]
+  feedback  Feedback[]
+
+  @@map("drivers")
+}
+
+model Route {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  routeNumber       String   @unique
+  routeName         String
+  startLocation     String
+  endLocation       String
+  distance          Float
+  estimatedDuration Int
+  farePrice         Int
+  isActive          Boolean  @default(true)
+  operatingStart    String
+  operatingEnd      String
+  frequency         Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  stops     Stop[]
+  buses     Bus[]
+  schedules Schedule[]
+  incidents Incident[]
+  feedback  Feedback[]
+  revenue   Revenue[]
+
+  @@map("routes")
+}
+
+model Stop {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  stopName  String
+  latitude  Float
+  longitude Float
+  stopOrder Int
+  routeId   String @db.ObjectId
+
+  route Route @relation(fields: [routeId], references: [id], onDelete: Cascade)
+
+  @@map("stops")
+}
+
+model Schedule {
+  id                   String         @id @default(auto()) @map("_id") @db.ObjectId
+  routeId              String         @db.ObjectId
+  busId                String         @db.ObjectId
+  driverId             String         @db.ObjectId
+  departureTime        String
+  arrivalTime          String
+  date                 String
+  status               ScheduleStatus
+  actualDepartureTime  String?
+  actualArrivalTime    String?
+  passengerCount       Int?
+  delay                Int?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  route  Route  @relation(fields: [routeId], references: [id])
+  bus    Bus    @relation(fields: [busId], references: [id])
+  driver Driver @relation(fields: [driverId], references: [id])
+
+  @@map("schedules")
+}
+
+model Feedback {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  routeId       String           @db.ObjectId
+  busId         String?          @db.ObjectId
+  driverId      String?          @db.ObjectId
+  rating        Int
+  category      FeedbackCategory
+  message       String
+  status        FeedbackStatus
+  priority      Priority
+  adminResponse String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  route  Route   @relation(fields: [routeId], references: [id])
+  bus    Bus?    @relation(fields: [busId], references: [id])
+  driver Driver? @relation(fields: [driverId], references: [id])
+
+  @@map("feedback")
+}
+
+model Incident {
+  id                      String         @id @default(auto()) @map("_id") @db.ObjectId
+  busId                   String         @db.ObjectId
+  driverId                String         @db.ObjectId
+  routeId                 String?        @db.ObjectId
+  type                    IncidentType
+  severity                Severity
+  description             String
+  location                String
+  latitude                Float?
+  longitude               Float?
+  status                  IncidentStatus
+  reportedAt              DateTime       @default(now())
+  resolvedAt              DateTime?
+  assignedTo              String?
+  estimatedResolutionTime DateTime?
+  createdAt               DateTime       @default(now())
+  updatedAt               DateTime       @updatedAt
+
+  bus    Bus     @relation(fields: [busId], references: [id])
+  driver Driver  @relation(fields: [driverId], references: [id])
+  route  Route?  @relation(fields: [routeId], references: [id])
+
+  @@map("incidents")
+}
+
+model Admin {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
+  password  String
+  name      String
+  role      AdminRole
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("admins")
+}
+
+model Revenue {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  date      String
+  amount    Float
+  routeId   String   @db.ObjectId
+  busId     String   @db.ObjectId
+  passengers Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  route Route @relation(fields: [routeId], references: [id])
+  bus   Bus   @relation(fields: [busId], references: [id])
+
+  @@map("revenue")
+}
+
+enum BusType {
+  ANBESSA
+  SHEGER
+  VELOCITY
+  PRIVATE
+}
+
+enum BusStatus {
+  ACTIVE
+  MAINTENANCE
+  INACTIVE
+  OUT_OF_SERVICE
+}
+
+enum DriverStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  ON_LEAVE
+}
+
+enum ScheduleStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DELAYED
+}
+
+enum FeedbackCategory {
+  SERVICE
+  CLEANLINESS
+  PUNCTUALITY
+  SAFETY
+  DRIVER_BEHAVIOR
+  OTHER
+}
+
+enum FeedbackStatus {
+  PENDING
+  REVIEWED
+  RESOLVED
+  DISMISSED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum IncidentType {
+  BREAKDOWN
+  ACCIDENT
+  DELAY
+  PASSENGER_ISSUE
+  TRAFFIC
+  WEATHER
+  OTHER
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  REPORTED
+  IN_PROGRESS
+  RESOLVED
+  ESCALATED
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  MANAGER
+  OPERATOR
+}

@@ -1,0 +1,273 @@
+import { gql } from 'graphql-tag';
+
+export const typeDefs = gql`
+  enum UserRole {
+    ADMIN
+    DRIVER
+  }
+
+  enum BusStatus {
+    ON_ROUTE
+    DELAYED
+    UNDER_MAINTENANCE
+    AVAILABLE
+    OUT_OF_SERVICE
+  }
+
+  enum TripStatus {
+    PLANNED
+    IN_PROGRESS
+    COMPLETED
+    CANCELLED
+  }
+
+  enum IncidentCategory {
+    BREAKDOWN
+    HEAVY_TRAFFIC
+    BLOCKAGE
+    ACCIDENT
+    SAFETY
+    OTHER
+  }
+
+  enum IncidentStatus {
+    OPEN
+    IN_PROGRESS
+    RESOLVED
+  }
+
+  enum FeedbackCategory {
+    DELAY
+    OVERCROWDING
+    SAFETY
+    DRIVER_BEHAVIOR
+    CLEANLINESS
+    OTHER
+  }
+
+  enum FeedbackStatus {
+    NEW
+    IN_REVIEW
+    CLOSED
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: UserRole!
+  }
+
+  type Driver {
+    id: ID!
+    user: User!
+    employeeId: String!
+    licenseNo: String!
+    experienceYears: Int!
+    depot: String
+    photoUrl: String
+  }
+
+  type Bus {
+    id: ID!
+    plateNumber: String!
+    fleetNumber: String
+    ownership: String!
+    capacity: Int!
+    standingCapacity: Int
+    manufacturer: String
+    modelYear: Int
+    depot: String
+    status: BusStatus!
+  }
+
+  type Stop {
+    id: ID!
+    name: String!
+    code: String
+    area: String
+    latitude: Float
+    longitude: Float
+    isTerminal: Boolean!
+  }
+
+  type RouteStop {
+    id: ID!
+    routeId: ID!
+    stopId: ID!
+    sequence: Int!
+    distanceFromStartKm: Float
+    estimatedTravelMinutes: Int
+    stop: Stop!
+  }
+
+  type Route {
+    id: ID!
+    code: String!
+    name: String!
+    originStopId: ID!
+    destinationStopId: ID!
+    description: String
+    distanceKm: Float
+    operatingFrom: String
+    operatingTo: String
+    stops: [RouteStop!]!
+  }
+
+  type Schedule {
+    id: ID!
+    routeId: ID!
+    dayOfWeek: Int!
+    departureTime: String!
+    arrivalTime: String
+    frequencyMinutes: Int
+  }
+
+  type TripRecord {
+    id: ID!
+    routeId: ID!
+    busId: ID!
+    driverId: ID!
+    scheduledStart: String!
+    actualStart: String
+    status: TripStatus!
+  }
+
+  type IncidentReport {
+    id: ID!
+    tripRecordId: ID
+    routeId: ID
+    busId: ID
+    driverId: ID
+    stopId: ID
+    category: IncidentCategory!
+    severity: String
+    description: String!
+    status: IncidentStatus!
+    reportedAt: String!
+    resolvedAt: String
+  }
+
+  type Feedback {
+    id: ID!
+    category: FeedbackCategory!
+    routeId: ID
+    tripRecordId: ID
+    stopId: ID
+    comment: String!
+    rating: Int
+    contactInfo: String
+    status: FeedbackStatus!
+    submittedAt: String!
+  }
+
+  type Query {
+    health: String!
+    me: User
+
+    # Admin / Passenger
+    buses: [Bus!]!
+    bus(id: ID!): Bus
+
+    routes: [Route!]!
+    route(id: ID!): Route
+
+    stops: [Stop!]!
+    stop(id: ID!): Stop
+
+    schedulesByRoute(routeId: ID!): [Schedule!]!
+
+    incidents: [IncidentReport!]!
+    feedbacks: [Feedback!]!
+
+    # Driver
+    myTrips: [TripRecord!]!
+  }
+
+  input BusInput {
+    plateNumber: String!
+    fleetNumber: String
+    ownership: String!
+    capacity: Int!
+    standingCapacity: Int
+    manufacturer: String
+    modelYear: Int
+    depot: String
+    status: BusStatus
+  }
+
+  input RouteInput {
+    code: String!
+    name: String!
+    originStopId: ID!
+    destinationStopId: ID!
+    description: String
+    distanceKm: Float
+    operatingFrom: String
+    operatingTo: String
+  }
+
+  input StopInput {
+    name: String!
+    code: String
+    area: String
+    latitude: Float
+    longitude: Float
+    isTerminal: Boolean
+  }
+
+  input ScheduleInput {
+    routeId: ID!
+    dayOfWeek: Int!
+    departureTime: String!
+    arrivalTime: String
+    frequencyMinutes: Int
+  }
+
+  input FeedbackInput {
+    category: FeedbackCategory!
+    routeId: ID
+    tripRecordId: ID
+    stopId: ID
+    comment: String!
+    rating: Int
+    contactInfo: String
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
+  type Mutation {
+    login(email: String!, password: String!): AuthPayload!
+
+    # Admin
+    createBus(data: BusInput!): Bus!
+    updateBus(id: ID!, data: BusInput!): Bus!
+    deleteBus(id: ID!): Boolean!
+
+    createRoute(data: RouteInput!): Route!
+    updateRoute(id: ID!, data: RouteInput!): Route!
+
+    createStop(data: StopInput!): Stop!
+    updateStop(id: ID!, data: StopInput!): Stop!
+
+    createSchedule(data: ScheduleInput!): Schedule!
+
+    # Driver
+    updateTripStatus(tripId: ID!, status: TripStatus!): TripRecord!
+    reportIncident(
+      tripRecordId: ID
+      routeId: ID
+      busId: ID
+      stopId: ID
+      category: IncidentCategory!
+      severity: String
+      description: String!
+    ): IncidentReport!
+
+    # Passenger
+    submitFeedback(data: FeedbackInput!): Feedback!
+  }
+`;
