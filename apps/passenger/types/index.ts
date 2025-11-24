@@ -27,7 +27,7 @@ export interface Route {
 export interface Stop {
   id: string;
   stopName: string;
-  stopNameAmharic: string;
+  stopNameAmharic?: string;
   latitude: number;
   longitude: number;
   stopOrder: number;
@@ -67,7 +67,7 @@ export interface SearchFilters {
 
 export interface RouteSearchResult {
   route: Route;
-  nextDepartures: Schedule[];
+  nextDepartures: { departureTime: string; busId: number; }[];
   estimatedArrival: string;
-  currentBuses: Bus[];
+  currentBuses: { id: number; busNumber: string; status: string; latitude?: number; longitude?: number; }[];
 }

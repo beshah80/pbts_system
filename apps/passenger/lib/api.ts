@@ -142,7 +142,7 @@ export async function submitFeedback(feedback: {
   passengerName: string;
   passengerEmail?: string;
   passengerPhone?: string;
-  routeId: string;
+  routeId?: string;
   rating: number;
   category: string;
   message: string;
@@ -154,7 +154,7 @@ export async function submitFeedback(feedback: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        routeId: feedback.routeId,
+        routeId: feedback.routeId || null,
         rating: feedback.rating,
         category: feedback.category.toUpperCase(),
         message: feedback.message

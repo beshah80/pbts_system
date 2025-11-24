@@ -1,0 +1,454 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  driver    Driver?
+  logs      AuditLog[]
+
+  @@map("users")
+}
+
+model Admin {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
+  password  String
+  name      String
+  role      AdminRole
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("admins")
+}
+
+// Driver Management
+model Driver {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String?      @unique @db.ObjectId
+  firstName       String
+  lastName        String
+  licenseNumber   String       @unique
+  phoneNumber     String
+  email           String?
+  address         String
+  dateOfBirth     DateTime
+  hireDate        DateTime
+  status          DriverStatus
+  experience      Int
+  rating          Float        @default(0)
+  totalTrips      Int          @default(0)
+  emergencyName   String
+  emergencyPhone  String
+  emergencyRelation String
+  employeeId      String?      @unique
+  licenseExpiry   DateTime?
+  depot           String?
+  photoUrl        String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  user      User?        @relation(fields: [userId], references: [id])
+  buses     Bus[]
+  schedules Schedule[]
+  incidents Incident[]
+  feedback  Feedback[]
+  trips     TripRecord[]
+
+  @@map("drivers")
+}
+
+// Bus Management
+model Bus {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  plateNumber       String    @unique
+  busNumber         String?   @unique
+  fleetNumber       String?
+  busType           BusType?
+  ownership         String?   // Anbessa, Sheger, Velocity
+  status            BusStatus
+  capacity          Int
+  standingCapacity  Int?
+  currentPassengers Int       @default(0)
+  currentRouteId    String?   @db.ObjectId
+  driverId          String?   @db.ObjectId
+  lastMaintenance   DateTime?
+  nextMaintenance   DateTime?
+  mileage           Int?
+  fuelLevel         Int?
+  gpsEnabled        Boolean   @default(true)
+  manufacturer      String?
+  modelYear         Int?
+  depot             String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  driver    Driver?      @relation(fields: [driverId], references: [id])
+  route     Route?       @relation(fields: [currentRouteId], references: [id])
+  schedules Schedule[]
+  incidents Incident[]
+  feedback  Feedback[]
+  revenue   Revenue[]
+  trips     TripRecord[]
+
+  @@map("buses")
+}
+
+// Route Management
+model Route {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  routeNumber       String   @unique
+  code              String?  @unique
+  routeName         String
+  name              String?
+  startLocation     String
+  endLocation       String
+  originStopId      String?  @db.ObjectId
+  destinationStopId String?  @db.ObjectId
+  distance          Float?
+  distanceKm        Float?
+  estimatedDuration Int?
+  farePrice         Int?
+  isActive          Boolean  @default(true)
+  operatingStart    String?
+  operatingEnd      String?
+  operatingFrom     String?
+  operatingTo       String?
+  frequency         Int?
+  description       String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  stops     Stop[]
+  routeStops RouteStop[]
+  buses     Bus[]
+  schedules Schedule[]
+  incidents Incident[]
+  feedback  Feedback[]
+  revenue   Revenue[]
+  trips     TripRecord[]
+
+  @@map("routes")
+}
+
+model Stop {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  stopName   String?
+  name       String
+  code       String?
+  area       String?
+  latitude   Float?
+  longitude  Float?
+  stopOrder  Int?
+  routeId    String?      @db.ObjectId
+  isTerminal Boolean      @default(false)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  route     Route?        @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  routeStops RouteStop[]
+  passages  StopPassage[]
+  feedbacks Feedback[]
+  incidents Incident[]
+
+  @@map("stops")
+}
+
+model RouteStop {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  routeId               String   @db.ObjectId
+  stopId                String   @db.ObjectId
+  sequence              Int
+  distanceFromStartKm   Float?
+  estimatedTravelMinutes Int?
+  
+  route Route @relation(fields: [routeId], references: [id])
+  stop  Stop  @relation(fields: [stopId], references: [id])
+
+  @@map("route_stops")
+}
+
+// Schedule Management
+model Schedule {
+  id                   String         @id @default(auto()) @map("_id") @db.ObjectId
+  routeId              String         @db.ObjectId
+  busId                String?        @db.ObjectId
+  driverId             String?        @db.ObjectId
+  departureTime        String
+  arrivalTime          String?
+  date                 String?
+  dayOfWeek            Int?           // 0=Sunday..6=Saturday
+  status               ScheduleStatus?
+  actualDepartureTime  String?
+  actualArrivalTime    String?
+  passengerCount       Int?
+  delay                Int?
+  frequencyMinutes     Int?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  route  Route   @relation(fields: [routeId], references: [id])
+  bus    Bus?    @relation(fields: [busId], references: [id])
+  driver Driver? @relation(fields: [driverId], references: [id])
+
+  @@map("schedules")
+}
+
+// Trip Management
+model TripRecord {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  routeId        String         @db.ObjectId
+  busId          String         @db.ObjectId
+  driverId       String         @db.ObjectId
+  scheduledStart DateTime
+  actualStart    DateTime?
+  status         TripStatus     @default(PLANNED)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  route        Route           @relation(fields: [routeId], references: [id])
+  bus          Bus             @relation(fields: [busId], references: [id])
+  driver       Driver          @relation(fields: [driverId], references: [id])
+  stopPassages StopPassage[]
+  incidents    Incident[]
+  feedbacks    Feedback[]
+
+  @@map("trip_records")
+}
+
+model StopPassage {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  tripRecordId String      @db.ObjectId
+  stopId       String      @db.ObjectId
+  scheduledTime DateTime
+  actualTime   DateTime?
+
+  tripRecord TripRecord @relation(fields: [tripRecordId], references: [id])
+  stop       Stop       @relation(fields: [stopId], references: [id])
+
+  @@map("stop_passages")
+}
+
+// Feedback Management
+model Feedback {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  routeId       String?          @db.ObjectId
+  busId         String?          @db.ObjectId
+  driverId      String?          @db.ObjectId
+  tripRecordId  String?          @db.ObjectId
+  stopId        String?          @db.ObjectId
+  category      FeedbackCategory
+  rating        Int?
+  message       String?
+  comment       String?
+  status        FeedbackStatus
+  priority      Priority?
+  adminResponse String?
+  contactInfo   String?
+  submittedAt   DateTime?        @default(now())
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  route      Route?      @relation(fields: [routeId], references: [id])
+  bus        Bus?        @relation(fields: [busId], references: [id])
+  driver     Driver?     @relation(fields: [driverId], references: [id])
+  tripRecord TripRecord? @relation(fields: [tripRecordId], references: [id])
+  stop       Stop?       @relation(fields: [stopId], references: [id])
+
+  @@map("feedback")
+}
+
+// Incident Management
+model Incident {
+  id                      String          @id @default(auto()) @map("_id") @db.ObjectId
+  busId                   String?         @db.ObjectId
+  driverId                String?         @db.ObjectId
+  routeId                 String?         @db.ObjectId
+  tripRecordId            String?         @db.ObjectId
+  stopId                  String?         @db.ObjectId
+  type                    IncidentType?
+  category                IncidentCategory?
+  severity                Severity?
+  description             String
+  location                String?
+  latitude                Float?
+  longitude               Float?
+  status                  IncidentStatus
+  reportedAt              DateTime        @default(now())
+  resolvedAt              DateTime?
+  assignedTo              String?
+  estimatedResolutionTime DateTime?
+  createdAt               DateTime        @default(now())
+  updatedAt               DateTime        @updatedAt
+
+  bus        Bus?        @relation(fields: [busId], references: [id])
+  driver     Driver?     @relation(fields: [driverId], references: [id])
+  route      Route?      @relation(fields: [routeId], references: [id])
+  tripRecord TripRecord? @relation(fields: [tripRecordId], references: [id])
+  stop       Stop?       @relation(fields: [stopId], references: [id])
+
+  @@map("incidents")
+}
+
+// Revenue Management
+model Revenue {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  date       String
+  amount     Float
+  routeId    String   @db.ObjectId
+  busId      String   @db.ObjectId
+  passengers Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  route Route @relation(fields: [routeId], references: [id])
+  bus   Bus   @relation(fields: [busId], references: [id])
+
+  @@map("revenue")
+}
+
+// Audit Management
+model AuditLog {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String?  @db.ObjectId
+  action     String
+  entityType String
+  entityId   String?
+  changes    Json?
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  DRIVER
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  MANAGER
+  OPERATOR
+}
+
+enum BusType {
+  ANBESSA
+  SHEGER
+  VELOCITY
+  PRIVATE
+}
+
+enum BusStatus {
+  ACTIVE
+  MAINTENANCE
+  INACTIVE
+  OUT_OF_SERVICE
+  ON_ROUTE
+  DELAYED
+  UNDER_MAINTENANCE
+  AVAILABLE
+}
+
+enum DriverStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  ON_LEAVE
+}
+
+enum ScheduleStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DELAYED
+}
+
+enum TripStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum FeedbackCategory {
+  SERVICE
+  CLEANLINESS
+  PUNCTUALITY
+  SAFETY
+  DRIVER_BEHAVIOR
+  DELAY
+  OVERCROWDING
+  OTHER
+}
+
+enum FeedbackStatus {
+  PENDING
+  REVIEWED
+  RESOLVED
+  DISMISSED
+  NEW
+  IN_REVIEW
+  CLOSED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum IncidentType {
+  BREAKDOWN
+  ACCIDENT
+  DELAY
+  PASSENGER_ISSUE
+  TRAFFIC
+  WEATHER
+  OTHER
+}
+
+enum IncidentCategory {
+  BREAKDOWN
+  HEAVY_TRAFFIC
+  BLOCKAGE
+  ACCIDENT
+  SAFETY
+  OTHER
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  REPORTED
+  IN_PROGRESS
+  RESOLVED
+  ESCALATED
+  OPEN
+}

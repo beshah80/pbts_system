@@ -11,6 +11,7 @@ import { Route, Schedule, Bus as BusType } from '@/types';
 import Link from 'next/link';
 import { formatTime, getBusTypeColor, getStatusColor } from '@/lib/utils';
 
+
 // Enhanced bus tracking data with real-time simulation
 const generateMockBusPositions = (routeId: string) => [
   {
@@ -60,14 +61,18 @@ export default function TrackingPage() {
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(new Date());
 
+
   useEffect(() => {
     if (routeId) {
       Promise.all([
         getRouteById(routeId),
         getSchedulesByRoute(routeId)
-      ]).then(([routeData, schedulesData]) => {
+      ]).then(async ([routeData, schedulesData]) => {
         setRoute(routeData);
         setSchedules(schedulesData);
+        
+        // Route planning removed to prevent excessive API calls
+        
         setLoading(false);
       });
     }

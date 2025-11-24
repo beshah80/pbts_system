@@ -3,19 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts"
+    "start": "next start --port 3000",
+    "lint": "next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
     "@apollo/server": "^4.9.5",
     "@as-integrations/next": "^3.0.0",
     "@prisma/client": "^5.6.0",
+    "@pbts/shared": "workspace:*",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "class-variance-authority": "^0.7.0",

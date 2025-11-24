@@ -10,6 +10,7 @@ import { Route, Schedule } from '@/types';
 import Link from 'next/link';
 import { formatTime, calculateEstimatedArrival } from '@/lib/utils';
 
+
 export default function RouteDetailsPage() {
   const params = useParams();
   const routeId = params.id as string;
@@ -17,14 +18,17 @@ export default function RouteDetailsPage() {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     if (routeId) {
       Promise.all([
         getRouteById(routeId),
         getSchedulesByRoute(routeId)
-      ]).then(([routeData, schedulesData]) => {
+      ]).then(async ([routeData, schedulesData]) => {
         setRoute(routeData);
         setSchedules(schedulesData);
+        
+        // Route visualization removed to prevent excessive API calls
         setLoading(false);
       });
     }
@@ -193,6 +197,8 @@ export default function RouteDetailsPage() {
             )}
           </CardContent>
         </Card>
+
+
 
         {/* Actions */}
         <div className="flex gap-4">

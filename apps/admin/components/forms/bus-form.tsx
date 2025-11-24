@@ -23,21 +23,25 @@ export function BusForm({ bus, onClose }: BusFormProps) {
     status: bus?.status || 'ACTIVE'
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (bus) {
-      updateBus(bus.id, formData);
-    } else {
-      const newBus: Bus = {
-        id: Date.now().toString(),
-        ...formData,
-        capacity: Number(formData.capacity)
-      };
-      addBus(newBus);
+    try {
+      if (bus) {
+        await updateBus(bus.id, formData);
+      } else {
+        const newBus: Bus = {
+          id: Date.now().toString(),
+          ...formData,
+          capacity: Number(formData.capacity)
+        };
+        await addBus(newBus);
+      }
+      
+      onClose();
+    } catch (error) {
+      console.error('Failed to save bus:', error);
     }
-    
-    onClose();
   };
 
   return (

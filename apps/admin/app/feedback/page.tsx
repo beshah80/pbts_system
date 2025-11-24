@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -15,10 +15,15 @@ import { Feedback } from '@/lib/data';
 export default function FeedbackPage() {
   const feedback = useAdminStore((state) => state.feedback);
   const updateFeedback = useAdminStore((state) => state.updateFeedback);
+  const loadFeedback = useAdminStore((state) => state.loadFeedback);
   const [selectedStatus, setSelectedStatus] = useState<'ALL' | Feedback['status']>('ALL');
   const [selectedPriority, setSelectedPriority] = useState<'ALL' | Feedback['priority']>('ALL');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [searchFilters, setSearchFilters] = useState<any>({});
+
+  useEffect(() => {
+    loadFeedback();
+  }, [loadFeedback]);
 
   const filteredFeedback = useMemo(() => {
     return feedback.filter(item => {
@@ -298,7 +303,25 @@ export default function FeedbackPage() {
               </div>
 
               <div className="mb-4">
-                <p className="text-gray-800 mb-2">{item.message}</p>
+                {(() => {
+                  const emailMatch = item.message.match(/\[Email: ([^\]]+)\]/);
+                  const email = emailMatch ? emailMatch[1] : null;
+                  const cleanMessage = item.message.replace(/\[Email: [^\]]+\]/, '').trim();
+                  
+                  return (
+                    <>
+                      {email && (
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-gray-700">Submitted by:</span>
+                            <span className="text-sm text-blue-600 font-mono">{email}</span>
+                          </div>
+                        </div>
+                      )}
+                      <p className="text-gray-800 mb-2">{cleanMessage}</p>
+                    </>
+                  );
+                })()}
                 {item.adminResponse && (
                   <div className="bg-blue-50 border-l-4 border-blue-400 p-3 mt-3">
                     <p className="text-sm font-medium text-blue-800">Admin Response:</p>

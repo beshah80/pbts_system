@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import GoogleMap from '@/components/GoogleMap';
-import { generateSampleRoute, generateMockBuses, BusPosition } from '@/lib/mockBusData';
+import { generateSampleRoute, BusPosition } from '@/lib/mockBusData';
+import { realTimeGPS } from '@/lib/realTimeGPS';
 import { Route, Stop } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MapPin, Key, AlertCircle } from 'lucide-react';
+import { MapPin, Key, AlertCircle, Wifi, WifiOff } from 'lucide-react';
 
 export default function GoogleMapDemoPage() {
   const [route] = useState<Route>(generateSampleRoute());
@@ -16,10 +17,38 @@ export default function GoogleMapDemoPage() {
   const [selectedBus, setSelectedBus] = useState<BusPosition | null>(null);
   const [apiKey, setApiKey] = useState(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'AIzaSyDkjRxMmmiAocIMfYNP6sFkjW8apFysKWs');
   const [isApiKeyValid, setIsApiKeyValid] = useState(true);
+  const [isRealTimeMode, setIsRealTimeMode] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'connecting'>('disconnected');
 
   useEffect(() => {
-    setBuses(generateMockBuses(route, 3));
-  }, [route]);
+    if (isRealTimeMode) {
+      setConnectionStatus('connecting');
+      
+      // Subscribe to real-time updates
+      const unsubscribe = realTimeGPS.onBusUpdate((realTimeBuses) => {
+        const convertedBuses = realTimeGPS.convertToBusPosition(realTimeBuses, route.stops);
+        setBuses(convertedBuses);
+        setConnectionStatus('connected');
+      });
+
+      // Fetch initial data
+      realTimeGPS.fetchRouteBuses(route.id).then((realTimeBuses) => {
+        const convertedBuses = realTimeGPS.convertToBusPosition(realTimeBuses, route.stops);
+        setBuses(convertedBuses);
+        setConnectionStatus('connected');
+      }).catch(() => {
+        setConnectionStatus('disconnected');
+      });
+
+      return unsubscribe;
+    } else {
+      // Use mock data
+      import('@/lib/mockBusData').then(({ generateMockBuses }) => {
+        setBuses(generateMockBuses(route, 3));
+      });
+      setConnectionStatus('disconnected');
+    }
+  }, [route, isRealTimeMode]);
 
   const validateApiKey = () => {
     if (apiKey.length > 30) {
@@ -34,11 +63,37 @@ export default function GoogleMapDemoPage() {
       <div className="max-w-7xl mx-auto space-y-6">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Google Maps Integration Demo
+            {isRealTimeMode ? 'Live GPS Tracking' : 'Google Maps Demo'}
           </h1>
           <p className="text-gray-600">
-            Real GPS tracking for Ethiopian Public Bus Transport System
+            {isRealTimeMode ? 'Real-time GPS tracking for Ethiopian Public Bus Transport System' : 'Demo mode with simulated bus data'}
           </p>
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <Button 
+              onClick={() => setIsRealTimeMode(!isRealTimeMode)}
+              variant={isRealTimeMode ? "default" : "outline"}
+              className="flex items-center gap-2"
+            >
+              {isRealTimeMode ? <Wifi className="w-4 h-4" /> : <WifiOff className="w-4 h-4" />}
+              {isRealTimeMode ? 'Live Mode' : 'Demo Mode'}
+            </Button>
+            {isRealTimeMode && (
+              <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
+                connectionStatus === 'connected' ? 'bg-green-100 text-green-800' :
+                connectionStatus === 'connecting' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-red-100 text-red-800'
+              }`}>
+                <div className={`w-2 h-2 rounded-full ${
+                  connectionStatus === 'connected' ? 'bg-green-500' :
+                  connectionStatus === 'connecting' ? 'bg-yellow-500 animate-pulse' :
+                  'bg-red-500'
+                }`} />
+                {connectionStatus === 'connected' ? 'Live' :
+                 connectionStatus === 'connecting' ? 'Connecting...' :
+                 'Offline'}
+              </div>
+            )}
+          </div>
         </div>
 
         <Card>
@@ -106,7 +161,12 @@ export default function GoogleMapDemoPage() {
         {isApiKeyValid ? (
           <Card>
             <CardHeader>
-              <CardTitle>Live GPS Tracking - {route.routeName}</CardTitle>
+              <CardTitle className="flex items-center justify-between">
+                <span>{isRealTimeMode ? 'Live GPS Tracking' : 'Demo Tracking'} - {route.routeName}</span>
+                <div className="text-sm text-gray-500">
+                  {buses.length} bus{buses.length !== 1 ? 'es' : ''} active
+                </div>
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <GoogleMap

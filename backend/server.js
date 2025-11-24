@@ -15,12 +15,22 @@ const io = socketIo(server, {
   }
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 const JWT_SECRET = 'pbts_secret_key_2024';
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Add Socket.IO to request object
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+// GPS Routes
+const gpsRoutes = require('./routes/gps');
+app.use('/api/gps', gpsRoutes);
 
 // Initialize Database
 const db = new sqlite3.Database('./pbts.db');

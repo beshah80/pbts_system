@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -13,9 +13,15 @@ import { Bus } from '@/types';
 export default function BusesPage() {
   const buses = useAdminStore((state) => state.buses);
   const deleteBus = useAdminStore((state) => state.deleteBus);
+  const loadBuses = useAdminStore((state) => state.loadBuses);
   const [searchTerm, setSearchTerm] = useState('');
   const [editingBus, setEditingBus] = useState<Bus | null>(null);
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+
+  useEffect(() => {
+    loadBuses();
+  }, [loadBuses]);
 
   const getStatusColor = (status: Bus['status']) => {
     switch (status) {
@@ -173,20 +179,42 @@ export default function BusesPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-2">
-                        <Dialog>
+                        <Dialog open={showEditDialog && editingBus?.id === bus.id} onOpenChange={(open) => {
+                          if (!open) {
+                            setShowEditDialog(false);
+                            setEditingBus(null);
+                          }
+                        }}>
                           <DialogTrigger asChild>
-                            <Button variant="ghost" size="sm">
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => {
+                                setEditingBus(bus);
+                                setShowEditDialog(true);
+                              }}
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
                           </DialogTrigger>
                           <DialogContent>
-                            <BusForm bus={bus} onClose={() => {}} />
+                            <BusForm 
+                              bus={bus} 
+                              onClose={() => {
+                                setShowEditDialog(false);
+                                setEditingBus(null);
+                              }} 
+                            />
                           </DialogContent>
                         </Dialog>
                         <Button 
                           variant="ghost" 
                           size="sm"
-                          onClick={() => deleteBus(bus.id)}
+                          onClick={async () => {
+                            if (confirm('Are you sure you want to delete this bus?')) {
+                              await deleteBus(bus.id);
+                            }
+                          }}
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>

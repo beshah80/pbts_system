@@ -9,19 +9,28 @@ import { getAllRoutes } from '@/lib/api';
 import { Route } from '@/types';
 import Link from 'next/link';
 import { formatTime, getBusTypeColor } from '@/lib/utils';
+import { useRoutePlanner } from '@/hooks/useRoutePlanner';
 
 export default function RoutesPage() {
   const [routes, setRoutes] = useState<Route[]>([]);
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const { planRoute } = useRoutePlanner();
+  const [routeDistances, setRouteDistances] = useState<{[key: string]: number}>({});
 
   useEffect(() => {
-    getAllRoutes().then((data) => {
+    const loadRoutesWithDistances = async () => {
+      const data = await getAllRoutes();
       setRoutes(data);
       setFilteredRoutes(data);
       setLoading(false);
-    });
+      
+      // Skip route planning to prevent excessive API calls
+      // Use original distances from route data
+    };
+    
+    loadRoutesWithDistances();
   }, []);
 
   useEffect(() => {

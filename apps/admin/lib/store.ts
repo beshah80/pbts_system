@@ -90,15 +90,59 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   setIncidents: (incidents) => set({ incidents }),
   setSchedules: (schedules) => set({ schedules }),
   
-  addBus: (bus) => set((state) => ({ buses: [...state.buses, bus] })),
-  updateBus: (id, updates) => set((state) => ({
-    buses: state.buses.map(bus => 
-      bus.id === id ? { ...bus, ...updates, updatedAt: new Date().toISOString() } : bus
-    )
-  })),
-  deleteBus: (id) => set((state) => ({
-    buses: state.buses.filter(bus => bus.id !== id)
-  })),
+  addBus: async (bus) => {
+    try {
+      const response = await fetch('/api/buses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bus)
+      });
+      
+      if (response.ok) {
+        const newBus = await response.json();
+        set((state) => ({ buses: [...state.buses, newBus] }));
+      }
+    } catch (error) {
+      console.error('Failed to add bus:', error);
+    }
+  },
+  
+  updateBus: async (id, updates) => {
+    try {
+      const response = await fetch('/api/buses', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, ...updates })
+      });
+      
+      if (response.ok) {
+        const updatedBus = await response.json();
+        set((state) => ({
+          buses: state.buses.map(bus => 
+            bus.id === id ? updatedBus : bus
+          )
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to update bus:', error);
+    }
+  },
+  
+  deleteBus: async (id) => {
+    try {
+      const response = await fetch(`/api/buses?id=${id}`, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        set((state) => ({
+          buses: state.buses.filter(bus => bus.id !== id)
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to delete bus:', error);
+    }
+  },
   
   addDriver: (driver) => set((state) => ({ drivers: [...state.drivers, driver] })),
   updateDriver: (id, updates) => set((state) => ({
@@ -154,8 +198,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadBuses: async () => {
     set((state) => ({ loading: { ...state.loading, buses: true } }));
     try {
-      const { data } = await apolloClient.query({ query: GET_BUSES, fetchPolicy: 'network-only' });
-      set({ buses: data.buses || [] });
+      const response = await fetch('/api/buses');
+      if (response.ok) {
+        const buses = await response.json();
+        set({ buses });
+      }
     } catch (error) {
       console.error('Failed to load buses:', error);
     } finally {
