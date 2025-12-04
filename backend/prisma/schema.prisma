@@ -41,81 +41,11 @@ model Driver {
   incidents       IncidentReport[]
 }
 
-model Bus {
-  id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  plateNumber      String       @unique
-  fleetNumber      String?
-  ownership        String       // Anbessa, Sheger, Velocity
-  capacity         Int
-  standingCapacity Int?
-  manufacturer     String?
-  modelYear        Int?
-  depot            String?
-  status           BusStatus    @default(AVAILABLE)
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  trips            TripRecord[]
-  incidents        IncidentReport[]
-}
 
-enum BusStatus {
-  ON_ROUTE
-  DELAYED
-  UNDER_MAINTENANCE
-  AVAILABLE
-  OUT_OF_SERVICE
-}
-
-model Route {
-  id                String        @id @default(auto()) @map("_id") @db.ObjectId
-  code              String        @unique
-  name              String
-  originStopId      String        @db.ObjectId
-  destinationStopId String        @db.ObjectId
-  description       String?
-  distanceKm        Float?
-  operatingFrom     String?       // HH:mm
-  operatingTo       String?       // HH:mm
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
-  stops             RouteStop[]
-  schedules         Schedule[]
-  trips             TripRecord[]
-  feedbacks         Feedback[]
-  incidents         IncidentReport[]
-}
-
-model Stop {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  code       String?
-  area       String?
-  latitude   Float?
-  longitude  Float?
-  isTerminal Boolean      @default(false)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  routes     RouteStop[]
-  passages   StopPassage[]
-  feedbacks  Feedback[]
-  incidents  IncidentReport[]
-}
-
-model RouteStop {
-  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
-  routeId               String   @db.ObjectId
-  stopId                String   @db.ObjectId
-  sequence              Int
-  distanceFromStartKm   Float?
-  estimatedTravelMinutes Int?
-  route                 Route   @relation(fields: [routeId], references: [id])
-  stop                  Stop    @relation(fields: [stopId], references: [id])
-}
 
 model Schedule {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  routeId         String   @db.ObjectId
-  route           Route    @relation(fields: [routeId], references: [id])
+  routeId         String   // Reference to JSON route ID
   dayOfWeek       Int      // 0=Sunday..6=Saturday
   departureTime   String   // HH:mm
   arrivalTime     String?  // HH:mm
@@ -126,16 +56,12 @@ model Schedule {
 
 model TripRecord {
   id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  routeId        String         @db.ObjectId
-  route          Route          @relation(fields: [routeId], references: [id])
-  busId          String         @db.ObjectId
-  bus            Bus            @relation(fields: [busId], references: [id])
+  routeId        String         // Reference to JSON route ID
   driverId       String         @db.ObjectId
   driver         Driver         @relation(fields: [driverId], references: [id])
   scheduledStart DateTime
   actualStart    DateTime?
   status         TripStatus     @default(PLANNED)
-  stopPassages   StopPassage[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   incidents      IncidentReport[]
@@ -149,28 +75,15 @@ enum TripStatus {
   CANCELLED
 }
 
-model StopPassage {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  tripRecordId String      @db.ObjectId
-  tripRecord   TripRecord  @relation(fields: [tripRecordId], references: [id])
-  stopId       String      @db.ObjectId
-  stop         Stop        @relation(fields: [stopId], references: [id])
-  scheduledTime DateTime
-  actualTime   DateTime?
-}
+
 
 model IncidentReport {
   id           String          @id @default(auto()) @map("_id") @db.ObjectId
   tripRecordId String?         @db.ObjectId
   tripRecord   TripRecord?     @relation(fields: [tripRecordId], references: [id])
-  routeId      String?         @db.ObjectId
-  route        Route?          @relation(fields: [routeId], references: [id])
-  busId        String?         @db.ObjectId
-  bus          Bus?            @relation(fields: [busId], references: [id])
+  routeId      String?         // Reference to JSON route ID
   driverId     String?         @db.ObjectId
   driver       Driver?         @relation(fields: [driverId], references: [id])
-  stopId       String?         @db.ObjectId
-  stop         Stop?           @relation(fields: [stopId], references: [id])
   category     IncidentCategory
   severity     String?
   description  String
@@ -197,12 +110,9 @@ enum IncidentStatus {
 model Feedback {
   id           String           @id @default(auto()) @map("_id") @db.ObjectId
   category     FeedbackCategory
-  routeId      String?          @db.ObjectId
-  route        Route?           @relation(fields: [routeId], references: [id])
+  routeId      String?          // Reference to JSON route ID
   tripRecordId String?          @db.ObjectId
   tripRecord   TripRecord?      @relation(fields: [tripRecordId], references: [id])
-  stopId       String?          @db.ObjectId
-  stop         Stop?            @relation(fields: [stopId], references: [id])
   comment      String
   rating       Int?
   contactInfo  String?

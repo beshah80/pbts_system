@@ -1,6 +1,4 @@
 import { create } from 'zustand';
-import { apolloClient } from './apollo-client';
-import { GET_BUSES, GET_DRIVERS, GET_ROUTES, GET_SCHEDULES, GET_FEEDBACK, GET_INCIDENTS } from './graphql/queries';
 import { Bus, Driver, Route, Feedback, Incident, Schedule } from './data';
 
 interface AdminStore {
@@ -92,7 +90,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   
   addBus: async (bus) => {
     try {
-      const response = await fetch('/api/buses', {
+      const response = await fetch('http://localhost:3005/api/buses', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bus)
@@ -198,7 +196,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadBuses: async () => {
     set((state) => ({ loading: { ...state.loading, buses: true } }));
     try {
-      const response = await fetch('/api/buses');
+      const response = await fetch('http://localhost:3005/api/buses');
       if (response.ok) {
         const buses = await response.json();
         set({ buses });
@@ -213,8 +211,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadDrivers: async () => {
     set((state) => ({ loading: { ...state.loading, drivers: true } }));
     try {
-      const { data } = await apolloClient.query({ query: GET_DRIVERS, fetchPolicy: 'network-only' });
-      set({ drivers: data.drivers || [] });
+      const response = await fetch('http://localhost:3005/api/drivers');
+      if (response.ok) {
+        const drivers = await response.json();
+        set({ drivers });
+      }
     } catch (error) {
       console.error('Failed to load drivers:', error);
     } finally {
@@ -225,8 +226,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadRoutes: async () => {
     set((state) => ({ loading: { ...state.loading, routes: true } }));
     try {
-      const { data } = await apolloClient.query({ query: GET_ROUTES, fetchPolicy: 'network-only' });
-      set({ routes: data.routes || [] });
+      const response = await fetch('http://localhost:3005/api/routes');
+      if (response.ok) {
+        const routes = await response.json();
+        set({ routes });
+      }
     } catch (error) {
       console.error('Failed to load routes:', error);
     } finally {
@@ -237,8 +241,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadFeedback: async () => {
     set((state) => ({ loading: { ...state.loading, feedback: true } }));
     try {
-      const { data } = await apolloClient.query({ query: GET_FEEDBACK, fetchPolicy: 'network-only' });
-      set({ feedback: data.feedback || [] });
+      const response = await fetch('http://localhost:3005/api/feedback');
+      if (response.ok) {
+        const feedback = await response.json();
+        set({ feedback });
+      }
     } catch (error) {
       console.error('Failed to load feedback:', error);
     } finally {
@@ -249,8 +256,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadIncidents: async () => {
     set((state) => ({ loading: { ...state.loading, incidents: true } }));
     try {
-      const { data } = await apolloClient.query({ query: GET_INCIDENTS, fetchPolicy: 'network-only' });
-      set({ incidents: data.incidents || [] });
+      const response = await fetch('http://localhost:3005/api/incidents');
+      if (response.ok) {
+        const incidents = await response.json();
+        set({ incidents });
+      }
     } catch (error) {
       console.error('Failed to load incidents:', error);
     } finally {
@@ -261,8 +271,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
   loadSchedules: async () => {
     set((state) => ({ loading: { ...state.loading, schedules: true } }));
     try {
-      const { data } = await apolloClient.query({ query: GET_SCHEDULES, fetchPolicy: 'network-only' });
-      set({ schedules: data.schedules || [] });
+      const response = await fetch('http://localhost:3005/api/schedules');
+      if (response.ok) {
+        const schedules = await response.json();
+        set({ schedules });
+      }
     } catch (error) {
       console.error('Failed to load schedules:', error);
     } finally {

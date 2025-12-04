@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminStore } from '@/lib/store';
+import { RouteService } from '@/lib/route-service';
 import { Bus } from '@/types';
 
 interface BusFormProps {
@@ -14,14 +15,24 @@ interface BusFormProps {
 export function BusForm({ bus, onClose }: BusFormProps) {
   const addBus = useAdminStore((state) => state.addBus);
   const updateBus = useAdminStore((state) => state.updateBus);
+  const [availableRoutes, setAvailableRoutes] = useState<any[]>([]);
   
   const [formData, setFormData] = useState({
     plateNumber: bus?.plateNumber || '',
     busNumber: bus?.busNumber || '',
     capacity: bus?.capacity || 45,
     busType: bus?.busType || 'ANBESSA',
-    status: bus?.status || 'ACTIVE'
+    status: bus?.status || 'ACTIVE',
+    assignedRouteId: bus?.currentRouteId || '',
+    driverId: bus?.driverId || ''
   });
+
+  useEffect(() => {
+    // Load available routes from JSON
+    RouteService.getRoutes().then(routes => {
+      setAvailableRoutes(routes);
+    });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +44,8 @@ export function BusForm({ bus, onClose }: BusFormProps) {
         const newBus: Bus = {
           id: Date.now().toString(),
           ...formData,
-          capacity: Number(formData.capacity)
+          capacity: Number(formData.capacity),
+          currentRouteId: formData.assignedRouteId || undefined
         };
         await addBus(newBus);
       }
@@ -112,6 +124,22 @@ export function BusForm({ bus, onClose }: BusFormProps) {
               <option value="ACTIVE">Active</option>
               <option value="MAINTENANCE">Maintenance</option>
               <option value="OUT_OF_SERVICE">Out of Service</option>
+            </select>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-1">Assigned Route</label>
+            <select
+              value={formData.assignedRouteId}
+              onChange={(e) => setFormData({ ...formData, assignedRouteId: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">No Route Assigned</option>
+              {availableRoutes.map((route) => (
+                <option key={route.id} value={route.id}>
+                  {route.shortName} - {route.longName}
+                </option>
+              ))}
             </select>
           </div>
           

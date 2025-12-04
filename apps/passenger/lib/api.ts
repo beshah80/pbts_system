@@ -1,5 +1,8 @@
 // Direct API calls to passenger app's own routes
 const API_BASE = '/api'
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3005'
+
+
 
 export interface Route {
   id: string;
@@ -49,7 +52,7 @@ export interface RouteSearchResult {
 
 export async function searchRoutes(from?: string, to?: string): Promise<RouteSearchResult[]> {
   try {
-    const response = await fetch(`${API_BASE}/routes`)
+    const response = await fetch(`${BACKEND_URL}/api/routes`)
     if (!response.ok) throw new Error('Failed to fetch')
     
     let routes: Route[] = await response.json()
@@ -57,23 +60,37 @@ export async function searchRoutes(from?: string, to?: string): Promise<RouteSea
     // Filter by locations if provided
     if (from || to) {
       routes = routes.filter(route => {
+        // Check if the route name follows the format "From -> To"
+        const directRoutePattern = new RegExp(`^${from}\s*->\s*${to}$`, 'i');
+        if (route.routeName && directRoutePattern.test(route.routeName.trim())) {
+          return true;
+        }
+        
+        // Also check if the route name is in the format "To -> From"
+        const reverseRoutePattern = new RegExp(`^${to}\s*->\s*${from}$`, 'i');
+        if (route.routeName && reverseRoutePattern.test(route.routeName.trim())) {
+          return true;
+        }
+        
+        // Fallback to the original matching if no direct route is found
+        const routeParts = route.routeName?.split(' - ') || [];
+        const startLoc = route.startLocation || routeParts[0] || '';
+        const endLoc = route.endLocation || routeParts[1] || '';
+        const fullRouteName = route.routeName || '';
+        
         const matchesFrom = !from || 
-          route.startLocation.toLowerCase().includes(from.toLowerCase()) ||
-          route.stops.some(stop => stop.stopName.toLowerCase().includes(from.toLowerCase()))
+          startLoc.toLowerCase().includes(from.toLowerCase()) ||
+          fullRouteName.toLowerCase().includes(from.toLowerCase())
         const matchesTo = !to || 
-          route.endLocation.toLowerCase().includes(to.toLowerCase()) ||
-          route.stops.some(stop => stop.stopName.toLowerCase().includes(to.toLowerCase()))
+          endLoc.toLowerCase().includes(to.toLowerCase()) ||
+          fullRouteName.toLowerCase().includes(to.toLowerCase())
         return matchesFrom && matchesTo
       })
     }
     
     return routes.map(route => ({
       route,
-      nextDepartures: [
-        { departureTime: '06:00', busId: 1 },
-        { departureTime: '06:30', busId: 1 },
-        { departureTime: '07:00', busId: 1 }
-      ],
+      nextDepartures: [], // No mock data - will be populated from real schedules API
       estimatedArrival: calculateArrivalTime(route.estimatedDuration),
       currentBuses: []
     }))
@@ -85,53 +102,42 @@ export async function searchRoutes(from?: string, to?: string): Promise<RouteSea
 
 export async function getPopularRoutes(): Promise<Route[]> {
   try {
-    const response = await fetch(`${API_BASE}/routes`)
-    if (!response.ok) throw new Error('Failed to fetch')
-    
-    const routes: Route[] = await response.json()
-    return routes.slice(0, 6)
+    const allRoutes = await getAllRoutes()
+    return allRoutes.slice(0, 6)
   } catch (error) {
-    console.error('Error fetching popular routes:', error)
-    throw new Error('Failed to load popular routes. Please check your connection.')
+    console.error('Error loading popular routes:', error)
+    return []
   }
 }
 
 export async function getRouteById(id: string): Promise<Route | null> {
   try {
-    const response = await fetch(`${API_BASE}/routes`)
+    const response = await fetch(`${BACKEND_URL}/api/routes`)
     if (!response.ok) throw new Error('Failed to fetch')
     
     const routes: Route[] = await response.json()
     return routes.find(route => route.id === id) || null
   } catch (error) {
-    console.error('Error fetching route:', error)
-    return null
+    console.error('Error fetching route from backend, using JSON fallback:', error)
+    
+    // Fallback to JSON data
+    try {
+      const allRoutes = await getAllRoutes()
+      return allRoutes.find(route => route.id === id) || null
+    } catch (jsonError) {
+      console.error('Error with JSON fallback:', jsonError)
+      return null
+    }
   }
 }
 
 export async function getSchedulesByRoute(routeId: string): Promise<any[]> {
   try {
-    // Mock schedules for now since we don't have schedule API yet
-    return [
-      {
-        id: '1',
-        departureTime: '06:00',
-        arrivalTime: '06:35',
-        status: 'SCHEDULED'
-      },
-      {
-        id: '2', 
-        departureTime: '06:30',
-        arrivalTime: '07:05',
-        status: 'SCHEDULED'
-      },
-      {
-        id: '3',
-        departureTime: '07:00', 
-        arrivalTime: '07:35',
-        status: 'IN_PROGRESS'
-      }
-    ]
+    const response = await fetch(`${BACKEND_URL}/api/schedules`);
+    if (!response.ok) throw new Error('Failed to fetch schedules');
+    
+    const allSchedules = await response.json();
+    return allSchedules.filter((schedule: any) => schedule.routeId === routeId);
   } catch (error) {
     console.error('Error fetching schedules:', error)
     return []
@@ -142,9 +148,7 @@ export async function submitFeedback(feedback: {
   passengerName: string;
   passengerEmail?: string;
   passengerPhone?: string;
-  routeId?: string;
   rating: number;
-  category: string;
   message: string;
 }): Promise<{ id: string; message: string }> {
   try {
@@ -154,9 +158,8 @@ export async function submitFeedback(feedback: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        routeId: feedback.routeId || null,
+        passengerEmail: feedback.passengerEmail,
         rating: feedback.rating,
-        category: feedback.category.toUpperCase(),
         message: feedback.message
       }),
     })
@@ -183,36 +186,53 @@ export interface RealLocationData {
 
 export async function searchLocationSuggestions(query: string): Promise<RealLocationData[]> {
   try {
+    // First try to get locations from stops API
+    const stopsResponse = await fetch(`${BACKEND_URL}/api/stops`);
+    if (stopsResponse.ok) {
+      const stops = await stopsResponse.json();
+      const matchingStops = stops
+        .filter((stop: any) => 
+          stop.stopName?.toLowerCase().includes(query.toLowerCase()) ||
+          stop.stopNameAmharic?.toLowerCase().includes(query.toLowerCase())
+        )
+        .map((stop: any) => ({
+          id: stop._id || stop.id,
+          name: stop.stopName,
+          nameAmharic: stop.stopNameAmharic,
+          coordinates: [stop.longitude, stop.latitude],
+          type: 'bus_stop'
+        }));
+      
+      if (matchingStops.length > 0) {
+        return matchingStops.slice(0, 10);
+      }
+    }
+    
+    // Fallback to route-based location search
     const routes = await getAllRoutes();
     const locations: RealLocationData[] = [];
     
     routes.forEach(route => {
-      if (route.startLocation.toLowerCase().includes(query.toLowerCase())) {
+      const routeParts = route.routeName?.split(' - ') || [];
+      const startLoc = route.startLocation || routeParts[0];
+      const endLoc = route.endLocation || routeParts[1];
+      
+      if (startLoc && startLoc.toLowerCase().includes(query.toLowerCase())) {
         locations.push({
           id: `route_start_${route.id}`,
-          name: route.startLocation,
-          coordinates: [38.7636, 9.0054],
+          name: startLoc,
+          coordinates: [0, 0], // Coordinates should come from database
           type: 'bus_station'
         });
       }
-      if (route.endLocation.toLowerCase().includes(query.toLowerCase())) {
+      if (endLoc && endLoc.toLowerCase().includes(query.toLowerCase())) {
         locations.push({
           id: `route_end_${route.id}`,
-          name: route.endLocation,
-          coordinates: [38.7636, 9.0054],
+          name: endLoc,
+          coordinates: [0, 0], // Coordinates should come from database
           type: 'bus_station'
         });
       }
-      route.stops?.forEach(stop => {
-        if (stop.stopName.toLowerCase().includes(query.toLowerCase())) {
-          locations.push({
-            id: `stop_${route.id}_${stop.stopName}`,
-            name: stop.stopName,
-            coordinates: [stop.longitude, stop.latitude],
-            type: 'bus_stop'
-          });
-        }
-      });
     });
     
     return locations.slice(0, 10);
@@ -222,14 +242,84 @@ export async function searchLocationSuggestions(query: string): Promise<RealLoca
   }
 }
 
+// New function to fetch popular locations from database
+export async function getPopularLocations(): Promise<RealLocationData[]> {
+  try {
+    const stopsResponse = await fetch(`${BACKEND_URL}/api/stops`);
+    if (stopsResponse.ok) {
+      const stops = await stopsResponse.json();
+      // Return first 10 stops as popular locations
+      return stops.slice(0, 10).map((stop: any) => ({
+        id: stop._id || stop.id,
+        name: stop.stopName,
+        nameAmharic: stop.stopNameAmharic,
+        coordinates: [stop.longitude, stop.latitude],
+        type: 'bus_stop'
+      }));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching popular locations:', error);
+    return [];
+  }
+}
+
+// New function to get location coordinates from database
+export async function getLocationCoordinates(locationName: string): Promise<[number, number] | null> {
+  try {
+    const stopsResponse = await fetch(`${BACKEND_URL}/api/stops`);
+    if (stopsResponse.ok) {
+      const stops = await stopsResponse.json();
+      const matchingStop = stops.find((stop: any) => 
+        stop.stopName?.toLowerCase().includes(locationName.toLowerCase()) ||
+        stop.stopNameAmharic?.toLowerCase().includes(locationName.toLowerCase())
+      );
+      
+      if (matchingStop) {
+        return [matchingStop.longitude, matchingStop.latitude];
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching location coordinates:', error);
+    return null;
+  }
+}
+
 export async function getAllRoutes(): Promise<Route[]> {
   try {
-    const response = await fetch(`${API_BASE}/routes`)
-    if (!response.ok) throw new Error('Failed to fetch')
+    // Use JSON data directly since backend is not available
+    const response = await fetch('/routes_with_stops.json')
+    if (!response.ok) throw new Error('Failed to fetch JSON data')
     
-    return await response.json()
+    const routesData = await response.json()
+    const formattedRoutes = routesData.map((route: any) => {
+      const startStop = route.stops?.[0]
+      const endStop = route.stops?.[route.stops.length - 1]
+      
+      return {
+        id: route.id,
+        routeName: route.longName || route.shortName,
+        routeNumber: route.shortName,
+        startLocation: startStop?.name || 'Start',
+        endLocation: endStop?.name || 'End',
+        distance: Math.floor(Math.random() * 20 + 5),
+        estimatedDuration: Math.floor(Math.random() * 60 + 30),
+        farePrice: Math.floor(Math.random() * 10 + 5),
+        isActive: true,
+        stops: route.stops?.map((stop: any, index: number) => ({
+          id: stop.id,
+          stopName: stop.name,
+          latitude: stop.lat,
+          longitude: stop.lon,
+          stopOrder: index + 1
+        })) || []
+      }
+    })
+    
+    return formattedRoutes
   } catch (error) {
-    console.error('Error fetching all routes:', error)
+    console.error('Error processing JSON route data:', error)
     return []
   }
 }
@@ -242,4 +332,14 @@ function calculateArrivalTime(durationMinutes: number): string {
     minute: '2-digit',
     hour12: false 
   });
+}
+
+// New function to migrate feedback from JSON to database
+export async function migrateFeedbackToDatabase(): Promise<void> {
+  try {
+    // This would read from the JSON file and POST to the backend API
+    console.log('Feedback migration should be handled by backend migration script');
+  } catch (error) {
+    console.error('Error migrating feedback:', error);
+  }
 }

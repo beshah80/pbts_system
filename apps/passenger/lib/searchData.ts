@@ -37,51 +37,12 @@ export function processSearchData(): LocationData[] {
     });
   }
   
-  // Add some popular Ethiopian locations manually for better UX
-  const popularLocations: LocationData[] = [
-    {
-      id: 'meskel_square',
-      name: 'Meskel Square',
-      nameAmharic: 'መስቀል አደባባይ',
-      coordinates: [38.7635, 9.0082],
-      type: 'landmark'
-    },
-    {
-      id: 'bole_airport',
-      name: 'Bole International Airport',
-      nameAmharic: 'ቦሌ አለም አቀፍ አየር ማረፊያ',
-      coordinates: [38.7988, 8.9806],
-      type: 'airport'
-    },
-    {
-      id: 'mercato',
-      name: 'Mercato',
-      nameAmharic: 'መርካቶ',
-      coordinates: [38.7369, 9.0369],
-      type: 'market'
-    },
-    {
-      id: 'piazza',
-      name: 'Piazza',
-      nameAmharic: 'ፒያሳ',
-      coordinates: [38.7523, 9.0456],
-      type: 'landmark'
-    },
-    {
-      id: 'kazanchis',
-      name: 'Kazanchis',
-      nameAmharic: 'ካዛንቺስ',
-      coordinates: [38.7567, 9.0312],
-      type: 'business_district'
-    },
-    {
-      id: 'arat_kilo',
-      name: 'Arat Kilo',
-      nameAmharic: 'አራት ኪሎ',
-      coordinates: [38.7545, 9.0389],
-      type: 'landmark'
-    }
-  ];
+  // NOTE: Popular locations should be fetched from database API
+  // This hardcoded list is removed - use API instead
+  const popularLocations: LocationData[] = [];
+  
+  // TODO: Replace with API call to fetch popular locations from database
+  // Example: const popularLocations = await fetchPopularLocations();
   
   return [...locations, ...popularLocations];
 }
@@ -146,17 +107,10 @@ export function getPopularLocations(): LocationData[] {
     'office:government'
   ];
   
-  const popularNames = [
-    'Meskel Square',
-    'Bole',
-    'Piazza',
-    'Mercato',
-    'Kazanchis',
-    'Arat Kilo',
-    'Mexico',
-    'Stadium',
-    'Airport'
-  ];
+  // NOTE: Popular names should be fetched from database
+  const popularNames: string[] = [];
+  
+  // TODO: Replace with API call to fetch popular location names
   
   return locations.filter(location => {
     // Filter by important types

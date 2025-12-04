@@ -1,24 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json()
     
-    // Find admin in database
-    const admin = await prisma.admin.findUnique({
-      where: { email }
+    // Call backend API for authentication
+    const response = await fetch('http://localhost:3005/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password })
     })
     
-    // Check if admin exists and password matches
-    if (admin && admin.password === password && admin.isActive) {
+    const data = await response.json()
+    
+    if (data.success && data.user.role === 'ADMIN') {
       return NextResponse.json({
         success: true,
         admin: {
-          id: admin.id,
-          email: admin.email,
-          name: admin.name,
-          role: admin.role
+          id: data.user.id,
+          email: data.user.email,
+          name: data.user.name,
+          role: data.user.role
         }
       })
     }

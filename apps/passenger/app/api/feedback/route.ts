@@ -1,22 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: "mongodb+srv://beshah_db_user:my_password@cluster0.v0n4kvy.mongodb.net/pbts_admin?retryWrites=true&w=majority&appName=Cluster0"
-    }
-  }
-})
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3005'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
     // Validate required fields
-    if (!body.passengerEmail || !body.message || !body.category) {
+    if (!body.passengerEmail || !body.message) {
       return NextResponse.json(
-        { error: 'Email, message, and category are required' },
+        { error: 'Email and message are required' },
         { status: 400 }
       )
     }
@@ -38,51 +31,40 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check daily rate limit (3 feedbacks per email per day)
-    const today = new Date().toISOString().split('T')[0]
-    const existingFeedbacks = await prisma.feedback.findMany({
-      where: {
-        createdAt: {
-          gte: new Date(today + 'T00:00:00.000Z'),
-          lt: new Date(today + 'T23:59:59.999Z')
-        }
-      }
-    })
-
-    // Count feedbacks from this email today (simulate email tracking)
-    const emailFeedbackCount = existingFeedbacks.filter(f => 
-      f.adminResponse?.includes(body.passengerEmail) || 
-      f.message.includes(body.passengerEmail)
-    ).length
-
-    if (emailFeedbackCount >= 3) {
-      return NextResponse.json(
-        { error: 'Daily feedback limit reached (3 per day)' },
-        { status: 429 }
-      )
+    // Send feedback to backend admin system
+    const feedbackData = {
+      passengerName: 'Passenger',
+      passengerEmail: body.passengerEmail,
+      rating: body.rating || 5,
+      category: 'OTHER',
+      message: body.message
     }
-    
-    const feedback = await prisma.feedback.create({
-      data: {
-        routeId: body.routeId || null,
-        busId: body.busId || null,
-        driverId: body.driverId || null,
-        rating: body.rating,
-        category: body.category,
-        message: `${body.message}\n\n[Email: ${body.passengerEmail}]`,
-        status: 'PENDING',
-        priority: body.rating <= 2 ? 'HIGH' : body.rating <= 3 ? 'MEDIUM' : 'LOW'
-      }
+
+    const response = await fetch(`${BACKEND_URL}/api/feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(feedbackData)
     })
+
+    if (!response.ok) {
+      throw new Error(`Backend API error: ${response.status}`)
+    }
+
+    const result = await response.json()
     
     return NextResponse.json({
-      id: feedback.id,
-      message: 'Feedback submitted successfully'
+      id: result.id,
+      message: result.message || 'Feedback submitted successfully'
     })
   } catch (error) {
     console.error('Error submitting feedback:', error)
+    
+    // Return more specific error for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return NextResponse.json(
-      { error: 'Failed to submit feedback' },
+      { error: 'Failed to submit feedback', details: errorMessage },
       { status: 500 }
     )
   }

@@ -7,31 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User Management
-model User {
+// Admin Management
+model Admin {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
   email     String   @unique
   password  String
-  role      UserRole
-  phone     String?
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  driver    Driver?
-  logs      AuditLog[]
-
-  @@map("users")
-}
-
-model Admin {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  email     String    @unique
-  password  String
-  name      String
-  role      AdminRole
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
 
   @@map("admins")
 }
@@ -39,12 +22,13 @@ model Admin {
 // Driver Management
 model Driver {
   id              String       @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String?      @unique @db.ObjectId
+  employeeId      String       @unique
   firstName       String
   lastName        String
   licenseNumber   String       @unique
   phoneNumber     String
   email           String?
+  password        String
   address         String
   dateOfBirth     DateTime
   hireDate        DateTime
@@ -55,18 +39,13 @@ model Driver {
   emergencyName   String
   emergencyPhone  String
   emergencyRelation String
-  employeeId      String?      @unique
-  licenseExpiry   DateTime?
-  depot           String?
   photoUrl        String?
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 
-  user      User?        @relation(fields: [userId], references: [id])
   buses     Bus[]
   schedules Schedule[]
   incidents Incident[]
-  feedback  Feedback[]
   trips     TripRecord[]
 
   @@map("drivers")
@@ -76,13 +55,12 @@ model Driver {
 model Bus {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   plateNumber       String    @unique
-  busNumber         String?   @unique
-  fleetNumber       String?
-  busType           BusType?
-  ownership         String?   // Anbessa, Sheger, Velocity
+  busNumber         String    @unique
+  fleetNumber       String
+  busType           BusType
   status            BusStatus
   capacity          Int
-  standingCapacity  Int?
+  standingCapacity  Int
   currentPassengers Int       @default(0)
   currentRouteId    String?   @db.ObjectId
   driverId          String?   @db.ObjectId
@@ -91,9 +69,8 @@ model Bus {
   mileage           Int?
   fuelLevel         Int?
   gpsEnabled        Boolean   @default(true)
-  manufacturer      String?
-  modelYear         Int?
-  depot             String?
+  manufacturer      String
+  modelYear         Int
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 
@@ -101,8 +78,6 @@ model Bus {
   route     Route?       @relation(fields: [currentRouteId], references: [id])
   schedules Schedule[]
   incidents Incident[]
-  feedback  Feedback[]
-  revenue   Revenue[]
   trips     TripRecord[]
 
   @@map("buses")
@@ -112,34 +87,25 @@ model Bus {
 model Route {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
   routeNumber       String   @unique
-  code              String?  @unique
   routeName         String
-  name              String?
   startLocation     String
   endLocation       String
-  originStopId      String?  @db.ObjectId
-  destinationStopId String?  @db.ObjectId
-  distance          Float?
-  distanceKm        Float?
-  estimatedDuration Int?
-  farePrice         Int?
+  distanceKm        Float
+  estimatedDuration Int
+  farePrice         Int
   isActive          Boolean  @default(true)
-  operatingStart    String?
-  operatingEnd      String?
-  operatingFrom     String?
-  operatingTo       String?
-  frequency         Int?
+  operatingStart    String
+  operatingEnd      String
+  frequency         Int
   description       String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  stops     Stop[]
   routeStops RouteStop[]
   buses     Bus[]
   schedules Schedule[]
   incidents Incident[]
   feedback  Feedback[]
-  revenue   Revenue[]
   trips     TripRecord[]
 
   @@map("routes")
@@ -147,22 +113,15 @@ model Route {
 
 model Stop {
   id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  stopName   String?
   name       String
-  code       String?
-  area       String?
-  latitude   Float?
-  longitude  Float?
-  stopOrder  Int?
-  routeId    String?      @db.ObjectId
+  latitude   Float
+  longitude  Float
   isTerminal Boolean      @default(false)
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
 
-  route     Route?        @relation(fields: [routeId], references: [id], onDelete: Cascade)
   routeStops RouteStop[]
   passages  StopPassage[]
-  feedbacks Feedback[]
   incidents Incident[]
 
   @@map("stops")
@@ -173,8 +132,8 @@ model RouteStop {
   routeId               String   @db.ObjectId
   stopId                String   @db.ObjectId
   sequence              Int
-  distanceFromStartKm   Float?
-  estimatedTravelMinutes Int?
+  distanceFromStartKm   Float
+  estimatedTravelMinutes Int
   
   route Route @relation(fields: [routeId], references: [id])
   stop  Stop  @relation(fields: [stopId], references: [id])
@@ -225,7 +184,6 @@ model TripRecord {
   driver       Driver          @relation(fields: [driverId], references: [id])
   stopPassages StopPassage[]
   incidents    Incident[]
-  feedbacks    Feedback[]
 
   @@map("trip_records")
 }
@@ -245,55 +203,41 @@ model StopPassage {
 
 // Feedback Management
 model Feedback {
-  id            String           @id @default(auto()) @map("_id") @db.ObjectId
-  routeId       String?          @db.ObjectId
-  busId         String?          @db.ObjectId
-  driverId      String?          @db.ObjectId
-  tripRecordId  String?          @db.ObjectId
-  stopId        String?          @db.ObjectId
-  category      FeedbackCategory
-  rating        Int?
-  message       String?
-  comment       String?
-  status        FeedbackStatus
-  priority      Priority?
-  adminResponse String?
-  contactInfo   String?
-  submittedAt   DateTime?        @default(now())
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  routeId       String?        @db.ObjectId
+  rating        Int
+  comment       String
+  status        FeedbackStatus @default(PENDING)
+  contactInfo   String
+  submittedAt   DateTime       @default(now())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
-  route      Route?      @relation(fields: [routeId], references: [id])
-  bus        Bus?        @relation(fields: [busId], references: [id])
-  driver     Driver?     @relation(fields: [driverId], references: [id])
-  tripRecord TripRecord? @relation(fields: [tripRecordId], references: [id])
-  stop       Stop?       @relation(fields: [stopId], references: [id])
+  route Route? @relation(fields: [routeId], references: [id])
 
   @@map("feedback")
 }
 
 // Incident Management
 model Incident {
-  id                      String          @id @default(auto()) @map("_id") @db.ObjectId
-  busId                   String?         @db.ObjectId
-  driverId                String?         @db.ObjectId
-  routeId                 String?         @db.ObjectId
-  tripRecordId            String?         @db.ObjectId
-  stopId                  String?         @db.ObjectId
-  type                    IncidentType?
-  category                IncidentCategory?
-  severity                Severity?
-  description             String
-  location                String?
-  latitude                Float?
-  longitude               Float?
-  status                  IncidentStatus
-  reportedAt              DateTime        @default(now())
-  resolvedAt              DateTime?
-  assignedTo              String?
-  estimatedResolutionTime DateTime?
-  createdAt               DateTime        @default(now())
-  updatedAt               DateTime        @updatedAt
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  busId       String?        @db.ObjectId
+  driverId    String?        @db.ObjectId
+  routeId     String?        @db.ObjectId
+  tripRecordId String?       @db.ObjectId
+  stopId      String?        @db.ObjectId
+  type        IncidentType
+  description String
+  location    String?
+  latitude    Float?
+  longitude   Float?
+  status      IncidentStatus @default(REPORTED)
+  reportedAt  DateTime       @default(now())
+  resolvedAt  DateTime?
+  phoneNumber String
+  photoUrl    String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 
   bus        Bus?        @relation(fields: [busId], references: [id])
   driver     Driver?     @relation(fields: [driverId], references: [id])
@@ -304,27 +248,10 @@ model Incident {
   @@map("incidents")
 }
 
-// Revenue Management
-model Revenue {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  date       String
-  amount     Float
-  routeId    String   @db.ObjectId
-  busId      String   @db.ObjectId
-  passengers Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  route Route @relation(fields: [routeId], references: [id])
-  bus   Bus   @relation(fields: [busId], references: [id])
-
-  @@map("revenue")
-}
-
 // Audit Management
 model AuditLog {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String?  @db.ObjectId
+  adminId    String?  @db.ObjectId
   action     String
   entityType String
   entityId   String?
@@ -333,29 +260,14 @@ model AuditLog {
   userAgent  String?
   createdAt  DateTime @default(now())
 
-  user User? @relation(fields: [userId], references: [id])
-
   @@map("audit_logs")
 }
 
 // Enums
-enum UserRole {
-  ADMIN
-  DRIVER
-}
-
-enum AdminRole {
-  SUPER_ADMIN
-  ADMIN
-  MANAGER
-  OPERATOR
-}
-
 enum BusType {
   ANBESSA
   SHEGER
   VELOCITY
-  PRIVATE
 }
 
 enum BusStatus {
@@ -363,17 +275,12 @@ enum BusStatus {
   MAINTENANCE
   INACTIVE
   OUT_OF_SERVICE
-  ON_ROUTE
-  DELAYED
-  UNDER_MAINTENANCE
-  AVAILABLE
 }
 
 enum DriverStatus {
   ACTIVE
   INACTIVE
   SUSPENDED
-  ON_LEAVE
 }
 
 enum ScheduleStatus {
@@ -381,7 +288,6 @@ enum ScheduleStatus {
   IN_PROGRESS
   COMPLETED
   CANCELLED
-  DELAYED
 }
 
 enum TripStatus {
@@ -391,64 +297,22 @@ enum TripStatus {
   CANCELLED
 }
 
-enum FeedbackCategory {
-  SERVICE
-  CLEANLINESS
-  PUNCTUALITY
-  SAFETY
-  DRIVER_BEHAVIOR
-  DELAY
-  OVERCROWDING
-  OTHER
-}
-
 enum FeedbackStatus {
   PENDING
   REVIEWED
   RESOLVED
-  DISMISSED
-  NEW
-  IN_REVIEW
-  CLOSED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
 }
 
 enum IncidentType {
   BREAKDOWN
   ACCIDENT
   DELAY
-  PASSENGER_ISSUE
   TRAFFIC
-  WEATHER
   OTHER
-}
-
-enum IncidentCategory {
-  BREAKDOWN
-  HEAVY_TRAFFIC
-  BLOCKAGE
-  ACCIDENT
-  SAFETY
-  OTHER
-}
-
-enum Severity {
-  LOW
-  MEDIUM
-  HIGH
-  CRITICAL
 }
 
 enum IncidentStatus {
   REPORTED
   IN_PROGRESS
   RESOLVED
-  ESCALATED
-  OPEN
 }

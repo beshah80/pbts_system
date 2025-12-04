@@ -1,0 +1,101 @@
+I want you to update the schema and we will push that to mongodb atlas , I haven't push it until knoe but I want you to update the schema first , by first go and check all three dashboard and the Information about route, and its stop will use json so need of database table for bus , route and its stop , so remove admin bus , route and stop management (if there ) and make one management for these three so that he can see the number of route , bus , and stop stored and if he want to add that must be in this form
+
+{
+        "mode":  "BUS",
+        "shortName":  "Tx LID 009",
+        "id":  "1:15907058",
+        "longName":  "Torhayloch ??? Megenagna (Minibus)",
+        "stops":  [
+                      {
+                          "lon":  38.7449001,
+                          "code":  null,
+                          "name":  "Mexico",
+                          "id":  "1:node/10929337801",
+                          "lat":  9.0105347
+                      },
+                      {
+                          "lon":  38.8005907,
+                          "code":  null,
+                          "name":  "Megenagna",
+                          "id":  "1:node/10929412719",
+                          "lat":  9.0190569
+                      },
+                      {
+                          "lon":  38.8009614,
+                          "code":  null,
+                          "name":  "Megenagna",
+                          "id":  "1:node/10929412718",
+                          "lat":  9.0195364
+                      },
+                      {
+                          "lon":  38.7225031,
+                          "code":  null,
+                          "name":  "Torhayloch",
+                          "id":  "1:node/10918314820",
+                          "lat":  9.0114229
+                      },
+                      {
+                          "lon":  38.7336365,
+                          "code":  null,
+                          "name":  "Lideta",
+                          "id":  "1:node/10911242347",
+                          "lat":  9.0117415
+                      },
+                      {
+                          "lon":  38.7544283,
+                          "code":  null,
+                          "name":  "Legehar",
+                          "id":  "1:node/10922141942",
+                          "lat":  9.0118511
+                      },
+                      {
+                          "lon":  38.787267,
+                          "code":  null,
+                          "name":  "22 Mazoria",
+                          "id":  "1:node/10929412721",
+                          "lat":  9.0155693
+                      },
+                      {
+                          "lon":  38.760062,
+                          "code":  null,
+                          "name":  "Stadium",
+                          "id":  "1:node/10898986010",
+                          "lat":  9.011485
+                      },
+                      {
+                          "lon":  38.7544517,
+                          "code":  null,
+                          "name":  "Legehar",
+                          "id":  "1:node/10845731581",
+                          "lat":  9.0120319
+                      },
+                      {
+                          "lon":  38.7222401,
+                          "code":  null,
+                          "name":  "Torhayloch",
+                          "id":  "1:node/10913863177",
+                          "lat":  9.0117875
+                      },
+                      {
+                          "lon":  38.7336469,
+                          "code":  null,
+                          "name":  "Lideta",
+                          "id":  "1:node/10911242348",
+                          "lat":  9.0115482
+                      },
+                      {
+                          "lon":  38.7438026,
+                          "code":  null,
+                          "name":  "Mexico",
+                          "id":  "1:node/10914160974",
+                          "lat":  9.0102476
+                      }
+                  ]
+    },
+
+and will be append to end of
+D:\Education\pbts_system\asset\routes_with_stops.json
+
+for search, all route  in the passenger also from this 
+
+but the feedback , admin, driver and other necessary table will be created and stored on mongo db atlas 

@@ -17,9 +17,8 @@ import {
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Buses', href: '/buses', icon: Bus },
+  { name: 'Transport', href: '/buses', icon: Bus },
   { name: 'Drivers', href: '/drivers', icon: Users },
-  { name: 'Routes', href: '/routes', icon: Route },
   { name: 'Schedules', href: '/schedules', icon: Calendar },
   { name: 'Feedback', href: '/feedback', icon: MessageSquare },
   { name: 'Incidents', href: '/incidents', icon: AlertTriangle },

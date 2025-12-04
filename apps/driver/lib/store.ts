@@ -1,5 +1,48 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { GTFSParser } from './gtfsParser';
+
+interface GTFSRoute {
+  route_short_name: string;
+  route_id: string;
+  route_type: string;
+  route_long_name: string;
+  agency_id: string;
+  route_color: string;
+}
+
+interface GTFSStop {
+  stop_id: string;
+  stop_name: string;
+  stop_lon: string;
+  stop_lat: string;
+  location_type: string;
+}
+
+interface DatabaseSchedule {
+  scheduleId: string;
+  routeId: string;
+  busId: string;
+  driverId: string;
+  startTime: string;
+  endTime: string;
+  frequency: number;
+  status: 'ACTIVE' | 'INACTIVE';
+}
+
+interface DatabaseShift {
+  shiftId: string;
+  scheduleId: string;
+  driverId: string;
+  routeId: string;
+  routeName: string;
+  busId: string;
+  busNumber: string;
+  startTime: string;
+  endTime: string;
+  date: string;
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+}
 
 // API base URL
 const API_BASE = 'http://localhost:3000/api/graphql';
@@ -47,6 +90,7 @@ interface DriverStore {
   setConnectionStatus: (status: 'online' | 'offline') => void;
   loadDriverSchedule: (driverId: string) => Promise<void>;
   loadMockData: () => void;
+  loadGTFSData: (driverId: string) => Promise<void>;
 }
 
 export const useDriverStore = create<DriverStore>()(
@@ -113,6 +157,7 @@ export const useDriverStore = create<DriverStore>()(
       
       loadDriverSchedule: async (driverId: string) => {
         try {
+          // Try to load from API first
           const query = `
             query GetDriverSchedules($driverId: ID!) {
               schedules(where: { driverId: $driverId }) {
@@ -143,7 +188,7 @@ export const useDriverStore = create<DriverStore>()(
           
           const { data } = await response.json();
           
-          if (data?.schedules) {
+          if (data?.schedules && data.schedules.length > 0) {
             const today = new Date().toISOString().split('T')[0];
             const todaySchedules = data.schedules.filter((s: any) => s.date === today);
             
@@ -166,55 +211,75 @@ export const useDriverStore = create<DriverStore>()(
             };
             
             set({ schedule });
+          } else {
+            // Use real GTFS data if no API data
+            get().loadGTFSData(driverId);
           }
         } catch (error) {
           console.error('Failed to load driver schedule:', error);
-          // Fallback to mock data if API fails
-          get().loadMockData();
+          // Use real GTFS data as fallback
+          get().loadGTFSData(driverId);
         }
       },
       
       loadMockData: () => {
-        const mockSchedule: DailySchedule = {
-          scheduleId: 'sched-001',
-          date: new Date().toISOString().split('T')[0],
-          totalTrips: 3,
-          estimatedDuration: 480,
-          shifts: [
-            {
-              shiftId: 'shift-001',
-              startTime: '06:00',
-              endTime: '08:30',
-              routeId: 'route-001',
-              routeName: 'Meskel Square - Bole Airport',
-              busId: 'bus-001',
-              busNumber: 'ANB-001',
-              status: 'PENDING'
-            },
-            {
-              shiftId: 'shift-002',
-              startTime: '09:00',
-              endTime: '11:30',
-              routeId: 'route-002',
-              routeName: 'Mercato - Piazza',
-              busId: 'bus-001',
-              busNumber: 'ANB-001',
-              status: 'PENDING'
-            },
-            {
-              shiftId: 'shift-003',
-              startTime: '14:00',
-              endTime: '16:30',
-              routeId: 'route-001',
-              routeName: 'Bole Airport - Meskel Square',
-              busId: 'bus-001',
-              busNumber: 'ANB-001',
-              status: 'PENDING'
+        const driverId = 'DRV-001';
+        get().loadGTFSData(driverId);
+      },
+      
+      loadGTFSData: async (driverId: string) => {
+        try {
+          const [shegerData, anbesaData] = await Promise.all([
+            GTFSParser.loadShegerData(),
+            GTFSParser.loadAnbesaData()
+          ]);
+          
+          const allRoutes = [...shegerData.routes, ...anbesaData.routes];
+          const allStops = [...shegerData.stops, ...anbesaData.stops];
+          
+          // Generate realistic shifts from GTFS data
+          const today = new Date().toISOString().split('T')[0];
+          const selectedRoutes = allRoutes.slice(0, 6); // Use first 6 routes
+          
+          const shifts: ScheduleShift[] = selectedRoutes.map((route, index) => {
+            const startHour = 6 + (index * 2);
+            const endHour = startHour + 3;
+            const busNumber = route.route_short_name.includes('SH') ? 
+              `SH-${String(index + 1).padStart(3, '0')}` : 
+              `AB-${String(index + 1).padStart(3, '0')}`;
+            
+            let status: ScheduleShift['status'] = 'PENDING';
+            const currentHour = new Date().getHours();
+            if (currentHour >= startHour && currentHour < endHour) {
+              status = 'IN_PROGRESS';
+            } else if (currentHour >= endHour) {
+              status = 'COMPLETED';
             }
-          ]
-        };
-        
-        set({ schedule: mockSchedule });
+            
+            return {
+              shiftId: `SHIFT-${route.route_id}-${index}`,
+              startTime: `${String(startHour).padStart(2, '0')}:00`,
+              endTime: `${String(endHour).padStart(2, '0')}:00`,
+              routeId: route.route_short_name,
+              routeName: route.route_long_name,
+              busId: `BUS-${route.route_id}`,
+              busNumber,
+              status
+            };
+          });
+          
+          const schedule: DailySchedule = {
+            scheduleId: `sched-${driverId}-${today}`,
+            date: today,
+            totalTrips: shifts.length,
+            estimatedDuration: shifts.length * 180, // 3 hours per shift
+            shifts
+          };
+          
+          set({ schedule });
+        } catch (error) {
+          console.error('Failed to load GTFS data:', error);
+        }
       }
     }),
     {

@@ -61,16 +61,10 @@ export const searchRealLocations = (query: string, limit: number = 10): RealLoca
 };
 
 export const getPopularRealLocations = (): RealLocationData[] => {
-  const popularNames = [
-    'Meskel Square', 'Bole Airport', 'Mercato', 'Piazza', 'Kazanchis', 
-    'Arat Kilo', 'Mexico', 'Stadium', 'Legehar', 'Bambis'
-  ];
+  console.warn('getPopularRealLocations uses hardcoded data. Use API getPopularLocations() instead.');
   
-  return popularNames
-    .map(name => realLocations.find(loc => 
-      loc.name.toLowerCase().includes(name.toLowerCase())
-    ))
-    .filter(Boolean) as RealLocationData[];
+  // Return empty array to force API usage
+  return [];
 };
 
 export const calculateRealDistance = (coord1: [number, number], coord2: [number, number]): number => {

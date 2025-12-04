@@ -11,40 +11,61 @@ export interface Bus {
   currentStopId?: string;
 }
 
+export interface Driver {
+  id: string;
+  name: string;
+  licenseNumber: string;
+  phone: string;
+}
+
 export interface Route {
   id: string;
-  routeName: string;
-  routeNumber: string;
-  startLocation: string;
-  endLocation: string;
-  distance: number;
-  estimatedDuration: number; // in minutes
-  farePrice: number;
+  name: string;
+  start: string;
+  end: string;
+  operator: string;
   stops: Stop[];
-  isActive: boolean;
+  // Legacy fields for compatibility
+  routeName?: string;
+  startLocation?: string;
+  endLocation?: string;
+  distance?: number;
+  estimatedDuration?: number;
+  farePrice?: number;
+  isActive?: boolean;
 }
 
 export interface Stop {
   id: string;
-  stopName: string;
-  stopNameAmharic?: string;
+  name: string;
   latitude: number;
   longitude: number;
-  stopOrder: number;
-  estimatedArrivalTime?: string;
-  landmarks?: string[];
+  // Legacy fields
+  stopName?: string;
+  stopNameAmharic?: string;
+  stopOrder?: number;
 }
 
 export interface Schedule {
   id: string;
   routeId: string;
   busId: string;
+  driverId: string;
   departureTime: string;
   arrivalTime: string;
-  frequency: number; // minutes between buses
-  isActive: boolean;
-  weekdays: boolean;
-  weekends: boolean;
+  // Legacy fields
+  frequency?: number;
+  isActive?: boolean;
+  weekdays?: boolean;
+  weekends?: boolean;
+}
+
+export interface NewFeedback {
+  passengerName: string;
+  routeId: string;
+  comment: string;
+  type: string;
+  timestamp: string;
 }
 
 export interface Feedback {

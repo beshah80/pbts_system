@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 import { ArrowLeft, Star, Send, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { submitFeedback } from '@/lib/api';
@@ -97,8 +97,8 @@ export default function FeedbackPage() {
       return;
     }
 
-    if (!formData.category || !formData.message.trim()) {
-      setError('Please fill in all required fields');
+    if (!formData.message.trim()) {
+      setError('Please enter your feedback message');
       return;
     }
 
@@ -114,9 +114,7 @@ export default function FeedbackPage() {
       const result = await submitFeedback({
         passengerName: 'Verified User',
         passengerEmail: formData.email,
-        category: formData.category,
         message: formData.message,
-        routeId: formData.routeId || undefined,
         rating: formData.rating
       });
 
@@ -299,41 +297,7 @@ export default function FeedbackPage() {
               {/* Form Fields - Only show when email is verified */}
               {isEmailVerified && (
                 <>
-                  {/* Category Selection */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Feedback Category *
-                    </label>
-                    <Select 
-                      value={formData.category} 
-                      onValueChange={(value) => setFormData(prev => ({ ...prev, category: value }))}
-                    >
-                      <SelectTrigger className="h-12">
-                        <SelectValue placeholder="Select a category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="SERVICE">🚌 Service Quality</SelectItem>
-                        <SelectItem value="PUNCTUALITY">⏰ Punctuality</SelectItem>
-                        <SelectItem value="CLEANLINESS">🧽 Cleanliness</SelectItem>
-                        <SelectItem value="SAFETY">🛡️ Safety Concerns</SelectItem>
-                        <SelectItem value="DRIVER_BEHAVIOR">👨‍✈️ Driver Behavior</SelectItem>
-                        <SelectItem value="OTHER">📝 Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
 
-                  {/* Route ID (Optional) */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Route Number (Optional)
-                    </label>
-                    <Input
-                      placeholder="e.g., R001, R002"
-                      value={formData.routeId}
-                      onChange={(e) => setFormData(prev => ({ ...prev, routeId: e.target.value }))}
-                      className="h-12"
-                    />
-                  </div>
 
                   {/* Rating */}
                   <div>

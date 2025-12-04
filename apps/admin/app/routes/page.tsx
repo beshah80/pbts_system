@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, Search, MapPin, Clock, ArrowLeft, Edit, Trash2 } from 'lucide-react';
@@ -12,52 +12,32 @@ import { Route } from '@/types';
 
 export default function RoutesPage() {
   const routes = useAdminStore((state) => state.routes);
+  const loadRoutes = useAdminStore((state) => state.loadRoutes);
   const deleteRoute = useAdminStore((state) => state.deleteRoute);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [apiRoutes, setApiRoutes] = useState([]);
 
-  // Mock routes data using Ethiopian locations from search.json
-  const mockRoutes = [
-    {
-      id: '1',
-      routeName: 'Merkato - Bole',
-      routeNumber: 'R001',
-      startLocation: 'Merkato',
-      endLocation: 'Bole',
-      distance: 12.5,
-      estimatedDuration: 45,
-      farePrice: 15,
-      isActive: true,
-      stops: ['Merkato', 'Piassa', 'Arat Kilo', 'Mexico', 'Stadium', 'Bole']
-    },
-    {
-      id: '2',
-      routeName: 'Addis Ketema - CMC',
-      routeNumber: 'R002',
-      startLocation: 'Addis Ketema',
-      endLocation: 'CMC',
-      distance: 18.2,
-      estimatedDuration: 60,
-      farePrice: 20,
-      isActive: true,
-      stops: ['Addis Ketema', 'Piazza', 'Arat Kilo', 'Megenagna', 'Gurd Sholla', 'CMC']
-    },
-    {
-      id: '3',
-      routeName: 'Lebu - Kotebe',
-      routeNumber: 'R003',
-      startLocation: 'Lebu',
-      endLocation: 'Kotebe',
-      distance: 22.8,
-      estimatedDuration: 75,
-      farePrice: 25,
-      isActive: false,
-      stops: ['Lebu', 'Saris', 'Gotera', 'Megenagna', 'Ayat', 'Kotebe']
-    }
-  ];
+  useEffect(() => {
+    // Load routes from API
+    const fetchRoutes = async () => {
+      try {
+        const response = await fetch('http://localhost:3005/api/routes');
+        if (response.ok) {
+          const data = await response.json();
+          setApiRoutes(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch routes:', error);
+      }
+    };
+    
+    fetchRoutes();
+    loadRoutes();
+  }, [loadRoutes]);
 
-  // Use actual routes from store, fallback to mock data if empty
-  const allRoutes = routes.length > 0 ? routes : mockRoutes;
+  // Use API routes data, fallback to store routes if API data not loaded
+  const allRoutes = apiRoutes.length > 0 ? apiRoutes : routes;
 
   const filteredRoutes = allRoutes.filter(route =>
     route.routeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -128,7 +108,7 @@ export default function RoutesPage() {
         <Card>
           <CardContent className="p-4">
             <div className="text-center">
-              <p className="text-2xl font-bold text-blue-600">{allRoutes.reduce((acc, r) => acc + r.stops.length, 0)}</p>
+              <p className="text-2xl font-bold text-blue-600">{allRoutes.reduce((acc, r) => acc + (Array.isArray(r.stops) ? r.stops.length : (r.stops || 0)), 0)}</p>
               <p className="text-sm text-gray-600">Total Stops</p>
             </div>
           </CardContent>
@@ -179,9 +159,9 @@ export default function RoutesPage() {
                 </div>
                 
                 <div className="text-sm">
-                  <p className="font-medium mb-1">Stops ({route.stops.length}):</p>
+                  <p className="font-medium mb-1">Stops ({Array.isArray(route.stops) ? route.stops.length : route.stops || 0}):</p>
                   <p className="text-gray-600 text-xs">
-                    {route.stops.join(' → ')}
+                    {Array.isArray(route.stops) ? route.stops.join(' → ') : `${route.startLocation} → ${route.endLocation}`}
                   </p>
                 </div>
                 

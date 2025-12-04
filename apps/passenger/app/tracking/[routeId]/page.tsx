@@ -12,52 +12,26 @@ import Link from 'next/link';
 import { formatTime, getBusTypeColor, getStatusColor } from '@/lib/utils';
 
 
-// Enhanced bus tracking data with real-time simulation
-const generateMockBusPositions = (routeId: string) => [
-  {
-    id: '1',
-    plateNumber: 'AA-001-001',
-    busNumber: 'ANB-001',
-    busType: 'ANBESSA' as const,
-    status: 'ON_ROUTE' as const,
-    currentStopId: '1',
-    nextStopId: '2',
-    estimatedArrival: '08:15',
-    delay: 0,
-    occupancyLevel: Math.floor(Math.random() * 30) + 60
-  },
-  {
-    id: '2',
-    plateNumber: 'AA-002-002',
-    busNumber: 'SHG-001',
-    busType: 'SHEGER' as const,
-    status: Math.random() > 0.7 ? 'DELAYED' as const : 'ON_ROUTE' as const,
-    currentStopId: '2',
-    nextStopId: '3',
-    estimatedArrival: '08:25',
-    delay: Math.random() > 0.7 ? Math.floor(Math.random() * 8) + 2 : 0,
-    occupancyLevel: Math.floor(Math.random() * 40) + 50
-  },
-  {
-    id: '3',
-    plateNumber: 'AA-003-003',
-    busNumber: 'VEL-001',
-    busType: 'VELOCITY' as const,
-    status: 'ON_ROUTE' as const,
-    currentStopId: '3',
-    nextStopId: '4',
-    estimatedArrival: '08:35',
-    delay: 0,
-    occupancyLevel: Math.floor(Math.random() * 25) + 40
+// Fetch real bus data for the route
+const fetchRouteBuses = async (routeId: string) => {
+  try {
+    const response = await fetch(`http://localhost:3005/api/buses`);
+    if (!response.ok) return [];
+    
+    const allBuses = await response.json();
+    return allBuses.filter((bus: any) => bus.currentRouteId === routeId);
+  } catch (error) {
+    console.error('Error fetching buses:', error);
+    return [];
   }
-];
+};
 
 export default function TrackingPage() {
   const params = useParams();
   const routeId = params.routeId as string;
   const [route, setRoute] = useState<Route | null>(null);
   const [schedules, setSchedules] = useState<Schedule[]>([]);
-  const [buses, setBuses] = useState(() => generateMockBusPositions(routeId));
+  const [buses, setBuses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(new Date());
 
@@ -66,22 +40,21 @@ export default function TrackingPage() {
     if (routeId) {
       Promise.all([
         getRouteById(routeId),
-        getSchedulesByRoute(routeId)
-      ]).then(async ([routeData, schedulesData]) => {
+        getSchedulesByRoute(routeId),
+        fetchRouteBuses(routeId)
+      ]).then(async ([routeData, schedulesData, busesData]) => {
         setRoute(routeData);
         setSchedules(schedulesData);
-        
-        // Route planning removed to prevent excessive API calls
-        
+        setBuses(busesData);
         setLoading(false);
       });
     }
   }, [routeId]);
 
-  const refreshTracking = () => {
+  const refreshTracking = async () => {
     setLastUpdated(new Date());
-    // Simulate real-time updates with new data
-    setBuses(generateMockBusPositions(routeId));
+    const busesData = await fetchRouteBuses(routeId);
+    setBuses(busesData);
   };
 
   // Auto-refresh every 30 seconds
@@ -90,16 +63,8 @@ export default function TrackingPage() {
     return () => clearInterval(interval);
   }, [routeId]);
 
-  const getOccupancyColor = (level: number) => {
-    if (level >= 90) return 'bg-red-100 text-red-800';
-    if (level >= 70) return 'bg-yellow-100 text-yellow-800';
-    return 'bg-green-100 text-green-800';
-  };
-
-  const getOccupancyText = (level: number) => {
-    if (level >= 90) return 'Very Crowded';
-    if (level >= 70) return 'Moderately Crowded';
-    return 'Available Seats';
+  const getOccupancyColor = (passengers: number) => {
+    return 'bg-blue-100 text-blue-800'; // Simple color for passenger count
   };
 
   if (loading) {
@@ -183,22 +148,22 @@ export default function TrackingPage() {
             ) : (
               <div className="space-y-4">
                 {buses.map((bus) => {
-                  const currentStop = route.stops.find(stop => stop.id === bus.currentStopId);
-                  const nextStop = route.stops.find(stop => stop.id === bus.nextStopId);
+                  const currentStop = null; // Stops data not available as array
+                  const nextStop = null; // Stops data not available as array
                   
                   return (
                     <div key={bus.id} className="border rounded-lg p-4">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h3 className="font-semibold text-lg">{bus.busNumber}</h3>
+                          <h3 className="font-semibold text-lg">{bus.busNumber || bus.plateNumber}</h3>
                           <p className="text-sm text-slate-600">{bus.plateNumber}</p>
                         </div>
                         <div className="flex gap-2">
-                          <span className={`px-2 py-1 rounded text-xs ${getBusTypeColor(bus.busType)}`}>
-                            {bus.busType}
+                          <span className={`px-2 py-1 rounded text-xs ${getBusTypeColor(bus.busType || 'ANBESSA')}`}>
+                            {bus.busType || 'ANBESSA'}
                           </span>
-                          <span className={`px-2 py-1 rounded text-xs ${getStatusColor(bus.status)}`}>
-                            {bus.status.replace('_', ' ')}
+                          <span className={`px-2 py-1 rounded text-xs ${getStatusColor(bus.status || 'ACTIVE')}`}>
+                            {(bus.status || 'ACTIVE').replace('_', ' ')}
                           </span>
                         </div>
                       </div>
@@ -208,14 +173,14 @@ export default function TrackingPage() {
                           <MapPin className="w-4 h-4 text-slate-400" />
                           <div>
                             <p className="text-sm font-medium">Current Stop</p>
-                            <p className="text-sm text-slate-600">{currentStop?.stopName || 'Unknown'}</p>
+                            <p className="text-sm text-slate-600">{bus.currentStopId ? `Stop ${bus.currentStopId}` : 'In transit'}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <Navigation className="w-4 h-4 text-slate-400" />
                           <div>
                             <p className="text-sm font-medium">Next Stop</p>
-                            <p className="text-sm text-slate-600">{nextStop?.stopName || 'End of route'}</p>
+                            <p className="text-sm text-slate-600">{bus.nextStopId ? `Stop ${bus.nextStopId}` : 'End of route'}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -223,8 +188,8 @@ export default function TrackingPage() {
                           <div>
                             <p className="text-sm font-medium">Est. Arrival</p>
                             <p className="text-sm text-slate-600">
-                              {formatTime(bus.estimatedArrival)}
-                              {bus.delay > 0 && (
+                              {bus.estimatedArrival ? formatTime(bus.estimatedArrival) : 'N/A'}
+                              {bus.delay && bus.delay > 0 && (
                                 <span className="text-red-600 ml-1">(+{bus.delay}min)</span>
                               )}
                             </p>
@@ -235,17 +200,17 @@ export default function TrackingPage() {
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">Occupancy:</span>
-                          <span className={`px-2 py-1 rounded text-xs ${getOccupancyColor(bus.occupancyLevel)}`}>
-                            {getOccupancyText(bus.occupancyLevel)} ({bus.occupancyLevel}%)
+                          <span className={`px-2 py-1 rounded text-xs ${getOccupancyColor(bus.currentPassengers || 0)}`}>
+                            {bus.currentPassengers ? `${bus.currentPassengers}/${bus.capacity} passengers` : 'No data'}
                           </span>
                         </div>
                         <div className="w-32 bg-slate-200 rounded-full h-2">
                           <div 
                             className={`h-2 rounded-full ${
-                              bus.occupancyLevel >= 90 ? 'bg-red-500' : 
-                              bus.occupancyLevel >= 70 ? 'bg-yellow-500' : 'bg-green-500'
+                              (bus.currentPassengers / bus.capacity * 100) >= 90 ? 'bg-red-500' : 
+                              (bus.currentPassengers / bus.capacity * 100) >= 70 ? 'bg-yellow-500' : 'bg-green-500'
                             }`}
-                            style={{ width: `${bus.occupancyLevel}%` }}
+                            style={{ width: `${bus.currentPassengers && bus.capacity ? (bus.currentPassengers / bus.capacity * 100) : 0}%` }}
                           ></div>
                         </div>
                       </div>

@@ -1,0 +1,304 @@
+{
+  "routes": [
+    {
+      "routeId": "SH027",
+      "routeName": "Shero Meda ↔ Bole Millenium",
+      "fleet": "SHEGER",
+      "color": "#1779c2",
+      "stops": ["Shero Meda", "Bole Millenium"],
+      "distance": 12.5
+    },
+    {
+      "routeId": "SH028", 
+      "routeName": "Shero Meda ↔ Abo Junction",
+      "fleet": "SHEGER",
+      "color": "#1779c2",
+      "stops": ["Shero Meda", "Abo Junction"],
+      "distance": 15.2
+    },
+    {
+      "routeId": "AB097",
+      "routeName": "Megenagna Terminal ↔ Legedadi Mission", 
+      "fleet": "ANBESSA",
+      "color": "#1779c2",
+      "stops": ["Megenagna Terminal", "Legedadi Mission"],
+      "distance": 18.7
+    },
+    {
+      "routeId": "AB101",
+      "routeName": "Megenagna Terminal ↔ Aba Kiros Roundabout",
+      "fleet": "ANBESSA", 
+      "color": "#1779c2",
+      "stops": ["Megenagna Terminal", "Aba Kiros Roundabout"],
+      "distance": 8.3
+    },
+    {
+      "routeId": "SH004",
+      "routeName": "Yeka Abado ↔ Megenagna",
+      "fleet": "SHEGER",
+      "color": "#1779c2", 
+      "stops": ["Yeka Abado", "Megenagna"],
+      "distance": 11.4
+    },
+    {
+      "routeId": "AB010",
+      "routeName": "Kotebe Teachers College ↔ Piassa Arada",
+      "fleet": "ANBESSA",
+      "color": "#1779c2",
+      "stops": ["Kotebe Teachers College", "Piassa Arada"],
+      "distance": 14.6
+    },
+    {
+      "routeId": "SH010",
+      "routeName": "Autobis Tera (2) ↔ Alem Bank", 
+      "fleet": "SHEGER",
+      "color": "#1779c2",
+      "stops": ["Autobis Tera", "Alem Bank"],
+      "distance": 16.8
+    },
+    {
+      "routeId": "AB009",
+      "routeName": "Piassa Arada ↔ Brass Clinic (Bole)",
+      "fleet": "ANBESSA",
+      "color": "#1779c2", 
+      "stops": ["Piassa Arada", "Brass Clinic"],
+      "distance": 13.2
+    }
+  ],
+  "buses": [
+    {
+      "busId": "SH-001",
+      "busNumber": "001",
+      "fleet": "SHEGER", 
+      "capacity": 45,
+      "status": "ACTIVE",
+      "routeId": "SH027"
+    },
+    {
+      "busId": "SH-002", 
+      "busNumber": "002",
+      "fleet": "SHEGER",
+      "capacity": 45,
+      "status": "ACTIVE", 
+      "routeId": "SH028"
+    },
+    {
+      "busId": "AB-001",
+      "busNumber": "101", 
+      "fleet": "ANBESSA",
+      "capacity": 50,
+      "status": "ACTIVE",
+      "routeId": "AB097"
+    },
+    {
+      "busId": "AB-002",
+      "busNumber": "102",
+      "fleet": "ANBESSA", 
+      "capacity": 50,
+      "status": "ACTIVE",
+      "routeId": "AB101"
+    },
+    {
+      "busId": "SH-003",
+      "busNumber": "003",
+      "fleet": "SHEGER",
+      "capacity": 45, 
+      "status": "ACTIVE",
+      "routeId": "SH004"
+    },
+    {
+      "busId": "AB-003",
+      "busNumber": "103",
+      "fleet": "ANBESSA",
+      "capacity": 50,
+      "status": "ACTIVE",
+      "routeId": "AB010"
+    },
+    {
+      "busId": "SH-004",
+      "busNumber": "004", 
+      "fleet": "SHEGER",
+      "capacity": 45,
+      "status": "ACTIVE",
+      "routeId": "SH010"
+    },
+    {
+      "busId": "AB-004",
+      "busNumber": "104",
+      "fleet": "ANBESSA",
+      "capacity": 50,
+      "status": "ACTIVE", 
+      "routeId": "AB009"
+    },
+    {
+      "busId": "SH-005",
+      "busNumber": "005",
+      "fleet": "SHEGER", 
+      "capacity": 45,
+      "status": "MAINTENANCE",
+      "routeId": null
+    },
+    {
+      "busId": "AB-005",
+      "busNumber": "105",
+      "fleet": "ANBESSA",
+      "capacity": 50,
+      "status": "MAINTENANCE",
+      "routeId": null
+    },
+    {
+      "busId": "VL-001",
+      "busNumber": "201",
+      "fleet": "VELOCITY",
+      "capacity": 40,
+      "status": "ACTIVE", 
+      "routeId": "SH027"
+    },
+    {
+      "busId": "VL-002", 
+      "busNumber": "202",
+      "fleet": "VELOCITY",
+      "capacity": 40,
+      "status": "ACTIVE",
+      "routeId": "AB101"
+    },
+    {
+      "busId": "VL-003",
+      "busNumber": "203", 
+      "fleet": "VELOCITY",
+      "capacity": 40,
+      "status": "OFF_DUTY",
+      "routeId": null
+    }
+  ],
+  "stops": [
+    {
+      "stopId": "meskel-square",
+      "stopName": "Meskel Square",
+      "stopNameAmharic": "መስቀል አደባባይ",
+      "latitude": 9.0054,
+      "longitude": 38.7636,
+      "type": "major_hub"
+    },
+    {
+      "stopId": "mexico-square", 
+      "stopName": "Mexico Square",
+      "stopNameAmharic": "ሜክሲኮ አደባባይ",
+      "latitude": 9.0094,
+      "longitude": 38.7444,
+      "type": "major_hub"
+    },
+    {
+      "stopId": "bole-airport",
+      "stopName": "Bole International Airport", 
+      "stopNameAmharic": "ቦሌ አለም አቀፍ አውሮፕላን ማረፊያ",
+      "latitude": 8.9806,
+      "longitude": 38.7992,
+      "type": "airport"
+    },
+    {
+      "stopId": "piassa-arada",
+      "stopName": "Piassa Arada",
+      "stopNameAmharic": "ፒያሳ አራዳ", 
+      "latitude": 9.0365,
+      "longitude": 38.7522,
+      "type": "major_hub"
+    },
+    {
+      "stopId": "megenagna-terminal",
+      "stopName": "Megenagna Terminal",
+      "stopNameAmharic": "መገናኛ ተርሚናል",
+      "latitude": 9.0203,
+      "longitude": 38.8026,
+      "type": "terminal"
+    },
+    {
+      "stopId": "shero-meda",
+      "stopName": "Shero Meda", 
+      "stopNameAmharic": "ሸሮ መዳ",
+      "latitude": 9.0622,
+      "longitude": 38.7612,
+      "type": "major_hub"
+    },
+    {
+      "stopId": "yeka-abado",
+      "stopName": "Yeka Abado",
+      "stopNameAmharic": "የካ አባዶ",
+      "latitude": 9.0689,
+      "longitude": 38.8755,
+      "type": "residential"
+    },
+    {
+      "stopId": "kotebe-teachers",
+      "stopName": "Kotebe Teachers College",
+      "stopNameAmharic": "ኮተቤ መምህራን ኮሌጅ", 
+      "latitude": 9.0342,
+      "longitude": 38.8466,
+      "type": "educational"
+    },
+    {
+      "stopId": "autobis-tera",
+      "stopName": "Autobis Tera",
+      "stopNameAmharic": "አውቶቢስ ተራ",
+      "latitude": 9.0337,
+      "longitude": 38.7298,
+      "type": "major_hub"
+    },
+    {
+      "stopId": "alem-bank",
+      "stopName": "Alem Bank", 
+      "stopNameAmharic": "አለም ባንክ",
+      "latitude": 9.0010,
+      "longitude": 38.6776,
+      "type": "commercial"
+    },
+    {
+      "stopId": "bole-millenium",
+      "stopName": "Bole Millenium",
+      "stopNameAmharic": "ቦሌ ሚሊኒየም",
+      "latitude": 8.9885,
+      "longitude": 38.7897,
+      "type": "commercial"
+    },
+    {
+      "stopId": "abo-junction", 
+      "stopName": "Abo Junction",
+      "stopNameAmharic": "አቦ መገናኛ",
+      "latitude": 8.9450,
+      "longitude": 38.7661,
+      "type": "junction"
+    },
+    {
+      "stopId": "legedadi-mission",
+      "stopName": "Legedadi Mission",
+      "stopNameAmharic": "ለገዳዲ ሚሲዮን", 
+      "latitude": 9.0818,
+      "longitude": 38.9074,
+      "type": "residential"
+    },
+    {
+      "stopId": "aba-kiros-roundabout",
+      "stopName": "Aba Kiros Roundabout",
+      "stopNameAmharic": "አባ ኪሮስ ዙሪያ",
+      "latitude": 9.0561,
+      "longitude": 38.8785,
+      "type": "roundabout"
+    },
+    {
+      "stopId": "brass-clinic",
+      "stopName": "Brass Clinic (Bole)",
+      "stopNameAmharic": "ብራስ ክሊኒክ (ቦሌ)",
+      "latitude": 8.9904, 
+      "longitude": 38.7929,
+      "type": "medical"
+    },
+    {
+      "stopId": "stadium",
+      "stopName": "Stadium",
+      "stopNameAmharic": "ስታዲየም",
+      "latitude": 9.0120,
+      "longitude": 38.7570,
+      "type": "sports"
+    }
+  ]
+}

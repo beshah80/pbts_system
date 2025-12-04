@@ -21,7 +21,9 @@ class RealTimeGPSService {
   }
 
   private connect() {
-    this.socket = io('http://localhost:3001', {
+    // Use environment variable for GPS server URL
+    const gpsServerUrl = process.env.NEXT_PUBLIC_GPS_SERVER_URL || 'http://localhost:3001';
+    this.socket = io(gpsServerUrl, {
       transports: ['websocket', 'polling']
     });
 
@@ -68,7 +70,8 @@ class RealTimeGPSService {
   // Fetch buses for a specific route
   async fetchRouteBuses(routeId: string): Promise<RealTimeBusData[]> {
     try {
-      const response = await fetch(`http://localhost:3001/api/gps/route/${routeId}`);
+      const gpsServerUrl = process.env.NEXT_PUBLIC_GPS_SERVER_URL || 'http://localhost:3001';
+      const response = await fetch(`${gpsServerUrl}/api/gps/route/${routeId}`);
       if (!response.ok) throw new Error('Failed to fetch route buses');
       
       const buses = await response.json();

@@ -1,0 +1,1360 @@
+[
+  {
+    "routeId": "AB097",
+    "routeName": "Megenegna Terminal ↔ Legedadi Mission",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB101",
+    "routeName": "Megenagna Terminal ↔ Aba Kiros Roundabout",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB049",
+    "routeName": "Megenegna Terminal ↔ Ayat Chefe Condominium",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB083",
+    "routeName": "Ayat Chefe Condominium ↔ 6 Kilo",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB010",
+    "routeName": "Kotebe Teachers College ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB009",
+    "routeName": "Piassa Arada ↔ Brass Clinic (Bole)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB061",
+    "routeName": "Legehar (Old Train Station) ↔ Ayat Chefe Condominium",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB032",
+    "routeName": "Hanna Mariam ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB018",
+    "routeName": "Yeshi Debele ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB087",
+    "routeName": "Winget ↔ Ayer Tena (Terminal)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB110",
+    "routeName": "Tulu Dimtu ↔ 6 Kilo",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB047",
+    "routeName": "Shegole (Mender 7) ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB028",
+    "routeName": "Sansusi ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB041",
+    "routeName": "Eyesus ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB003",
+    "routeName": "Ayer Tena ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB034",
+    "routeName": "German Square ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB004",
+    "routeName": "Kality Meneharia ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB006",
+    "routeName": "kera ↔ Addisu Gebeya",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB027",
+    "routeName": "Mexico ↔ Gelan Condominium",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB033",
+    "routeName": "Kotebe Gebriel ↔ Arat Kilo",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB036",
+    "routeName": "Legehar (Old Train Station) ↔ Kara Kore",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB037",
+    "routeName": "Yeshi Debele ↔ St. George Church",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB055",
+    "routeName": "Legehar (Old Train Station) ↔ Gurara",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB056",
+    "routeName": "Saris Abo ↔ Shero Meda",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB058",
+    "routeName": "Legehar (Old Train Station) ↔ Alem Bank",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB064",
+    "routeName": "Megenagna ↔ Gurara",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB065",
+    "routeName": "Autobis Tera ↔ Alem Bank",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB066",
+    "routeName": "Kara Kore ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB068",
+    "routeName": "Menlik Hospital ↔ Torhailoch",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB070",
+    "routeName": "Ayer Tena ↔ Abuare Roundabout",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB077",
+    "routeName": "Kera ↔ Ayer Tena",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB029",
+    "routeName": "Yerer Goro ↔ Mexico",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB090",
+    "routeName": "Betel ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB092",
+    "routeName": "Hana Mariam ↔ Darmar",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB094",
+    "routeName": "Piassa Arada ↔ Mikili Land",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB099",
+    "routeName": "Alem Bank ↔ Ayer Tena",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB100",
+    "routeName": "Jemmo 3 ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB102",
+    "routeName": "Kara ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB105",
+    "routeName": "Anfo Meda ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB109",
+    "routeName": "Saris Abo ↔ Tulu Dimtu Adebabay",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB117",
+    "routeName": "Sefera ↔ Mexico",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB045",
+    "routeName": "Dil Ber ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB062",
+    "routeName": "Legehar (Old Train Station) ↔ Sebeta",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB071",
+    "routeName": "Gerji Mebrat Haile ↔ Darmar",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB111",
+    "routeName": "Piassa Arada ↔ Gefersa",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB012",
+    "routeName": "Gurara ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB007",
+    "routeName": "Megenagna ↔ Aleltu",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB025",
+    "routeName": "Legehar (Old Train Station) ↔ Akaki Korkoro",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB019",
+    "routeName": "Sansusi ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB031",
+    "routeName": "Shero Meda ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB085",
+    "routeName": "Holeta ↔ Merkato",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB067",
+    "routeName": "Legehar (Old Train Station) ↔ Jemmo 3",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB030",
+    "routeName": "Sululta ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB079",
+    "routeName": "Summit Condominuiums ↔ Arat Kilo",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB021",
+    "routeName": "File Doro ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB098",
+    "routeName": "Saris Abo ↔ Dukem",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB060",
+    "routeName": "Legehar (Old Train Station) ↔ DebreZeit",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB048",
+    "routeName": "Addisu Gebeya ↔ Bole Mickael",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB057",
+    "routeName": "Legehar (Old Train Station) ↔ Kara",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB022",
+    "routeName": "Summit Condominiums ↔ Legehar (Old Train Station)",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB002",
+    "routeName": "Mekanisa Kore ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB005",
+    "routeName": "St. George Church ↔ Mekanisa Kore",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB011",
+    "routeName": "Summit Condominiums ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB043",
+    "routeName": "Menagesha ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB059",
+    "routeName": "Piassa Arada ↔ Bethel",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB063",
+    "routeName": "Mikili Land ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB072",
+    "routeName": "Saris ↔ Hana Mariam",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB073",
+    "routeName": "Winget ↔ Stadium",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB080",
+    "routeName": "Shero Meda ↔ Megenagna",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB086",
+    "routeName": "Saris Abo ↔ Ayer Tena",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB093",
+    "routeName": "Megenagna ↔ Bole Bulbula",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB108",
+    "routeName": "Piassa Arada ↔ Addis Sefer",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB120",
+    "routeName": "Megenagna ↔ Kilinto",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB122",
+    "routeName": "Entoto Mariam ↔ 4 Kilo",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB124",
+    "routeName": "Tulu Dimtu ↔ Megenagna",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB126",
+    "routeName": "Piassa Arada ↔ Bole Arabsa",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB130",
+    "routeName": "Megenagna ↔ Ayer Tena",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB131",
+    "routeName": "Koye Feche ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB008",
+    "routeName": "Raguel Church ↔ Kechenie",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB103",
+    "routeName": "Piassa Arada ↔ Jemmo 3",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB107",
+    "routeName": "Tulu Dimtu ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB112",
+    "routeName": "Megenagna ↔ Addisu Gebeya",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB113",
+    "routeName": "Megenagna ↔ Koye Feche",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB118",
+    "routeName": "Kela ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB119",
+    "routeName": "Summit Condominiums ↔ Megenagna Terminal",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB125",
+    "routeName": "Megenagna ↔ Haile Garment",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB128",
+    "routeName": "Yeka Abado ↔ Mexico",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB127",
+    "routeName": "Bole Arabsa ↔ Mexico",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB013",
+    "routeName": "Raguel Church ↔ Bela Mazorya",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB020",
+    "routeName": "Raguel Church ↔ Dil Ber",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB023",
+    "routeName": "Lamberet ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB040",
+    "routeName": "Raguel Church ↔ Kera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB042",
+    "routeName": "Summit Condominiums ↔ Bole",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB046",
+    "routeName": "Gerji ↔ Arat Kilo",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB050",
+    "routeName": "Mexico ↔ Alem Gena",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB051",
+    "routeName": "Bethel ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB052",
+    "routeName": "Gerji ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB054",
+    "routeName": "Mexico ↔ Lafto",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB078",
+    "routeName": "Megenagna ↔ Jemmo 2",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB081",
+    "routeName": "Sansusi ↔ Megenagna",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB089",
+    "routeName": "Sendafa ↔ Raguel Church",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB129",
+    "routeName": "Yeka Abado ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB026",
+    "routeName": "Sebeta ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB044",
+    "routeName": "Legedadi ↔ Megenagna",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB001",
+    "routeName": "Tafo Square ↔ Piassa Arada",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB014",
+    "routeName": "Piassa Arada ↔ Bole Bulbula",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB015",
+    "routeName": "Raguel Church ↔ Megenagna",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB016",
+    "routeName": "Kidane Mihret ↔ Raguel Church",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB017",
+    "routeName": "Entoto Mariam ↔ Raguel Church",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB106",
+    "routeName": "Mexico ↔ Koye Feche",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB121",
+    "routeName": "Tulu Dimtu ↔ Mexico",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB123",
+    "routeName": "Piassa Arada ↔ Alem Bank Silase",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB076",
+    "routeName": "Megenagna ↔ Gelan Condominium",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB082",
+    "routeName": "Yerer Goro ↔ Megenagna",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB095",
+    "routeName": "Merkato ↔ Addis Alem",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB104",
+    "routeName": "Addisu Gebeya ↔ Kality Menaheria",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB024",
+    "routeName": "Dire Sololiya ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB036 (S)",
+    "routeName": "Mexico ↔ Kara Kore",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB058 (S)",
+    "routeName": "Alem Bank ↔ Mexico",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB091",
+    "routeName": "Teji ↔ Merkato",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB088",
+    "routeName": "Chancho ↔ Autobis Tera",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "AB053",
+    "routeName": "6 Kilo ↔ Bole Mickael",
+    "operator": "ANBESSA",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH027",
+    "routeName": "Shero Meda ↔ Bole Millenium",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH028",
+    "routeName": "Shero Meda ↔ Abo Junction",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH016",
+    "routeName": "Piassa Arada ↔ Abo Junction",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH004",
+    "routeName": "Yeka Abado ↔ Megenagna",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH010",
+    "routeName": "Autobis Tera (2) ↔ Alem Bank",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A10",
+    "routeName": "Mexico ↔ Haile Garment",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH040",
+    "routeName": "Kara Kore ↔ Autobis Tera (1)",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "D26",
+    "routeName": "Yerer Goro ↔ Megenagna",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A24",
+    "routeName": "Mexico ↔ Megenagna",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "C15",
+    "routeName": "Piassa Arada ↔ Mebrat Condominium",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "C14",
+    "routeName": "Sansusi ↔ Piassa Arada",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A08",
+    "routeName": "Gurara ↔ 4 Kilo",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "C31",
+    "routeName": "Piassa Arada ↔ Dil Ber",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "B37",
+    "routeName": "Shero Meda ↔ Autobis Tera (3)",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "B19",
+    "routeName": "Autobis Tera (1) ↔ Abo Junction",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A09",
+    "routeName": "Mexico ↔ Alem Bank",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "D52",
+    "routeName": "Koye Feche ↔ Megenagna",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "D25",
+    "routeName": "Summit Condominiums ↔ Megenagna Terminal",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "B35",
+    "routeName": "Autobis Tera (2) ↔ Kela",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "B40",
+    "routeName": "Saris Abo ↔ Ayer Tena",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "C51",
+    "routeName": "Yeka Abado ↔ Piassa Arada",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "D23",
+    "routeName": "Megenagna Terminal ↔ Aba Kiros Roundabout",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A05",
+    "routeName": "Mexico ↔ Lafto",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A01",
+    "routeName": "Shero Meda ↔ Mexico",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "C17",
+    "routeName": "Piassa Arada ↔ Marathon Motor (Megenagna)",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "B22",
+    "routeName": "Autobis Tera ↔ Asko",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A04",
+    "routeName": "Sefera ↔ Mexico",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A18",
+    "routeName": "Piassa Arada ↔ Jemmo 2",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "A02",
+    "routeName": "Mexico ↔ Jemo 1",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "B35B",
+    "routeName": "Merkato ↔ Ashewa Meda",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "C50",
+    "routeName": "kera ↔ Addisu Gebeya",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH012",
+    "routeName": "Sansusi ↔ Autobis Tera",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH009",
+    "routeName": "Ayer Tena ↔ Autobis Tera (2)",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "D46",
+    "routeName": "Megenagna Terminal ↔ Bole Arabsa",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH035",
+    "routeName": "Shero Meda ↔ Megenagna",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH022",
+    "routeName": "Mexico ↔ Hana Mariam (2)",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH015",
+    "routeName": "Bole Millenium ↔ 4 Kilo",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH100",
+    "routeName": "Piassa Arada ↔ Ajamba",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH101",
+    "routeName": "Piassa Arada ↔ Ferensay",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH103",
+    "routeName": "St. George Church ↔ Addisu Gebeya",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH066",
+    "routeName": "Megenagna Terminal ↔ Aba Kiros Roundabout",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH067",
+    "routeName": "Mexico ↔ Aba Kiros",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH068",
+    "routeName": "Mexico ↔ Kara Kore",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH069",
+    "routeName": "Sebeta ↔ Ayer Tena",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH070",
+    "routeName": "Yeka Abado ↔ Mexico",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH071",
+    "routeName": "Piassa Arada ↔ Betel",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH072",
+    "routeName": "Mexico ↔ Bole Bridge",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH073",
+    "routeName": "Mexico ↔ Gurara",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH074",
+    "routeName": "Mexico ↔ Haile Garment",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH075",
+    "routeName": "Mexico ↔ Jemmo 2",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH076",
+    "routeName": "Yeshi Debele ↔ Autobis Tera",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH077",
+    "routeName": "Yeka Abado ↔ Tulu Dimtu",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH078",
+    "routeName": "Summit Condominiums ↔ Bole",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH079",
+    "routeName": "Bole Bridge ↔ Addisu Gebeya",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH080",
+    "routeName": "Megenagna ↔ Addisu Gebeya",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH081",
+    "routeName": "Megenagna ↔ Ayer Tena",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH082",
+    "routeName": "Megenagna ↔ Bole Bulbula",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH083",
+    "routeName": "Kality Meneharia ↔ Bole Bridge",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH085",
+    "routeName": "Jemo 1 ↔ Autobis Tera",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH086",
+    "routeName": "Stadium ↔ Kality Meneharia",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH087",
+    "routeName": "Gurara ↔ 4 Kilo",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH088",
+    "routeName": "Yeshi Total ↔ Tulu Dimtu Adebabay",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH089",
+    "routeName": "Megenagna ↔ Haile Garment",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH090",
+    "routeName": "Saris ↔ Kality Meneharia",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH091",
+    "routeName": "Saris ↔ Koye Feche",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH092",
+    "routeName": "Megenagna ↔ Saris Abo",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH093",
+    "routeName": "Yeshi Total ↔ Saris Abo",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH095",
+    "routeName": "Megenagna ↔ Ferensay",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH096",
+    "routeName": "Megenagna ↔ Gelan Condominium",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH097",
+    "routeName": "Sululta ↔ Addisu Gebeya",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH099",
+    "routeName": "Piassa Arada ↔ Bole Bridge",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  },
+  {
+    "routeId": "SH105",
+    "routeName": "Piassa Arada ↔ Jemmo 1",
+    "operator": "SHEGER",
+    "isActive": true,
+    "createdAt": "2025-11-28T09:32:28.263Z"
+  }
+]

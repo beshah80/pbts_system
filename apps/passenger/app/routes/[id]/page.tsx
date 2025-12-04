@@ -11,9 +11,13 @@ import Link from 'next/link';
 import { formatTime, calculateEstimatedArrival } from '@/lib/utils';
 
 
+
 export default function RouteDetailsPage() {
   const params = useParams();
   const routeId = params.id as string;
+  console.log('Raw params:', params);
+  console.log('Route ID from params:', routeId);
+  console.log('Decoded route ID:', decodeURIComponent(routeId || ''));
   const [route, setRoute] = useState<Route | null>(null);
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,16 +25,85 @@ export default function RouteDetailsPage() {
 
   useEffect(() => {
     if (routeId) {
-      Promise.all([
-        getRouteById(routeId),
-        getSchedulesByRoute(routeId)
-      ]).then(async ([routeData, schedulesData]) => {
-        setRoute(routeData);
-        setSchedules(schedulesData);
+      const loadRoute = async () => {
+        try {
+          // Fetch and find route in JSON data
+          console.log('Fetching route with ID:', routeId);
+          const response = await fetch('/routes_with_stops.json');
+          console.log('Fetch response status:', response.status, response.ok);
+          const routesData = response.ok ? await response.json() : [];
+          console.log('Routes data length:', routesData.length);
+          const decodedRouteId = decodeURIComponent(routeId);
+          console.log('Looking for route ID:', routeId);
+          console.log('Decoded route ID:', decodedRouteId);
+          console.log('Available route IDs:', routesData.map((r: any) => r.id).slice(0, 5));
+          const jsonRoute = routesData.find((route: any) => route.id === decodedRouteId);
+          console.log('Found route:', jsonRoute);
         
-        // Route visualization removed to prevent excessive API calls
+        if (jsonRoute) {
+          const startStop = jsonRoute.stops?.[0];
+          const endStop = jsonRoute.stops?.[jsonRoute.stops.length - 1];
+          
+          const formattedRoute = {
+            id: jsonRoute.id,
+            routeName: jsonRoute.longName || jsonRoute.shortName,
+            routeNumber: jsonRoute.shortName,
+            startLocation: startStop?.name || 'Start',
+            endLocation: endStop?.name || 'End',
+            distance: Math.floor(Math.random() * 20 + 5),
+            estimatedDuration: Math.floor(Math.random() * 60 + 30),
+            farePrice: Math.floor(Math.random() * 10 + 5),
+            isActive: true,
+            stops: jsonRoute.stops?.length || 0
+          };
+          
+          setRoute(formattedRoute);
+          
+          // Generate sample schedules
+          const sampleSchedules = [
+            {
+              id: '1',
+              routeId: routeId,
+              departureTime: '06:00',
+              arrivalTime: '07:30',
+              frequency: 15,
+              weekdays: true,
+              weekends: false
+            },
+            {
+              id: '2',
+              routeId: routeId,
+              departureTime: '08:00',
+              arrivalTime: '09:30',
+              frequency: 10,
+              weekdays: true,
+              weekends: true
+            },
+            {
+              id: '3',
+              routeId: routeId,
+              departureTime: '18:00',
+              arrivalTime: '19:30',
+              frequency: 20,
+              weekdays: true,
+              weekends: false
+            }
+          ];
+          
+          setSchedules(sampleSchedules);
+        } else {
+          setRoute(null);
+          setSchedules([]);
+        }
+      } catch (error) {
+        console.error('Error loading route:', error);
+        setRoute(null);
+        }
+        
         setLoading(false);
-      });
+      };
+      
+      loadRoute();
     }
   }, [routeId]);
 
@@ -121,35 +194,14 @@ export default function RouteDetailsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MapPin className="w-5 h-5" />
-              Bus Stops ({route.stops.length})
+              Bus Stops ({typeof route.stops === 'number' ? route.stops : 0})
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {route.stops.map((stop, index) => (
-                <div key={stop.id} className="flex items-center gap-4 p-3 border rounded-lg">
-                  <div className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold">
-                    {index + 1}
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-medium">{stop.stopName}</h4>
-                    <p className="text-sm text-slate-600">{stop.stopNameAmharic}</p>
-                    {stop.landmarks && stop.landmarks.length > 0 && (
-                      <div className="flex gap-2 mt-1">
-                        {stop.landmarks.map((landmark, i) => (
-                          <span key={i} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
-                            {landmark}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-right text-sm text-slate-600">
-                    <div>Lat: {stop.latitude.toFixed(4)}</div>
-                    <div>Lng: {stop.longitude.toFixed(4)}</div>
-                  </div>
-                </div>
-              ))}
+            <div className="text-center py-8 text-slate-600">
+              <MapPin className="w-12 h-12 mx-auto mb-4 text-slate-400" />
+              <p>This route has {typeof route.stops === 'number' ? route.stops : 0} stops</p>
+              <p className="text-sm mt-2">From {route.startLocation} to {route.endLocation}</p>
             </div>
           </CardContent>
         </Card>

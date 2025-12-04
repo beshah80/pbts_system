@@ -85,81 +85,22 @@ export function generateMockBuses(route: Route, count: number = 3): BusPosition[
 }
 
 // Generate a sample route with realistic Ethiopian locations
+// NOTE: This function is deprecated - use API to fetch real routes from database
 export function generateSampleRoute(): Route {
-  const stops: Stop[] = [
-    {
-      id: 's1',
-      stopName: 'Meskel Square',
-      stopNameAmharic: 'መስቀል አደባባይ',
-      latitude: 9.0082,
-      longitude: 38.7635,
-      stopOrder: 1,
-      estimatedArrivalTime: '08:15',
-      landmarks: ['Red Terror Martyrs Memorial', 'Meskel Square Monument']
-    },
-    {
-      id: 's2',
-      stopName: 'Bole Road',
-      stopNameAmharic: 'ቦሌ መንገድ',
-      latitude: 9.0157,
-      longitude: 38.7614,
-      stopOrder: 2,
-      estimatedArrivalTime: '08:22',
-      landmarks: ['Bole Medhanialem Church', 'Edna Mall']
-    },
-    {
-      id: 's3',
-      stopName: 'Mexico Square',
-      stopNameAmharic: 'ሜክሲኮ አደባባይ',
-      latitude: 9.0234,
-      longitude: 38.7589,
-      stopOrder: 3,
-      estimatedArrivalTime: '08:28',
-      landmarks: ['Mexico Square', 'Friendship Business Center']
-    },
-    {
-      id: 's4',
-      stopName: 'Kazanchis',
-      stopNameAmharic: 'ካዛንቺስ',
-      latitude: 9.0312,
-      longitude: 38.7567,
-      stopOrder: 4,
-      estimatedArrivalTime: '08:35',
-      landmarks: ['Kazanchis Business Center', 'ECA Conference Center']
-    },
-    {
-      id: 's5',
-      stopName: 'Arat Kilo',
-      stopNameAmharic: 'አራት ኪሎ',
-      latitude: 9.0389,
-      longitude: 38.7545,
-      stopOrder: 5,
-      estimatedArrivalTime: '08:42',
-      landmarks: ['Addis Ababa University', 'National Palace']
-    },
-    {
-      id: 's6',
-      stopName: 'Piazza',
-      stopNameAmharic: 'ፒያሳ',
-      latitude: 9.0456,
-      longitude: 38.7523,
-      stopOrder: 6,
-      estimatedArrivalTime: '08:48',
-      landmarks: ['St. George Cathedral', 'Taitu Hotel']
-    }
-  ];
-
+  console.warn('generateSampleRoute is deprecated. Use API to fetch routes from database.');
+  
+  // Return minimal sample for backward compatibility
   return {
-    id: 'route_001',
-    routeName: 'Meskel Square - Piazza',
-    routeNumber: '01',
-    startLocation: 'Meskel Square',
-    endLocation: 'Piazza',
-    distance: 12.5,
-    estimatedDuration: 35,
-    farePrice: 5.50,
-    stops,
-    isActive: true
+    id: 'sample_route',
+    routeName: 'Sample Route',
+    routeNumber: '00',
+    startLocation: 'Sample Start',
+    endLocation: 'Sample End',
+    distance: 0,
+    estimatedDuration: 0,
+    farePrice: 0,
+    stops: [],
+    isActive: false
   };
 }
 

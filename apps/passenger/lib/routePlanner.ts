@@ -1,3 +1,6 @@
+// NOTE: This file uses hardcoded search.json data
+// TODO: Replace with database API calls for route planning
+
 import routingData from '../../../asset/search.json';
 
 interface RouteNode {
@@ -13,6 +16,7 @@ class RoutePlanner {
   private graph: RouteGraph;
 
   constructor() {
+    console.warn('RoutePlanner uses hardcoded data. Consider migrating to database API.');
     this.graph = routingData as RouteGraph;
   }
 
