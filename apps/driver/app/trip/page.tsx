@@ -80,28 +80,30 @@ export default function TripPage() {
       <MobileNav />
       
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 p-4">
-        <div className="flex items-center gap-3 mb-3">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 pb-12 shadow-md">
+        <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => router.back()}
-            className="p-2 -ml-2 text-gray-500 hover:text-gray-700 transition-colors"
+            className="p-2 -ml-2 text-blue-100 hover:text-white hover:bg-white/10 rounded-full transition-all"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="flex-1">
-            <h1 className="text-lg font-semibold text-gray-900">{activeTrip.routeName}</h1>
-            <p className="text-sm text-gray-600">Trip {activeTrip.tripId}</p>
+            <h1 className="text-xl font-bold">{activeTrip.routeName}</h1>
+            <p className="text-blue-100 text-sm flex items-center gap-2">
+              <span className="bg-white/20 px-2 py-0.5 rounded text-xs font-medium">Trip {activeTrip.tripId}</span>
+            </p>
           </div>
         </div>
 
         {/* View Toggle */}
-        <div className="flex bg-gray-100 rounded-lg p-1">
+        <div className="flex bg-white/10 backdrop-blur-md p-1 rounded-xl">
           <button
             onClick={() => setViewMode('list')}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium transition-all ${
               viewMode === 'list' 
-                ? 'bg-white text-gray-900 shadow-sm' 
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-blue-600 shadow-sm' 
+                : 'text-blue-100 hover:bg-white/10 hover:text-white'
             }`}
           >
             <List className="w-4 h-4" />
@@ -109,10 +111,10 @@ export default function TripPage() {
           </button>
           <button
             onClick={() => setViewMode('map')}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium transition-all ${
               viewMode === 'map' 
-                ? 'bg-white text-gray-900 shadow-sm' 
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-blue-600 shadow-sm' 
+                : 'text-blue-100 hover:bg-white/10 hover:text-white'
             }`}
           >
             <Map className="w-4 h-4" />
@@ -121,11 +123,11 @@ export default function TripPage() {
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="px-4 -mt-6 pb-20 space-y-4">
         {viewMode === 'map' ? (
           /* Map View */
           <div className="space-y-4">
-            <div className="relative">
+            <div className="relative rounded-2xl overflow-hidden shadow-lg border border-gray-100">
               <DriverMap
                 stops={mockStops}
                 currentStop={currentStop}
@@ -141,46 +143,56 @@ export default function TripPage() {
               />
             </div>
             
-            <TripNavigation
-              currentStop={currentStop}
-              stops={mockStops}
-              onStopComplete={handleStopComplete}
-            />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+              <TripNavigation
+                currentStop={currentStop}
+                stops={mockStops}
+                onStopComplete={handleStopComplete}
+              />
+            </div>
           </div>
         ) : (
           /* List View */
           <div className="grid grid-cols-1 gap-4">
-            <TripNavigation
-              currentStop={currentStop}
-              stops={mockStops}
-              onStopComplete={handleStopComplete}
-            />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+              <TripNavigation
+                currentStop={currentStop}
+                stops={mockStops}
+                onStopComplete={handleStopComplete}
+              />
+            </div>
             
-            <StopTracker
-              stops={mockStops}
-              currentStop={currentStop}
-              onStopSelect={handleStopSelect}
-            />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden p-1">
+              <StopTracker
+                stops={mockStops}
+                currentStop={currentStop}
+                onStopSelect={handleStopSelect}
+              />
+            </div>
             
-            <PassengerCounter
-              initialCount={passengerCount}
-              maxCapacity={50}
-              onCountChange={setPassengerCount}
-            />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+              <PassengerCounter
+                initialCount={passengerCount}
+                maxCapacity={50}
+                onCountChange={setPassengerCount}
+              />
+            </div>
             
-            <RouteProgress
-              tripId={activeTrip.tripId}
-              routeName={activeTrip.routeName}
-              startTime={activeTrip.startTime}
-              estimatedEndTime={activeTrip.estimatedEndTime}
-              currentStop={currentStop}
-              totalStops={mockStops.length}
-              distanceCovered={currentStop * 2.5}
-              totalDistance={mockStops.length * 2.5}
-              averageSpeed={25}
-              delays={0}
-              onTimePerformance={95}
-            />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+              <RouteProgress
+                tripId={activeTrip.tripId}
+                routeName={activeTrip.routeName}
+                startTime={activeTrip.startTime}
+                estimatedEndTime={activeTrip.estimatedEndTime}
+                currentStop={currentStop}
+                totalStops={mockStops.length}
+                distanceCovered={currentStop * 2.5}
+                totalDistance={mockStops.length * 2.5}
+                averageSpeed={25}
+                delays={0}
+                onTimePerformance={95}
+              />
+            </div>
           </div>
         )}
       </div>

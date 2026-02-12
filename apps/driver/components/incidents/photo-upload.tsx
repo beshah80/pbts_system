@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { Camera, Upload, X, Image } from 'lucide-react';
+import { Camera, Image as ImageIcon, X } from 'lucide-react';
+import NextImage from 'next/image';
+import { useRef, useState } from 'react';
 
 interface PhotoUploadProps {
   onPhotosChange: (photos: string[]) => void;
@@ -86,11 +87,13 @@ export function PhotoUpload({ onPhotosChange, maxPhotos = 5 }: PhotoUploadProps)
       {photos.length > 0 && (
         <div className="grid grid-cols-3 gap-2 mb-3">
           {photos.map((photo, index) => (
-            <div key={index} className="relative">
-              <img
+            <div key={index} className="relative h-20 w-full">
+              <NextImage
                 src={photo}
                 alt={`Incident photo ${index + 1}`}
-                className="w-full h-20 object-cover rounded-lg border border-gray-200"
+                className="object-cover rounded-lg border border-gray-200"
+                fill
+                sizes="(max-width: 768px) 33vw, 20vw"
               />
               <button
                 type="button"
@@ -124,7 +127,7 @@ export function PhotoUpload({ onPhotosChange, maxPhotos = 5 }: PhotoUploadProps)
               disabled={isUploading}
               className="flex items-center justify-center gap-2 py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <Image className="w-4 h-4" />
+              <ImageIcon className="w-4 h-4" />
               <span className="text-sm font-medium">Gallery</span>
             </button>
           </div>

@@ -196,7 +196,7 @@ export function MobileOptimization() {
             <div className="p-4 border rounded-lg text-center">
               <Smartphone className="w-8 h-8 mx-auto mb-2 text-blue-500" />
               <p className="font-medium">Mobile</p>
-              <p className="text-sm text-gray-600">< 768px</p>
+              <p className="text-sm text-gray-600">&lt; 768px</p>
               <Badge variant="default" className="mt-2">Optimized</Badge>
             </div>
             <div className="p-4 border rounded-lg text-center">
@@ -214,7 +214,7 @@ export function MobileOptimization() {
             <div className="p-4 border rounded-lg text-center">
               <Monitor className="w-8 h-8 mx-auto mb-2 text-orange-500" />
               <p className="font-medium">Large</p>
-              <p className="text-sm text-gray-600">> 1440px</p>
+              <p className="text-sm text-gray-600">&gt; 1440px</p>
               <Badge variant="default" className="mt-2">Optimized</Badge>
             </div>
           </div>

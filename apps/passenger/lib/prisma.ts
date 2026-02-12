@@ -1,1 +1,0 @@
-export { prisma } from '@pbts/shared/lib/prisma'

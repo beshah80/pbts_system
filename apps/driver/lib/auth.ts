@@ -9,8 +9,12 @@ interface Driver {
   licenseNumber: string;
   phoneNumber: string;
   emergencyContact: string;
+  emergencyPhone: string;
   shift: 'MORNING' | 'AFTERNOON' | 'NIGHT';
   status: 'ACTIVE' | 'OFF_DUTY' | 'BREAK';
+  totalTrips?: number;
+  rating?: number;
+  experience?: number;
 }
 
 interface AuthState {
@@ -29,21 +33,44 @@ export const useAuthStore = create<AuthState>()(
       
       login: async (employeeNumber: string, password: string) => {
         try {
-          console.log('Attempting login with:', employeeNumber, password);
+          console.log('Attempting login with:', employeeNumber);
           
-          // Temporary hardcoded authentication for testing
-          if (employeeNumber === 'DL-001-2020' && password === 'my_password') {
+          const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3004/api';
+          
+          const response = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: employeeNumber, // Backend accepts 'username' or 'email'
+              password,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success && data.user.role === 'DRIVER') {
             const driver: Driver = {
-              driverId: '6922f4926223088654c6aaa2',
-              employeeNumber: 'DL-001-2020',
-              firstName: 'Alemayehu',
-              lastName: 'Tadesse',
-              licenseNumber: 'DL-001-2020',
-              phoneNumber: '+251911234567',
-              emergencyContact: '+251911234568',
-              shift: 'MORNING',
-              status: 'ACTIVE'
+              driverId: data.user.id,
+              employeeNumber: employeeNumber,
+              firstName: data.user.firstName,
+              lastName: data.user.lastName,
+              licenseNumber: data.user.licenseNumber,
+              phoneNumber: data.user.phoneNumber || '',
+              emergencyContact: '', // Would need another fetch or update backend to return this
+              emergencyPhone: '', // Would need another fetch or update backend to return this
+              shift: 'MORNING', // Default for now
+              status: 'ACTIVE',
+              totalTrips: 0, // Default
+              rating: 0, // Default
+              experience: 0 // Default
             };
+            
+            // Store token in localStorage if needed, or rely on cookie if backend sets it
+            if (data.token) {
+              localStorage.setItem('token', data.token);
+            }
             
             set({ driver, isAuthenticated: true });
             return true;

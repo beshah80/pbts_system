@@ -1,0 +1,250 @@
+/* Import Roboto Font (Moovit's exact font) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAFAFA;
+    color: #202124;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    border-color: #DADCE0;
+  }
+}
+
+@layer utilities {
+  /* ========== EXACT MOOVIT COLORS (from moovitapp.com) ========== */
+
+  /* Backgrounds */
+  .bg-moovit-bg {
+    background-color: #FAFAFA;
+  }
+
+  .bg-moovit-card {
+    background-color: #FFFFFF;
+  }
+
+  .bg-moovit-input {
+    background-color: #F5F5F5;
+  }
+
+  .bg-moovit-hover {
+    background-color: #F0F0F0;
+  }
+
+  /* Moovit Orange - Primary Brand Color */
+  .text-moovit-orange {
+    color: #FF6600;
+  }
+
+  .bg-moovit-orange {
+    background-color: #FF6600;
+  }
+
+  .border-moovit-orange {
+    border-color: #FF6600;
+  }
+
+  /* Moovit Blue - Secondary Color */
+  .text-moovit-blue {
+    color: #1A73E8;
+  }
+
+  .bg-moovit-blue {
+    background-color: #1A73E8;
+  }
+
+  .border-moovit-blue {
+    border-color: #1A73E8;
+  }
+
+  /* Text Colors */
+  .text-moovit-text {
+    color: #202124;
+  }
+
+  .text-moovit-secondary {
+    color: #5F6368;
+  }
+
+  .text-moovit-tertiary {
+    color: #80868B;
+  }
+
+  /* Borders */
+  .border-moovit-border {
+    border-color: #DADCE0;
+  }
+
+  .border-moovit-light {
+    border-color: #E8EAED;
+  }
+
+  /* ========== MOOVIT BLUE GRADIENT (Hero Background) ========== */
+
+  .bg-moovit-hero {
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  }
+
+  .bg-moovit-hero-alt {
+    background: linear-gradient(to bottom right, #5B9FED 0%, #4A7FC7 100%);
+  }
+
+  /* ========== MOOVIT BUTTON STYLES ========== */
+
+  /* Orange Search Button - Exact Moovit Style */
+  .btn-search-moovit {
+    background-color: #FF6600;
+    color: #FFFFFF;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(255, 102, 0, 0.25);
+    transition: all 0.2s ease;
+    border: none;
+  }
+
+  .btn-search-moovit:hover:not(:disabled) {
+    background-color: #E65C00;
+    box-shadow: 0 4px 8px rgba(255, 102, 0, 0.35);
+  }
+
+  .btn-search-moovit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Pill-shaped buttons */
+  .btn-pill {
+    border-radius: 9999px;
+  }
+
+  /* ========== MOOVIT CARD STYLES ========== */
+
+  .card-moovit {
+    background-color: #FFFFFF;
+    border: 1px solid #DADCE0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .card-moovit:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Input Styles */
+  .input-moovit {
+    background-color: #F5F5F5;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: border-color 0.2s ease;
+  }
+
+  .input-moovit:focus-within {
+    border-color: #FF6600;
+    outline: none;
+  }
+
+  /* ========== SHADOWS (Moovit-style) ========== */
+
+  .shadow-moovit-sm {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-moovit-md {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-moovit-lg {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  /* ========== LEGACY SUPPORT (backwards compatibility) ========== */
+
+  .text-primary-accent {
+    color: #FF6600;
+  }
+
+  .text-secondary-accent {
+    color: #1A73E8;
+  }
+
+  .text-error-accent {
+    color: #D93025;
+  }
+
+  .bg-primary-accent {
+    background-color: #FF6600;
+  }
+
+  .bg-secondary-accent {
+    background-color: #1A73E8;
+  }
+
+  .bg-error-accent {
+    background-color: #D93025;
+  }
+
+  .bg-light-grey {
+    background-color: #F5F5F5;
+  }
+
+  .text-charcoal {
+    color: #202124;
+  }
+
+  .text-medium-grey {
+    color: #5F6368;
+  }
+
+  .border-border-grey {
+    border-color: #DADCE0;
+  }
+
+  .gradient-primary {
+    background: #FF6600;
+  }
+
+  .gradient-success {
+    background: #34A853;
+  }
+
+  .glass-card {
+    background-color: #FFFFFF;
+    border: 1px solid #DADCE0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-medium {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-strong {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .shadow-header {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+}

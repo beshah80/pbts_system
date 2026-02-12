@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+.next/
+build/
+
+# Cache
+.cache/
+.eslintcache
+
+# Environment files
+.env*
+!.env.example
+
+# Misc
+.DS_Store
+*.md
+*.mdx
+
+# Testing
+coverage/
+__tests__/__snapshots__/
+
+# TypeScript
+*.d.ts
+
+# Next.js
+.next/
+out/
+
+# Turbo
+.turbo/

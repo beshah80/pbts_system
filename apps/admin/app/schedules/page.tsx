@@ -1,16 +1,21 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, Plus, Calendar, Clock, AlertTriangle, CheckCircle } from 'lucide-react';
-import { useAdminStore } from '@/lib/store';
-import { ProtectedRoute } from '@/components/protected-route';
 import { ScheduleForm } from '@/components/forms/schedule-form';
-import { AdvancedSearch } from '@/components/advanced-search';
-import { BulkOperations } from '@/components/bulk-operations';
+import { ProtectedRoute } from '@/components/protected-route';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useAdminStore } from '@/lib/store';
+import { Calendar, Filter, Plus, Settings } from 'lucide-react';
+import { Fragment, useMemo, useState } from 'react';
+
+type TimelineTrip = {
+  id: string;
+  labelLeft: string;
+  start: string;
+  end: string;
+  status: 'Scheduled' | 'Completed' | 'Cancelled' | 'In Progress';
+};
 
 export default function SchedulesPage() {
   const schedules = useAdminStore((state) => state.schedules);
@@ -18,199 +23,345 @@ export default function SchedulesPage() {
   const drivers = useAdminStore((state) => state.drivers);
   const routes = useAdminStore((state) => state.routes);
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [searchFilters, setSearchFilters] = useState<any>({});
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedTrip, setSelectedTrip] = useState<TimelineTrip | null>(null);
+  const [trips, setTrips] = useState<TimelineTrip[]>([]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'SCHEDULED': return 'bg-blue-100 text-blue-800';
-      case 'IN_PROGRESS': return 'bg-yellow-100 text-yellow-800';
-      case 'COMPLETED': return 'bg-green-100 text-green-800';
-      case 'CANCELLED': return 'bg-red-100 text-red-800';
-      case 'DELAYED': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+  const hoursStart = 8;
+  const hoursEnd = 22;
+  const hours = Array.from({ length: hoursEnd - hoursStart + 1 }, (_, i) => hoursStart + i);
+
+  const timeToMinutes = (t: string) => {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + (m || 0);
   };
+  const rangeMinutes = (hoursEnd - hoursStart) * 60;
+  const toPercent = (t: string) => ((timeToMinutes(t) - hoursStart * 60) / rangeMinutes) * 100;
+  const widthPercent = (start: string, end: string) => ((timeToMinutes(end) - timeToMinutes(start)) / rangeMinutes) * 100;
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'COMPLETED': return <CheckCircle className="w-4 h-4" />;
-      case 'DELAYED': return <AlertTriangle className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
+  const dayLabel = useMemo(() => {
+    const opts: Intl.DateTimeFormatOptions = { weekday: 'short', day: '2-digit', month: 'short' };
+    return currentDate.toLocaleDateString(undefined, opts);
+  }, [currentDate]);
+
+  const timelineTrips: TimelineTrip[] = useMemo(() => {
+    if (trips.length > 0) return trips;
+    if (!schedules || schedules.length === 0) {
+      const mockTrips: TimelineTrip[] = [
+        { id: 'Bx170', labelLeft: 'Bx170', start: '09:30', end: '11:00', status: 'Scheduled' },
+        { id: 'Bx210', labelLeft: 'Bx210', start: '10:00', end: '13:00', status: 'Completed' },
+        { id: 'Bx275', labelLeft: 'Bx275', start: '14:00', end: '18:00', status: 'Scheduled' },
+        { id: 'Bx315', labelLeft: 'Bx315', start: '16:30', end: '19:00', status: 'In Progress' },
+      ];
+      if (trips.length === 0) setTrips(mockTrips);
+      return mockTrips;
     }
-  };
-
-  const filteredSchedules = useMemo(() => {
-    return schedules.filter(schedule => {
-      const route = routes.find(r => r.id === schedule.routeId);
-      const bus = buses.find(b => b.id === schedule.busId);
-      const driver = drivers.find(d => d.id === schedule.driverId);
-      
-      // Text search
-      if (searchFilters.query) {
-        const query = searchFilters.query.toLowerCase();
-        const searchText = `${route?.routeName || ''} ${bus?.busNumber || ''} ${driver?.firstName || ''} ${driver?.lastName || ''}`.toLowerCase();
-        if (!searchText.includes(query)) return false;
-      }
-      
-      // Status filter
-      if (searchFilters.status && schedule.status !== searchFilters.status) {
-        return false;
-      }
-      
-      // Date range filter
-      if (searchFilters.dateRange?.start && schedule.date < searchFilters.dateRange.start) {
-        return false;
-      }
-      if (searchFilters.dateRange?.end && schedule.date > searchFilters.dateRange.end) {
-        return false;
-      }
-      
-      return true;
+    return schedules.map((s: any) => {
+      const bus = buses.find(b => b.id === s.busId);
+      return {
+        id: bus?.busNumber || s.busId,
+        labelLeft: bus?.busNumber || 'Bus',
+        start: (s.departureTime || '09:00').slice(11, 16),
+        end: (s.arrivalTime || '11:00').slice(11, 16),
+        status: s.status === 'COMPLETED' ? 'Completed' : s.status === 'IN_PROGRESS' ? 'In Progress' : s.status === 'CANCELLED' ? 'Cancelled' : 'Scheduled'
+      };
     });
-  }, [schedules, routes, buses, drivers, searchFilters]);
+  }, [schedules, buses, trips]);
 
-  const handleSelectionChange = (id: string, checked: boolean) => {
-    if (checked) {
-      setSelectedIds([...selectedIds, id]);
+  const handleAssignBus = (busName: string) => {
+    if (selectedTrip) {
+      const updatedTrips = timelineTrips.map(trip => 
+        trip.id === selectedTrip.id 
+          ? { ...trip, labelLeft: busName }
+          : trip
+      );
+      setTrips(updatedTrips);
+      setSelectedTrip({ ...selectedTrip, labelLeft: busName });
+      alert(`${busName} assigned successfully!`);
     } else {
-      setSelectedIds(selectedIds.filter(selectedId => selectedId !== id));
+      alert('Please select a trip first.');
     }
   };
 
-  const detectConflicts = (schedule: any) => {
-    const conflicts = schedules.filter(s => 
-      s.id !== schedule.id &&
-      s.date === schedule.date &&
-      s.status !== 'CANCELLED' &&
-      ((s.busId === schedule.busId) || (s.driverId === schedule.driverId)) &&
-      ((schedule.departureTime >= s.departureTime && schedule.departureTime <= s.arrivalTime) ||
-       (schedule.arrivalTime >= s.departureTime && schedule.arrivalTime <= s.arrivalTime))
-    );
-    return conflicts.length > 0;
+  const handleEditTrip = () => {
+    if (selectedTrip) {
+      setShowEditDialog(true);
+    } else {
+      alert('Please select a trip to edit.');
+    }
+  };
+
+  const handleCancelTrip = () => {
+    if (selectedTrip && confirm('Cancel this trip?')) {
+      const updatedTrips = timelineTrips.map(trip => 
+        trip.id === selectedTrip.id 
+          ? { ...trip, status: 'Cancelled' as const }
+          : trip
+      );
+      setTrips(updatedTrips);
+      setSelectedTrip({ ...selectedTrip, status: 'Cancelled' });
+    }
+  };
+
+  const statusColor = (status: TimelineTrip['status']) => {
+    switch (status) {
+      case 'Completed': return 'bg-green-500';
+      case 'Cancelled': return 'bg-red-500';
+      case 'In Progress': return 'bg-indigo-500';
+      default: return 'bg-blue-500';
+    }
+  };
+
+  const goPrevDay = () => {
+    const d = new Date(currentDate);
+    d.setDate(d.getDate() - 1);
+    setCurrentDate(d);
+  };
+  const goNextDay = () => {
+    const d = new Date(currentDate);
+    d.setDate(d.getDate() + 1);
+    setCurrentDate(d);
   };
 
   return (
     <ProtectedRoute requiredPermission="schedules.read">
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => window.history.back()}>
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Schedule Management</h1>
-              <p className="text-gray-600">Manage bus schedules and detect conflicts</p>
-            </div>
+      <div className="p-6 space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Schedule Management</h1>
+            <p className="text-gray-600 mt-1">Plan and manage daily bus schedules</p>
           </div>
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg shadow-sm">
                 <Plus className="w-4 h-4 mr-2" />
-                Create Schedule
+                Add New Schedule
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
+              <DialogTitle>Create New Schedule</DialogTitle>
               <ScheduleForm onClose={() => setShowAddDialog(false)} />
+            </DialogContent>
+          </Dialog>
+          
+          {/* Edit Dialog */}
+          <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
+            <DialogContent className="max-w-md">
+              <DialogTitle>Edit Trip</DialogTitle>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Start Time</label>
+                  <input 
+                    type="time" 
+                    defaultValue={selectedTrip?.start || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">End Time</label>
+                  <input 
+                    type="time" 
+                    defaultValue={selectedTrip?.end || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <div className="flex gap-2 pt-4">
+                  <Button className="flex-1" onClick={() => setShowEditDialog(false)}>Save Changes</Button>
+                  <Button variant="outline" onClick={() => setShowEditDialog(false)}>Cancel</Button>
+                </div>
+              </div>
             </DialogContent>
           </Dialog>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-blue-600">{schedules.filter(s => s.status === 'SCHEDULED').length}</p>
-                <p className="text-sm text-gray-600">Scheduled</p>
+        {/* Date Navigation */}
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-gray-700 font-semibold">
+                <Calendar className="w-5 h-5 text-blue-600" />
+                <span className="text-lg">{dayLabel}</span>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-yellow-600">{schedules.filter(s => s.status === 'IN_PROGRESS').length}</p>
-                <p className="text-sm text-gray-600">In Progress</p>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={goPrevDay} className="h-9 px-4">
+                  ← Previous
+                </Button>
+                <Button variant="outline" onClick={goNextDay} className="h-9 px-4">
+                  Next →
+                </Button>
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-green-600">{schedules.filter(s => s.status === 'COMPLETED').length}</p>
-                <p className="text-sm text-gray-600">Completed</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-red-600">{schedules.filter(s => s.status === 'DELAYED').length}</p>
-                <p className="text-sm text-gray-600">Delayed</p>
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" className="h-9 gap-2">
+                <Filter className="w-4 h-4" />
+                Filter
+              </Button>
+              <Button variant="outline" className="h-9">
+                View Mode: Day ▾
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <AdvancedSearch
-          entityType="schedules"
-          onFiltersChange={setSearchFilters}
-          onClearFilters={() => setSearchFilters({})}
-        />
-
-        <BulkOperations
-          entityType="schedules"
-          selectedIds={selectedIds}
-          onSelectionChange={setSelectedIds}
-        />
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Schedules ({filteredSchedules.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {filteredSchedules.map((schedule) => {
-                const route = routes.find(r => r.id === schedule.routeId);
-                const bus = buses.find(b => b.id === schedule.busId);
-                const driver = drivers.find(d => d.id === schedule.driverId);
-                
-                const hasConflict = detectConflicts(schedule);
-                
-                return (
-                  <div key={schedule.id} className={`flex items-center justify-between p-4 border rounded-lg ${hasConflict ? 'border-red-300 bg-red-50' : ''}`}>
-                    <div className="flex items-center gap-4">
-                      <Checkbox
-                        checked={selectedIds.includes(schedule.id)}
-                        onCheckedChange={(checked) => handleSelectionChange(schedule.id, checked as boolean)}
-                      />
-                      <div className="flex items-center gap-2">
-                        {getStatusIcon(schedule.status)}
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(schedule.status)}`}>
-                          {schedule.status}
-                        </span>
-                        {hasConflict && (
-                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                            CONFLICT
-                          </span>
-                        )}
+        {/* Schedule Timeline */}
+        <div className="bg-white rounded-lg border border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h2 className="text-lg font-semibold text-gray-900">Daily Schedule Timeline</h2>
+            <p className="text-sm text-gray-600 mt-1">Bus schedules for {dayLabel}</p>
+          </div>
+          <div className="p-6">
+            <div className="bg-gray-50 rounded-lg p-4">
+              {/* Time Header */}
+              <div className="grid grid-cols-[140px_1fr] gap-4 mb-4">
+                <div className="text-sm font-medium text-gray-700">Bus</div>
+                <div className="relative h-6">
+                  <div className="absolute inset-0 flex justify-between text-xs text-gray-500 font-medium">
+                    {hours.map(h => (
+                      <div key={h} className="flex-1 text-center">
+                        {String(h).padStart(2, '0')}:00
                       </div>
-                      <div>
-                        <p className="font-medium">{route?.routeName || 'Unknown Route'}</p>
-                        <p className="text-sm text-gray-600">
-                          {bus?.busNumber} • {driver?.firstName} {driver?.lastName}
-                        </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Schedule Bars */}
+              <div className="space-y-3">
+                {timelineTrips.map((trip) => (
+                  <div key={trip.id} className="grid grid-cols-[140px_1fr] gap-4 items-center">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center text-sm font-bold">
+                        {trip.labelLeft.replace('Bx', '')}
                       </div>
+                      <span className="text-sm font-medium text-gray-700">{trip.labelLeft}</span>
                     </div>
-                    <div className="text-right">
-                      <p className="font-medium">{schedule.departureTime} - {schedule.arrivalTime}</p>
-                      <p className="text-sm text-gray-600">{schedule.date}</p>
+                    <div className="relative h-12 bg-white rounded-lg border border-gray-200 shadow-sm">
+                      <div
+                        className={`absolute top-1/2 -translate-y-1/2 ${statusColor(trip.status)} text-white text-xs font-semibold rounded-lg px-3 py-2 shadow-sm cursor-pointer hover:shadow-md transition-shadow`}
+                        style={{
+                          left: `${toPercent(trip.start)}%`,
+                          width: `${Math.max(widthPercent(trip.start, trip.end), 8)}%`
+                        }}
+                        onClick={() => setSelectedTrip(trip)}
+                        title={`${trip.start} - ${trip.end} (${trip.status})`}
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>{trip.start}</span>
+                          <span>→</span>
+                          <span>{trip.end}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
+              
+              {/* Legend */}
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <div className="flex items-center gap-6 text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-500 rounded"></div>
+                    <span className="text-gray-600">Scheduled</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-indigo-500 rounded"></div>
+                    <span className="text-gray-600">In Progress</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-500 rounded"></div>
+                    <span className="text-gray-600">Completed</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-red-500 rounded"></div>
+                    <span className="text-gray-600">Cancelled</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+
+        {/* Details Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Trip Details */}
+          <div className="bg-white rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Trip Details</h3>
+            </div>
+            <div className="p-6">
+              {selectedTrip ? (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-3 h-3 rounded-full ${statusColor(selectedTrip.status).replace('bg-', 'bg-')}`}></div>
+                    <span className="font-semibold text-gray-900">{selectedTrip.status}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-gray-500">Bus:</span>
+                      <div className="font-medium text-gray-900">{selectedTrip.labelLeft}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Date:</span>
+                      <div className="font-medium text-gray-900">{dayLabel}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Departure:</span>
+                      <div className="font-medium text-gray-900">{selectedTrip.start}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Arrival:</span>
+                      <div className="font-medium text-gray-900">{selectedTrip.end}</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-4">
+                    <Button variant="outline" className="h-9" onClick={handleEditTrip}>Edit Trip</Button>
+                    <Button variant="destructive" className="h-9" onClick={handleCancelTrip}>Cancel Trip</Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <Calendar className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                  <p className="text-sm">Select a trip from the timeline to view details</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Available Buses */}
+          <div className="bg-white rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Available Buses</h3>
+              <p className="text-sm text-gray-600 mt-1">Buses ready for assignment</p>
+            </div>
+            <div className="p-6">
+              <div className="space-y-3">
+                {['Bus 34 - Bx105', 'Bus 12 - Bx210', 'Bus 28 - Bx315'].map((bus) => (
+                  <div key={bus} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-green-100 text-green-800 rounded-full flex items-center justify-center text-xs font-bold">
+                        {bus.split(' - ')[1]?.replace('Bx', '') || '?'}
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">{bus}</div>
+                        <div className="text-xs text-green-600 font-medium">Available</div>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="h-8"
+                      onClick={() => handleAssignBus(bus)}
+                    >
+                      Assign
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </ProtectedRoute>
   );

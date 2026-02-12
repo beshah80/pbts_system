@@ -1,0 +1,5124 @@
+**ADDIS ABABA UNIVERSITY COLLEGE OF NATURAL**
+
+**AND COMPUTATIONAL SCIENCES School of**
+
+**Information Science**
+
+Public Bus Tracking and Scheduling System for Ethiopian Cities
+
+Name
+
+ID
+
+1. Elishaday Bilelign
+
+UGR/4850/15
+
+2. Selamawit Mesfin
+
+UGR/0161/15
+
+3. Beshah Ashenafi
+
+UGR/5569/15
+
+4. Biniyam Moges
+
+UGR/6967/15
+
+5. Frezer Gebeyaw
+
+UGR/7381/15
+
+6. Kenbon Leta
+
+UGR/8977/14
+
+Date: Jan 19,2026
+
+— 1 —
+
+**Examination Board**
+
+**Advisor Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Examiner Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Examiner Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+**Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+— 2 —
+
+**Acknowledgment**
+
+— 3 —
+
+**Table of content**
+
+— 4 —
+
+— 5 —
+
+List of Tables
+
+— 6 —
+
+List of figures
+
+— 7 —
+
+List of Acronym
+
+— 8 —
+
+List of Terminologies
+
+— 9 —
+
+**CHAPTER ONE**
+
+**1. Introduction**
+
+**1.1. Overview**
+
+Urban transport is the backbone of Ethiopia’s rapidly growing cities. As Addis Ababa’s population exceeds five million, efficient and reliable public transportation has become essential for daily mobility. Public buses operated by the Anbessa City Bus Service Enterprise \(ACBSE\), Sheger Mass Transit, and various private associations serve as the primary mode of transport for most residents. However, these services face persistent operational and communication challenges that hinder effectiveness and passenger satisfaction. 
+
+Major issues include unreliable schedules, overcrowding, lack of real-time information, and limited incident reporting mechanisms. Passengers often experience long waiting times, uncertainty about bus arrivals, and poor service coordination. At the same time, transport authorities and associations struggle with inefficient route management, data inaccuracy, and limited visibility into daily operations. 
+
+To address these issues, the proposed Public Bus Tracking and Scheduling System for Ethiopian Cities aims to create a web-based platform that improves coordination between transport administrators, drivers, and passengers. The system’s goal is to modernize public transport management by providing accurate scheduling, route updates, and accessible passenger information through a unified platform. 
+
+The platform will feature three main dashboards:
+
+I. **Admin Dashboard: **For transport authorities and associations to manage buses, routes, and schedules, and to monitor performance. 
+
+II. **Driver/Supervisor Dashboard: **For updating trip information, reporting incidents, and coordinating with administrators. 
+
+— 10 —
+
+III. **Passenger Dashboard: **For viewing routes, schedules, live bus updates, and submitting feedback. 
+
+The system will be built using modern web technologies that ensure scalability, responsiveness, and ease of maintenance. It will adopt a modular web architecture, connecting a central database with interactive dashboards and an integrated mapping interface for route visualization. 
+
+This chapter introduces the project by presenting the background of the transport sector, the problems identified in the current system, and the objectives of the proposed solution. It also outlines the project’s significance, key beneficiaries, scope, methodology, feasibility, potential risks, and development schedule. The ultimate goal is to demonstrate how digital solutions can enhance efficiency, transparency, and user experience in Ethiopia’s urban public transport systems. 
+
+**1.2. Background of the Organization**
+
+Efficient public transportation in Ethiopian cities, especially in Addis Ababa, is crucial for mobility, economic growth, and reducing congestion. However, the system still relies heavily on manual operations for bus tracking, scheduling, and reporting. Understanding how the main transport institutions currently function and the digital limitations they face helps identify where a Public Bus Tracking and Scheduling System can make the greatest impact. 
+
+This section examines the main actors in Addis Ababa’s public transport system: the Addis Ababa Road and Transport Bureau \(AARTB\), Anbessa City Bus Service Enterprise \(ACBSE\), Sheger Mass Transit Enterprise \(SMTE\), and private operators such as Velocity Bus. Each plays a role in managing or operating city buses, yet all share similar challenges related to data management, system integration, and service monitoring. 
+
+**1.2.1. Addis Ababa Road & Transport Bureau \(AARTB\)** The Addis Ababa Road and Transport Bureau \(AARTB\) is the city’s regulatory and administrative authority responsible for managing all transport operations and setting urban mobility policies. It licenses bus operators, approves routes, and ensures compliance with safety and performance standards. 
+
+**Existing Systems:**
+
+— 11 —
+
+ The Bureau uses limited digital tools for permit management and fleet registration, but there is no centralized or automated bus tracking and scheduling system. 
+
+ Most monitoring is done manually through field inspections and reports from bus enterprises. 
+
+**Challenges:**
+
+ **Fragmented data **— separate systems for different operators \(Anbessa, Sheger, private buses\). 
+
+ **Manual record-keeping **that slows data collection and reporting. 
+
+ **No real-time visibility **of bus movements or schedule adherence. 
+
+ **Delayed decision-making **during traffic disruptions or breakdowns. 
+
+**1.2.2. Anbessa City Bus Service Enterprise \(ACBSE\)** Founded in 1945, Anbessa is the oldest and largest government-owned bus operator in Ethiopia. It serves over 1.5 million passengers daily with a fleet of more than 600 buses operating on 125\+
+
+routes across Addis Ababa. 
+
+**Existing Systems:**
+
+ Anbessa has partially digitized fare collection and fleet maintenance logs, but bus tracking and scheduling are still manual. 
+
+ A limited GPS trial system was introduced in a few buses around 2018 in collaboration with the Ministry of Innovation and Technology, but it was not scaled city-wide due to technical and financial constraints. 
+
+**Challenges:**
+
+ **Fixed route scheduling: **Buses per route remain constant despite changing demand. 
+
+ **Manual incident reporting: **Drivers use phone calls or written reports to log delays or breakdowns. 
+
+ **Aging fleet: **Frequent mechanical failures cause irregular services and unreliable schedules. 
+
+ **Lack of real-time passenger information: **Passengers wait long at terminals without knowing bus arrival times. 
+
+— 12 —
+
+**1.2.3. Sheger Mass Transit Enterprise \(SMTE\)** The Sheger Mass Transit Enterprise, launched in 2020, was created to modernize public transport and complement Anbessa by serving high-demand routes using new diesel and electric buses. 
+
+**Existing Systems:**
+
+ Sheger has a **small-scale GPS tracking pilot **for monitoring a few buses introduced in 2023. 
+
+ The data is **not integrated **with AARTB or Anbessa platforms, limiting inter-agency coordination. 
+
+**Challenges:**
+
+ **Limited fleet size **relative to passenger demand. 
+
+ **Non-integrated scheduling: **No shared system with other public or private operators. 
+
+ **Manual data reporting: **Schedule and performance reports are compiled at the end of the day or week, making real-time adjustment impossible. 
+
+**1.2.4 Private Bus Operators \( Velocity Bus\)**
+
+Private operators, including Velocity Bus under the Belayneh Kindie Group, contribute significantly to public mobility. In 2024, Velocity introduced over 100 Golden Dragon electric buses, making it the largest electric fleet in East Africa. 
+
+**Existing Systems:**
+
+ Velocity uses basic GPS-based fleet management for maintenance and internal route monitoring. 
+
+ However, it operates independently, with no data integration or scheduling coordination with government operators. 
+
+**Challenges:**
+
+ **Lack of shared data platform **between private and public systems. 
+
+ **Insufficient charging infrastructure **causing operational delays. 
+
+ **Absence of centralized passenger information systems. **
+
+— 13 —
+
+
+
+*Figure 1.1 – Organizational Structure of Addis Ababa Transport System* **1.3. Statement of the Problem**
+
+The public bus system in Addis Ababa faces multiple operational, informational, and systemic challenges that affect passengers, drivers, administrators, and the city as a whole. Despite serving millions of daily commuters, the current transport network struggles with inefficiencies that reduce service reliability, passenger satisfaction, and overall urban mobility. These challenges can be grouped according to the primary stakeholders involved. 
+
+**1.3.1. Passenger Challenges**
+
+Passengers frequently experience uncertainty and inconvenience due to the following issues:
+
+ **Unpredictable arrivals: **Buses often arrive irregularly, causing passengers to wait more than 30 and 60 minutes without reliable information. 
+
+ **Overcrowding: **During peak hours \(7–9 AM and 5–7 PM\), buses become overloaded, leaving many commuters unable to board. 
+
+ **Lack of information: **There is no centralized platform providing accurate details on routes, schedules, or delays. 
+
+ **No feedback system: **Passengers cannot formally report complaints, service quality issues, or suggestions for improvement. 
+
+— 14 —
+
+**1.3.2. Driver and Supervisor Challenges** Bus operators and supervisors also face obstacles that limit operational efficiency:
+
+ **Manual incident reporting: **Drivers rely on phone calls or paper logs to report delays, accidents, or mechanical issues, delaying corrective actions. 
+
+ **No digital tools: **Mobile-friendly dashboards or platforms for updating stop information are not available to drivers. 
+
+ **Accountability gaps: **Supervisors have limited ability to verify whether buses are adhering to schedules or planned routes. 
+
+**1.3.3. Administrative Challenges**
+
+At the organizational level, bus associations and regulatory authorities encounter the following problems:
+
+ **Fragmented data: **Information on buses, routes, and schedules is stored in separate, disconnected systems. 
+
+ **Fixed allocation of buses: **Operators such as ACBSE assign a constant number of buses per route without considering daily demand variations. 
+
+ **Lack of analytics: **Authorities cannot access real-time data to optimize routes, predict delays, or respond efficiently to incidents. 
+
+ **Limited oversight: **The Bureau cannot monitor the performance of different operators or track service quality in real time. 
+
+**1.3.4. City-Level Challenges**
+
+The inefficiencies of the public bus system have broader implications for the city:
+
+ **Traffic congestion: **Poorly coordinated scheduling contributes to urban traffic jams. 
+
+ **Economic cost: **Delays and inefficiencies reduce productivity and increase fuel consumption. 
+
+ **Public dissatisfaction: **Weak transport services undermine public trust in city infrastructure and government-managed systems. 
+
+— 15 —
+
+**1.4. Objectives of the Project**
+
+**1.4.1. General Objective**
+
+The general objective of this project is to design and implement a web-based Public Bus Tracking and Scheduling System for Addis Ababa. The system aims to enable transport authorities and bus associations to efficiently manage buses, routes, and schedules, while providing passengers with accurate and timely travel information
+
+**1.4.2. Specific Objectives of the Project**
+
+ To provide a digital platform for registering buses and drivers, including details such as plate numbers, capacity, and driver information \(name, license, contact\). 
+
+ To replace fragmented paper-based records with a centralized database, ensuring accuracy, accessibility, and ease of management. 
+
+ To enable administrators to define and manage bus routes, including start points, end points, and intermediate stops. 
+
+ To automate schedule creation with conflict detection to prevent overlapping assignments and improve service reliability. 
+
+ To offer drivers a mobile-friendly interface for viewing assigned routes and schedules, allowing them to update their current stop and report incidents \(traffic delays, breakdowns, blockages\). 
+
+ To facilitate timely communication between drivers and supervisors to enhance operational efficiency. 
+
+ To enable passengers to search for and view routes, schedules, and estimated arrival times while providing a static map visualization of bus routes and stops for easier navigation. 
+
+ To create a feedback system for passengers to submit complaints or suggestions, thereby improving service quality and accountability. 
+
+ To provide administrators with real-time dashboards displaying active buses, unreported buses, and delays, along with generating summary reports for planning and performance evaluation. 
+
+ To design the system for scalability, allowing adaptation to other Ethiopian cities \(e.g., Dire Dawa, Mekelle, Hawassa\) with customizable routes, fleet sizes, and reporting tools. 
+
+— 16 —
+
+**1.5. Feasibility Study**
+
+A feasibility study evaluates whether the proposed system is practical, achievable, and sustainable. 
+
+It examines technical, economic, operational, schedule, and legal/ethical dimensions to ensure the project can be successfully implemented.1.5.1 Technical Feasibility **1.5.1. Technical Feasibility**
+
+The proposed Public Bus Tracking and Scheduling System is technically feasible given the available infrastructure, devices, and development environment. 
+
+ **Infrastructure: **Ethiopia’s internet penetration is improving, with 4G coverage widely available in Addis Ababa and expanding 5G pilot projects. 
+
+ **Devices: **Most drivers and supervisors own smartphones capable of running lightweight web applications, facilitating system adoption. 
+
+ **Development Environment**
+
+ **IDE: **Visual Studio Code \(latest version\)
+
+ **Languages & Frameworks: **Next.js, Node.js, GraphQL, TypeScript, MongoDB
+
+ **Hardware: **Development PC with Windows 11 Pro, 11th generation CPU, 16 GB
+
+RAM, 500 GB storage \(360\+ GB free\), 64-bit architecture
+
+ **Software Tools: **Docker for containerized deployment, Vercel for frontend hosting, Render for backend hosting
+
+ **Mapping: **Google Maps API \(static visualization\) provides cost-effective route display without requiring expensive GPS tracking. 
+
+**1.5.2. Economic Feasibility**
+
+The project is economically feasible due to low costs and significant benefits. Development will be student-led, incurring no labor costs, while hosting will utilize free-tier services for pilot deployment. Training expenses will be minimal, focusing on drivers and administrators. Benefits include reduced delays, which enhance passenger satisfaction, improved scheduling that leads to fuel savings and less operational inefficiency, and data-driven planning that supports long-term efficiency improvements. Overall, the project offers a high benefit-to-cost ratio. 
+
+— 17 —
+
+**1.5.3. Operational Feasibility**
+
+The project is operationally feasible, as drivers already use smartphones for communication, making it practical for them to update stops via the application. Administrators currently rely on manual scheduling, and digital dashboards will enhance their efficiency and monitoring capabilities. Increasing smartphone adoption among passengers allows them to access dashboards easily, and public kiosks or web interfaces can further support access. Overall, minimal training and awareness campaigns will be needed to ensure successful implementation. 
+
+**Dimension**
+
+**Findings**
+
+**Conclusion**
+
+Technical
+
+Internet coverage, smartphones, cloud hosting available Feasible
+
+Economic
+
+Low cost, high benefits
+
+Feasible
+
+Operational
+
+Drivers, administrators, and passengers can adapt with Feasible training
+
+Table 1.1: Feasibility Summary
+
+**1.6. Significance of the Project**
+
+The Public Bus Tracking and Scheduling System holds significant value for multiple stakeholders, including passengers, drivers, administrators, the city, and the project developers \(Us\) themselves: 1\) **For Passengers:**
+
+ Reduced uncertainty and waiting times. 
+
+ Access to accurate route and schedule information. 
+
+ Ability to provide feedback and report service issues. 
+
+2\) **For Drivers:**
+
+ Easier and faster incident reporting through digital dashboards. 
+
+ Clearer schedules and route assignments. 
+
+ Reduced unjust blame for delays, improving work accountability. 
+
+— 18 —
+
+3\) **For Administrators \(AARTB, Anbessa, and Other Operators\)**
+
+ Centralized management of buses, routes, and schedules. 
+
+ Real-time monitoring of bus operations for improved oversight. 
+
+ Analytics and reports to support effective planning and decision-making. 
+
+4\) **For the City:**
+
+ Improved efficiency of urban transport, reducing traffic congestion. 
+
+ Supports sustainable mobility and environmental goals. 
+
+ Aligns with Ethiopia’s national digital transformation and smart city strategies. 
+
+5\) **For the Project Developers \(Students / Us\):**
+
+ Gain practical experience in **web development, database management, and dashboard** **design**. 
+
+ Hands-on exposure to modern technologies such as **Next.js, Node.js, MongoDB, and** **cloud deployment**. 
+
+ Develop skills in **project management, problem solving, and research methodology**. 
+
+ Contribute to a **real-world solution **with social and economic impact, enhancing academic and professional growth. 
+
+**1.7. Beneficiaries of the Project**
+
+The project directly and indirectly benefits a wide range of stakeholders:
+
+ **Addis Ababa Road & Transport Bureau \(AARTB\): **Improved oversight, centralized monitoring, and enhanced planning capabilities. 
+
+ **Anbessa City Bus Service Enterprise: **Better scheduling, incident management, and fleet utilization. 
+
+ **Sheger Mass Transit & Private Associations: **Scalable solution for integration into existing operations. 
+
+ **Drivers and Supervisors: **Simplified reporting, clearer assignments, and enhanced accountability. 
+
+ **Passengers: **Access to accurate route and schedule information, reduced waiting times, and the ability to submit feedback. 
+
+— 19 —
+
+ **Urban Planners and Policymakers: **Data-driven insights to support transport policies and urban mobility planning. 
+
+ **Students and Researchers: **Reference for future projects in transport digitalization, smart cities, and public service systems. 
+
+ **Project Developers \(Us / Students\): **Acquisition of technical skills, practical experience, and contribution to a meaningful real-world system that can improve urban mobility. 
+
+**1.8. Methodology**
+
+This project employs a mixed-methods approach for data collection and adopts an Agile \(Scrum\) methodology for system development. The combination ensures that the proposed Public Bus Tracking and Scheduling System is grounded in accurate, real-world insights from Addis Ababa’s transport sector and developed iteratively with stakeholder feedback to ensure practical usability. 
+
+**1.8.1. Data Sources and Collection Methods**
+
+To gather comprehensive and reliable information, data were obtained from both **primary **and **secondary **sources. The primary sources provided firsthand data from key stakeholders, while the secondary sources offered additional background and comparative information from existing studies, reports, and digital platforms. 
+
+**1.8.1.1. Primary Data Sources**
+
+Primary data were collected directly from the following groups and institutions:
+
+ **Addis Ababa Road and Transport Bureau \(AARTB\): **Officials were interviewed to understand the Bureau’s operational structure, data management practices, and the manual and semi-digital systems currently in use for bus regulation and reporting. 
+
+ **Bus Drivers: **Provided practical insights into daily operations, route management, schedule adherence, and incident reporting processes. 
+
+ **Passengers: **Shared experiences related to waiting times, route reliability, information access, and overall satisfaction with the city’s public transport system. 
+
+**Primary Data Collection Methods**
+
+**Interviews**
+
+ Conducted with AARTB officials, bus drivers, and passengers. 
+
+— 20 —
+
+ Questions focused on challenges in current scheduling and tracking methods, communication issues, and expectations for a digital solution. 
+
+**Observation**
+
+ Observations were carried out at key bus terminals such as **Meskel Square**, **Mexico** **Square**, **Megenagna**, and **Piyassa**. 
+
+ Focus areas included queue length, bus arrival intervals, passenger flow, and information dissemination methods. 
+
+**1.8.1.2. Secondary Data Sources**
+
+Secondary data were obtained from previously published materials, online platforms, and institutional documents to supplement the primary findings. These helped provide background information on the transport sector, related technologies, and existing projects. 
+
+ **Anbessa City Bus Service Enterprise \(ACBSE\): **Information was collected from official documents, published reports, and research papers describing its operations, challenges, and prior digital initiatives. 
+
+ **Sheger Mass Transit Enterprise \(SMTE\): **Secondary information was drawn from news articles, government publications, and previous studies. 
+
+ **Velocity Bus \(Private Operator\): **Data were gathered from the Belayneh Kindie Group website and related news coverage on electric bus deployment. 
+
+ **Websites and Online Tools: **Platforms such as **AddisMapTransit **and **Google** **Maps Transit **were reviewed for route data and mapping features. 
+
+ **Research and Reports: **Studies from the **World Bank**, **Ministry of Transport**, and prior academic research on intelligent transport systems in Ethiopia were analyzed. 
+
+**Secondary Data Collection Methods**
+
+**Document Review**
+
+ Involved examining policy papers, operator schedules, operational manuals, and reports from relevant institutions. 
+
+ Included reviewing templates such as driver logs, route plans, and incident reporting forms. 
+
+**Web and Literature Review**
+
+— 21 —
+
+ Analysis of online transport platforms, prior university projects, and international best practices in bus tracking and scheduling systems. 
+
+**1.8.2. System Development Methodology**
+
+The **Agile \(Scrum\) **methodology was adopted for system development to allow flexibility, iterative progress, and consistent feedback from stakeholders throughout the process. 
+
+**Key Features of the Agile Approach:**
+
+ **Sprints: **Development was organized into 2–3 week cycles, each focusing on core components such as bus registration, route management, and passenger dashboards. 
+
+ **Deliverables: **Each sprint produced a functional prototype that could be tested and refined. 
+
+ **Feedback Loops: **Regular review meetings with stakeholders \(including AARTB
+
+representatives\) guided revisions and improvements. 
+
+ **Adaptability: **Requirements and features were updated based on feedback, testing results, and evolving project needs to ensure that the final system met practical and operational expectations. 
+
+**1.9. Development Tools and Technologies**
+
+This section outlines the technologies, tools, and environment used for the development of the Public Bus Tracking and Scheduling System. These tools support efficient development, testing, deployment, and documentation. 
+
+**1.9.1. Frontend Technologies**
+
+ **Next.js \(App Router\): **Implements server-side rendering for fast load times and improved SEO. 
+
+ **TypeScript: **Ensures type safety across frontend and backend code, reducing runtime errors. 
+
+ **Tailwind CSS: **Provides utility-first styling for responsive, accessible, and consistent UI design. 
+
+— 22 —
+
+**1.9.2. Backend Technologies**
+
+ **Node.js \+ Express: **Lightweight and scalable backend framework for handling requests efficiently. 
+
+ **Apollo GraphQL Server: **Enables flexible queries, avoids over-fetching, and optimizes data transfer. 
+
+ **JWT Authentication: **Provides secure login for administrators and drivers. 
+
+**1.9.3. Database Technologies**
+
+ **MongoDB \+ Prisma: **NoSQL database with type-safe queries and schema management for structured data storage. 
+
+**1.9.4. Documentation & Modeling Tools**
+
+ **UML Diagrams: **Use case, sequence, and class diagrams to model system design. 
+
+ **Lucidchart / Draw.io: **Visual modeling and diagram creation for clear system representation. 
+
+ **Swagger: **API documentation for backend services. 
+
+**1.9.5. Deployment Environment**
+
+ **Vercel: **Frontend hosting with automatic builds and deployment. 
+
+ **Render: **Backend hosting with support for Node.js applications. 
+
+ **Docker: **Containerization for consistent environments across development and deployment. 
+
+ **CI/CD Tools: **Automates testing and deployment for efficient project delivery. 
+
+**1.9.6. Development Environment / IDE**
+
+ **IDE: **Visual Studio Code \(latest version\) for coding, debugging, and version control. 
+
+ **Operating System: **Windows 11 Pro, 64-bit. 
+
+ **Hardware: **11th generation CPU, 16 GB RAM, 500 GB storage \(360\+ GB free\). 
+
+ **Additional Tools: **Git for version control, Postman for API testing. 
+
+**Rationale: **This setup ensures that the development, testing, and deployment of the system can be performed efficiently without hardware or software limitations. 
+
+**Category**
+
+**Technology / Tool**
+
+**Features / Advantages**
+
+— 23 —
+
+Frontend
+
+Next.js,TypeScript, Tailwind SEO-friendly, type safety, responsive and accessible CSS
+
+UI
+
+Backend
+
+Node.js, JWT
+
+Scalable, efficient data fetching, secure authentication Database
+
+MongoDB \+ Prisma
+
+Type-safe queries, schema management, flexible
+
+storage
+
+Documentatio UML,Lucidchart/Draw.io
+
+Clear visual diagrams,API documentation, system
+
+n/Modeling
+
+modeling
+
+Vercel,Render,Docker,CI/D
+
+Cloud-ready, containerized, automated testing and
+
+Deployment
+
+deployment
+
+Development VSCode, Windows11 Pro, Sufficient IDE and hardware setup for development Environment
+
+16GB RAM, 500 GB storage and testing
+
+Table 1.2: Tools and Features
+
+**1.10. Scope of the Project**
+
+The scope defines the boundaries of the Public Bus Tracking and Scheduling System by clearly identifying what is included \(in-scope\) and what is excluded \(out-of-scope\) in the current development phase. 
+
+**In-Scope**
+
+The system will cover the following functionalities:
+
+ Admin CRUD operations for buses, routes, and schedules. 
+
+ Automated schedule conflict detection to prevent overlapping assignments. 
+
+ Driver dashboard for updating current stops and reporting incidents. 
+
+ Passenger dashboard for viewing routes, schedules, and feedback submission. 
+
+ Static map visualization of routes and stops. 
+
+ Feedback system for passengers to report complaints or suggestions. 
+
+ Analytics dashboard for administrators to monitor bus activity, delays, and unreported buses. 
+
+ Inclusion of government-owned \(Anbessa, Sheger\) and private buses \(Velocity\) for route and schedule management. 
+
+**Out-of-Scope**
+
+— 24 —
+
+The following features are not included in the current project version:
+
+ Live GPS tracking of buses in real time. 
+
+ Predictive estimated time of arrivals \(ETAs\) based on traffic conditions. 
+
+ Other bus operators are not included in this version of the project. 
+
+**Category**
+
+**In-Scope**
+
+**Out-of-Scope**
+
+Functionality
+
+Admin CRUD \(buses, routes, schedules\)
+
+Live GPS tracking
+
+Scheduling
+
+Schedule conflict detection
+
+Predictive ETAs
+
+Stop updates & incident reporting
+
+Full mobile apps
+
+Driver Features
+
+Passenger
+
+Route/schedule views, static map visualization, Ticketing/payment feedback system
+
+integration
+
+Analytics
+
+Admin dashboard for monitoring buses, delays, 
+
+and unreported activities
+
+Operators Covered Only government buses \(Anbessa, Sheger\) and Other private or private buses \(Velocity\)
+
+government operators
+
+Table 1.3 – Scope Boundaries \(In-Scope vs Out-of-Scope\) **1.11. Risks, Assumptions, and Constraints**
+
+This section identifies potential challenges, underlying assumptions, and constraints affecting the development and deployment of the Public Bus Tracking and Scheduling System. 
+
+**Risks**
+
+ **Low driver adoption: **Drivers may be reluctant to adopt digital dashboards. 
+
+ **Mobile data costs: **Continuous internet access may incur costs for drivers. 
+
+ **Inconsistent route naming: **Variations in route names could cause confusion. 
+
+ **Resistance to digital change: **Stakeholders may prefer traditional methods over digital systems. 
+
+**Assumptions**
+
+— 25 —
+
+ Drivers own smartphones capable of running the system. 
+
+ The Addis Ababa Road & Transport Bureau supports the pilot implementation. 
+
+ Internet access is available at key bus terminals. 
+
+**Constraints**
+
+ Limited project duration \(semester-long project\). 
+
+ Budget restrictions due to academic project funding. 
+
+ GPS integration is not included in the current project scope\(means live GPS but there will be static GPS/Manually\). 
+
+**Risk**
+
+**Likelihood Impact**
+
+**Mitigation**
+
+Medium
+
+High
+
+Training, awareness, and user-friendly interface
+
+Low driver adoption
+
+design
+
+Mobile data costs
+
+Medium
+
+Medium Optimize app for low data usage, offline support Inconsistent
+
+route High
+
+Medium Standardize route naming conventions in
+
+naming
+
+database
+
+Resistance to digital Medium
+
+High
+
+Regular stakeholder engagement and
+
+change
+
+demonstrations
+
+Table 1.4 – Risk Matrix \(Likelihood vs Impact\)
+
+**1.12. Phases and Deliverables**
+
+The project will follow a structured, phase-based development approach, ensuring that all tasks are completed systematically and documentation is maintained at each stage. 
+
+**Phase 1 – Discovery: **Conduct interviews with AARTB officials, bus drivers, and passengers to gather firsthand insights. Observe operations at major bus terminals and compile findings to finalize the problem statement. 
+
+**Phase 2 – Design: **Develop UML diagrams to model system workflows, create the database schema for efficient data management, and design wireframes for Admin, Driver, and Passenger dashboards. 
+
+— 26 —
+
+**Phase 3 – Implementation: **Build the core system modules, including Admin functionalities for managing buses, routes, and schedules, Driver dashboard for updating stops and reporting incidents, and Passenger dashboard for accessing route and schedule information. 
+
+**Phase 4 – Testing: **Conduct unit testing of individual components, integration testing to ensure modules work together, and usability testing to validate the system from the perspective of end-users. 
+
+**Phase 5 – Deployment: **Deploy the system on a cloud platform for pilot use, allowing administrators, drivers, and passengers to interact with the system in a real operational environment. 
+
+**Phase 6 – Evaluation: **Review system performance, analyze collected analytics, gather stakeholder feedback, and make final adjustments to improve usability and efficiency before project completion. 
+
+**Deliverables:**
+
+ Project documentation and reports
+
+ UML diagrams and wireframes
+
+ MVP system \(Admin, Driver, and Passenger dashboards\)
+
+ Pilot deployment and feedback report
+
+**1.13. Work Breakdown Structure \(WBS\)**
+
+The Work Breakdown Structure \(WBS\) organizes the project into manageable components, ensuring that all tasks are properly allocated and tracked. The main components of the system development are:
+
+— 27 —
+
+
+
+Figure 1.2 – **WBS Tree **\(hierarchical representation of project tasks and sub-tasks\). 
+
+— 28 —
+
+
+
+**1.14. Project Schedule**
+
+The project will follow a structured timeline to ensure timely completion and milestone tracking. 
+
+Figure 1.3. Gantt Chart
+
+**Chapter Two**
+
+**2. Business Area Analysis and Requirement Definition** **2.1. Overview**
+
+This chapter looks into the current operations of Addis Ababa's public bus transport system and identifies specific requirements for the proposed tracking and scheduling platform. The analysis focuses on understanding how transport authorities, bus operators, drivers, and passengers currently interact within the existing system while documenting the actual workflows, communication patterns, and administrative processes that describe daily operations. 
+
+— 29 —
+
+The chapter begins with a business area analysis that lists out the main activities performed by different stakeholders in the transport network. Then it evaluates the limitations of current practices using the PIECES framework, which provides a structured way to assess performance, information flow, economic efficiency, control mechanisms, operational effectiveness, and service quality issues. Following this, the chapter documents the existing forms, reports, and paper-based tools that administrators and drivers use for record-keeping and communication. 
+
+Lastly, it identifies all essential players in the system and their specific roles, responsibilities, and challenges. 
+
+By analyzing these aspects, this chapter provides a clear understanding of what needs to change and why. This directly informs the functional and non-functional requirements that will guide system design and development in the following chapters. 
+
+**2.2. Business area analysis**
+
+The business area analysis maps the current operational structure of the public bus ecosystem in Addis Ababa. It identifies key stakeholders and their interdependent functions, covering regulatory oversight, operational execution, and end-user interaction. Analyzing these existing activities is crucial for identifying pain points and defining the requirements for a new, more efficient system design. 
+
+**2.2.1. Activities / functions of the organization** The public bus ecosystem in Addis Ababa is formed by multiple institutions with distinct but related responsibilities:
+
+**A. Regulatory and Administrative Bodies**
+
+**I. Addis Ababa Road & Transport Bureau — AARTB**
+
+● **Route Planning and Approval: **Determining which routes are needed based on population distribution and traffic patterns, then assigning routes to different operators. 
+
+● **Licensing and Registration: **Processing applications for new bus operators, issuing operating permits, and maintaining records of all licensed vehicles and drivers. 
+
+— 30 —
+
+● **Performance Monitoring: **Conducting periodic inspections at terminals and along routes to verify that operators are following approved schedules and maintaining service standards. 
+
+● **Policy Development: **Creating regulations for fare structures, safety requirements, and service quality benchmarks that all operators must follow. 
+
+● **Data Compilation: **Collecting monthly and quarterly reports from operators about fleet performance, passenger volumes, and operational challenges. 
+
+**B. Bus Operating Enterprises and Associations**
+
+**I. Anbessa City Bus Service Enterprise \(ACBSE\)**
+
+As the largest government-owned operator, Anbessa manages a fleet of over 400 buses serving 100\+ routes. Its daily activities include:
+
+● **Fleet Management: **Assigning buses to specific routes each morning based on the bus availability and maintenance schedules. 
+
+● **Driver Scheduling: **Creating shift rotations for drivers, ensuring each route has adequate coverage throughout operating hours. 
+
+● **Maintenance Coordination: **Tracking bus condition, scheduling repairs, and managing spare parts inventory. 
+
+● **Fare Collection: **Recording daily revenue from conductors who manually count tickets sold and cash collected. 
+
+● **Incident Documentation: **Receiving phone calls or written reports from drivers about accidents, breakdowns, or major delays, then logging these events in paper registers. 
+
+● **Terminal Supervision: **Stationing supervisors at major terminals to manage bus departures, handle passenger complaints, and coordinate with drivers. 
+
+**II. Sheger Mass Transit Enterprise \(SMTE\)**
+
+Launched in 2020, Sheger focuses on high-capacity routes with newer vehicles. Its operations mirror those of Anbessa but on a smaller scale:
+
+● **Route Operations: **Managing assigned routes primarily on major corridors. 
+
+● **Limited Digital Monitoring: **Using a small GPS pilot program on select vehicles, though this data is not shared with other operators or the Bureau. 
+
+● **Performance Reporting: **Submitting weekly summaries to AARTB about service delivery and any operational disruptions. 
+
+**III. Private Operators \(Velocity Bus \)**
+
+— 31 —
+
+Private operators like Velocity Bus contribute additional capacity, particularly on routes where government fleets cannot meet demand. Their activities include:
+
+● **Independent Scheduling: **Creating their own timetables without formal coordination with government operators. 
+
+● **Basic Fleet Tracking: **Using simple GPS devices primarily for internal security and maintenance purposes rather than passenger information. 
+
+● **Fare Management: **Operating under Bureau-approved fare structures but handling revenue collection independently. 
+
+**C. Bus Drivers and Conductors**
+
+● **Follow assigned schedules and routes**
+
+● **Handles boarding, manage crowding, and responding to passenger questions **about routes and destinations
+
+● **Manual Reporting: **Calling supervisors via personal phones when problems occur, such as mechanical breakdowns or severe traffic delays
+
+● **Cash Handling: **Conductors collect fares and reconcile cash at the end of each shift, submitting totals to supervisors. 
+
+**D. Passengers**
+
+● Passengers are the end users whose daily activities shape affect patterns:
+
+● Relies on personal experience, word-of-mouth information, or informal inquiries at terminals to determine which bus to take. 
+
+● Standing at stops without accurate information about when the next bus will arrive or how many passengers it might already be carrying. 
+
+● Occasionally expressing complaints directly to drivers or supervisors, though there is no formal system for recording or addressing these concerns **2.2.2. Problems of the current system\(Using the PIECES Framework\)** The PIECES framework provides a structured approach to analyzing system problems across six dimensions: Performance, Information, Economics, Control, Efficiency, and Service. This analysis reveals specific deficiencies in the current public bus transport system. 
+
+**1\) Performance Issues**
+
+The system struggles to deliver reliable and consistent service:
+
+— 32 —
+
+● **Irregular Service Intervals: **Buses on the same route arrive unpredictably, sometimes with gaps of 15 minutes followed by three buses arriving within 5 minutes of each other. 
+
+This bunching occurs because there is no mechanism to monitor spacing between vehicles. 
+
+● **Extended Waiting Times: **Passengers at major terminals like Meskel Square and Mexico Square often wait 30 to 60 minutes during off-peak hours and even longer during peak periods when buses bypass stops due to overcrowding. 
+
+● **Posted timetables at terminals frequently do not reflect actual bus availability. **When vehicles break down or are reassigned without notice, no updates reach passengers or even terminal supervisors. 
+
+● **Delayed Incident Response: **When a bus breaks down mid-route, it can take 45 minutes or more for a replacement to be dispatched because drivers must first locate a phone signal, call headquarters, and wait for supervisors to manually arrange alternatives. 
+
+**2\) Information Deficiencies**
+
+Critical information gaps affect all stakeholders:
+
+● Passengers have no way to know if their bus is approaching, delayed, or canceled. They depend entirely on visual observation and guesswork. 
+
+● Bus assignments, driver schedules, and maintenance records are kept in separate paper registers or basic spreadsheets that different departments maintain independently. When managers need to analyze patterns or make decisions, they must manually compile information from multiple sources. 
+
+● Route maps and stop lists vary between operators. Even within Anbessa, different terminals may have slightly different versions of the same route due to informal changes that were never officially documented. 
+
+● Without digital records, it is nearly impossible to analyze trends such as which routes experience the most breakdowns, which time periods see highest demand, or how service quality changes over months. 
+
+● Apart from destination signs on bus fronts, passengers receive almost no information about routes, schedules, or service changes. New residents or visitors find the system particularly difficult to navigate. 
+
+**3\) Economic Inefficiencies**
+
+Current practices lead to wasted resources and lost revenue:
+
+— 33 —
+
+● **Fuel Waste from Idle Buses: **Buses often sit idling at terminals for extended periods because schedules are not optimized for actual demand patterns. Some routes are over-served during slow periods while others lack coverage during peak demand. 
+
+● **Inefficient Fleet Utilization: **The practice of assigning fixed numbers of buses to each route regardless of time of day or day of week means some vehicles remain underutilized while other routes consistently face overcrowding. 
+
+● **Manual fare collection and cash reconciliation create opportunities for errors and** **irregularities. **Without automated tracking, it is difficult to verify reported passenger counts against actual ridership. 
+
+● **Productivity Losses: **Citizens spend excessive time waiting for buses and dealing with unreliable service, reducing their available time for economic activities. This hidden cost affects the city's overall productivity. 
+
+● **Without systematic tracking of vehicle performance, preventive maintenance **is often neglected until major breakdowns occur, leading to expensive emergency repairs instead of planned upkeep. 
+
+**4\) Control Weaknesses**
+
+The system lacks effective management and accountability mechanisms:
+
+● **Limited Accountability: **When passengers experience poor service, there is no clear way to attribute responsibility. Was the driver late, was the bus reassigned, or was the schedule unrealistic? Without data, these questions cannot be answered. 
+
+● **Weak Performance Monitoring: **AARTB officials cannot systematically monitor whether operators are fulfilling their service obligations. Compliance checks rely on occasional physical inspections rather than continuous monitoring. 
+
+● **Difficulty Enforcing Standards: **Even when problems are identified, addressing them is challenging because decision-makers lack concrete evidence about patterns of non-compliance. 
+
+● **Informal Changes: **Drivers sometimes deviate from official routes based on traffic conditions or personal judgment, but these variations are not recorded or evaluated for potential system-wide adoption. 
+
+● **Limited Supervision Capacity: **Terminal supervisors can only monitor what happens directly in front of them. They have no visibility into whether buses are following routes correctly or maintaining schedules between terminals. 
+
+**5\) Efficiency Problems**
+
+— 34 —
+
+Operational processes are manual, slow, and prone to errors:
+
+● **Manual Schedule Creation: **Administrators spend significant time creating weekly schedules by hand, checking paper records to avoid assigning the same bus to multiple routes at the same time. This process is tedious and still results in conflicts. 
+
+● **Slow Communication: **Drivers must physically return to terminals or make phone calls to report issues, creating delays in response times. Critical information often gets lost in translation when passed through multiple people. 
+
+● **Redundant Data Entry: **The same information about buses, drivers, and routes is recorded in multiple locations by different people, leading to inconsistencies and duplication of effort. 
+
+● **Time-Consuming Reports: **Compiling monthly reports for AARTB requires administrators to manually aggregate data from various sources, a process that can take several days. 
+
+**6\) Service Quality Shortcomings**
+
+Passengers experience frustration and dissatisfaction due to:
+
+● **Uncertainty and Stress: **Not knowing when a bus will arrive creates anxiety and makes going to places difficult, particularly for passengers trying to reach appointments or work on time. 
+
+● **Overcrowding: **During peak hours, passengers are regularly packed into buses beyond comfortable capacity. Many are left behind at stops because vehicles are too full to accept additional riders. 
+
+● **Lack of Accessibility: **There is no system to help passengers with disabilities, tourists, or those unfamiliar with the city identify which bus to take or when it will arrive. 
+
+● **No Feedback Mechanism: **Passengers who want to complain about service or suggest improvements have no formal channel to do so. Complaints made verbally to drivers or supervisors are rarely documented or acted upon
+
+**Dimension**
+
+**Key Problems**
+
+**Performance **Irregular service intervals, extended waiting times, low schedule adherence, delayed incident response
+
+**Information**
+
+No real-time updates,fragmented data storage, inconsistent route information, limited historical data
+
+— 35 —
+
+**Economics**
+
+Fuel waste, inefficient fleet utilization, revenue leakage, productivity losses, high maintenance costs
+
+**Control**
+
+Limited accountability, weak performance monitoring, difficulty enforcing standards, informal route changes
+
+**Efficiency**
+
+Manual scheduling, slow communication, redundant data entry, paper-based systems, time-consuming reporting
+
+**Service**
+
+Passenger uncertainty, overcrowding, lack of accessibility, poor communication, no feedback channels
+
+Table 2.1: Summary of PIECES Analysis
+
+**2.2.3. Forms and Reports of the Existing System** Currently, there is no officially documented or publicly accessible passenger-facing digital system used by city bus operators such as Velocity Bus for real-time bus tracking, route visualization, or scheduling services. As part of this study, direct communication was conducted with representatives of Velocity Bus to request access to their existing system interfaces and screenshots for academic analysis. However, the request was declined due to security and data protection policies. 
+
+According to the information provided by the organization, the existing internal system used by Velocity Bus consists only of driver-side and administrative applications. These internal systems support limited operational functionalities such as GPS-based bus tracking, driver management, and cash or income management. The system is not designed for passenger use, and no public web or mobile application is available for commuters. As a result, screenshots or documentation of this system could not be obtained. 
+
+Due to these constraints, the analysis of the existing system was carried out using publicly available transportation-related digital platforms that are currently accessible in Ethiopia. 
+
+Specifically, the Guzo online bus booking system and the AddisMapTransit mobile application were selected as reference systems to examine existing forms, interfaces, and features related to public transportation information services. These systems were reviewed to understand their functionalities, user interfaces, and limitations, which helps identify gaps and inform the design of the proposed system. 
+
+— 36 —
+
+
+
+**A. Existing System Interfaces and Forms \(Guzo Web System\)** **I. Trip Search and Booking Interface**
+
+The Guzo web system provides a basic trip search interface that allows users to search for available intercity bus trips. 
+
+The interface collects the following inputs from users. 
+
+ Departure city
+
+ Departure terminal
+
+ Destination city
+
+ Travel date \(calendar-based selection\)
+
+ Number of passengers
+
+Upon submitting the search form, the system displays a **search results page **intended to list available trips that match the user’s input criteria. However, during system observation, the platform frequently displays a *“No trips found” * message, indicating limited backend integration or unavailable real-time trip data. 
+
+— 37 —
+
+
+
+*Figure 2.1: Trip Search Form Interface \(Guzo System\)* *Figure 2.2: Trip Search Result Display Interface* Although this interface demonstrates basic form-based data input and retrieval functionality, it lacks advanced features such as real-time bus availability, route mapping, live tracking, and schedule reliability. 
+
+**II. User Authentication Forms**
+
+The Guzo system also includes authentication-related interfaces, which appear to be intended primarily for administrative users. These interfaces include: **Login Form**, which collects:
+
+— 38 —
+
+
+
+ Phone number
+
+ Password
+
+ “Remember me” option
+
+ Forgot password feature
+
+**Account Registration Form**, which collects:
+
+ First name
+
+ Last name
+
+ Phone number
+
+ Password and password confirmation
+
+A verification interface is also included for account confirmation. 
+
+*Figure 2.3: Admin Login Form*
+
+— 39 —
+
+
+
+*Figure 2.4: User Registration Form*
+
+Despite the availability of these forms, most authentication-related features are non-functional, including account verification and password recovery. This indicates that the platform operates largely as a demonstration or prototype system rather than a fully implemented and reliable solution. 
+
+**B. Existing Mobile Application Features \(AddisMapTransit App\)** The AddisMapTransit mobile application provides limited route-based information for public buses operating within Addis Ababa. The application focuses mainly on static route visualization and does not support real-time operational features. 
+
+**I. Route Search and Map Display Interface**
+
+The home screen of the application allows users to search for routes by specifying origin \(“From”\) and destination \(“To”\) locations. Based on the user’s input, the system displays:
+
+ Estimated travel time
+
+ Estimated travel distance
+
+ Available bus names serving the selected route
+
+A map is displayed showing approximate route paths, with the search results listed below the map. 
+
+— 40 —
+
+
+
+— 41 —
+
+
+
+*Figure 2.5: Route Search and Map Display Interface* This feature provides basic navigational assistance; however, it relies on static data and does not reflect real-time traffic conditions or actual bus locations. 
+
+II. All Routes Listing Interface
+
+The application includes an “All Routes” section that displays a list of available bus routes within Addis Ababa. Each route includes the route name and associated bus identifiers and is selectable by the user. 
+
+— 42 —
+
+
+
+*Figure 2.6: All Routes Listing Interface*
+
+While this feature allows users to explore existing routes, it does not provide schedule information, service availability status, or filtering options. 
+
+III. Route Detail and Stops Visualization Interface When a user selects a specific route, the application displays a detailed route view consisting of:
+
+ A map with a line drawn from the route’s starting point to its endpoint
+
+ A list of bus stops displayed at the bottom of the screen *Figure 2.7: Route Visualization and Stops Display Interface* This interface helps users understand route structure and stop locations but lacks features such as estimated arrival times, live bus movement, or stop-level scheduling information. 
+
+— 43 —
+
+**C. Limitations of the Existing Systems** The analysis of the Guzo web system and the AddisMapTransit mobile application revealed several significant limitations, including:
+
+ Absence of real-time bus tracking and live location updates
+
+ Limited functionality, with several features operating only as demonstrations
+
+ Lack of passenger-facing scheduling and service status information
+
+ AddisMapTransit incompatibility with Android versions above 12
+
+ No support for iOS or web platforms in AddisMapTransit
+
+ No integration with fleet management, driver management, or income systems
+
+ Absence of administrative dashboards, analytics, and reporting tools
+
+ Poor scalability and limited cross-platform accessibility These limitations significantly reduce the effectiveness of the existing systems in supporting modern urban public transportation management and delivering reliable passenger information services. 
+
+**2.2.4. Players of the Existing System**
+
+The public bus transport system involves multiple stakeholders, each with distinct roles, responsibilities, and interactions with other players. Understanding these relationships is crucial for designing a system that serves everyone effectively. 
+
+**A. Regulatory and Administrative Bodies**
+
+**I. **
+
+**Addis Ababa Road and Transport Bureau \(AARTB\)**
+
+The Bureau acts as the central regulatory authority with the following responsibilities:
+
+● Issues operating licenses to bus companies and associations
+
+● Approves route assignments and fare structures
+
+● Sets safety and service quality standards
+
+● Monitors operator compliance through inspections and reports
+
+● Mediates disputes between operators or between operators and passengers
+
+● Coordinates with city planning authorities on transport infrastructure development Bureau officials interact with operators through formal meetings, written directives, and periodic compliance checks. 
+
+**II. Transport and Logistics Agency \(Federal Level\)**
+
+— 44 —
+
+While AARTB manages city-level operations, the federal Transport and Logistics Agency provides:
+
+● National policy guidance on public transport
+
+● Standards for vehicle registration and driver licensing
+
+● Coordination between regional transport authorities Federal agencies have limited direct involvement in day-to-day bus operations but influence long-term planning and regulatory frameworks. 
+
+**B. Bus Operating Enterprises and Associations**
+
+**I. Anbessa City Bus Service Enterprise \(ACBSE\)**
+
+As the primary government-owned operator, Anbessa employs:
+
+● General Manager: manages overall operations, strategic planning, and relationships with AARTB. 
+
+● Operations Managers: Supervise daily fleet deployment, schedule preparation, and service delivery. 
+
+● Fleet Maintenance Manager: Coordinates vehicle repairs, parts procurement, and preventive maintenance programs. 
+
+● Terminal Supervisors: Manage bus departures at major terminals, handle immediate operational issues, and communicate with drivers. 
+
+● Administrative Staff: Process driver payroll, maintain paper records, and compile reports for management and AARTB. 
+
+Anbessa serves as the backbone of the system but faces challenges with aging infrastructure and limited modernization resources. 
+
+**II. Sheger Mass Transit Enterprise \(SMTE\)**
+
+Sheger operates similarly to Anbessa but with:
+
+● Newer fleet focused on high-capacity routes
+
+● Smaller organizational structure with fewer administrative layers
+
+● Limited pilot GPS tracking on some vehicles \(not integrated city-wide\) Sheger management coordinates with AARTB but operates independently from Anbessa with no formal data sharing. 
+
+**III.Private Operators \(Velocity Bus \)**
+
+Private operators bring additional capacity through:
+
+— 45 —
+
+● Operator Management: Company executives who negotiate route licenses with AARTB
+
+and manage business operations. 
+
+● Fleet Coordinators: Assign buses and drivers to routes based on demand and vehicle availability. 
+
+● Maintenance Contractors: Often outsource repairs to third-party garages rather than maintaining in-house facilities. 
+
+Private operators value operational independence but face challenges coordinating with government systems and accessing shared infrastructure like terminals. 
+
+**C. Drivers and Conductors**
+
+**I. Bus Drivers**
+
+Drivers are the most visible face of the system to passengers. Their responsibilities include:
+
+● Following assigned routes and attempting to maintain schedules
+
+● Operating vehicles safely according to traffic laws
+
+● Managing passenger boarding and flow
+
+● Reporting mechanical problems and incidents
+
+● Collecting fares \(on buses without conductors\)
+
+Drivers interact with terminal supervisors at the start and end of shifts, communicate with dispatchers when problems arise, and respond to passenger questions throughout the day. Many drivers have years of experience and develop personal strategies for navigating traffic and managing routes. 
+
+**II. Conductors**
+
+On buses conductors:
+
+● Collect fares and issue tickets
+
+● Manage passenger flow and door operation
+
+● Assist passengers with boarding, especially elderly or disabled riders
+
+● Count and record revenue at shift end
+
+Conductors provide important passenger service but their role is decreasing as operators shift to automated fare collection systems. 
+
+**D. Passengers**
+
+Passengers are the end beneficiaries of the system but currently have limited formal representation. Different passenger groups have varying needs: **I. Regular Passengers**
+
+— 46 —
+
+● Workers, students, and others who use buses daily develop deep knowledge of routes and timing through repeated experience. They know which buses to take and roughly when to expect them, but still face uncertainty during disruptions. 
+
+**II. Occasional Passengers**
+
+● Residents who use buses infrequently or visitors to the city struggle to navigate the system without clear route information or schedules. They often ask drivers or other passengers for help. 
+
+**III.Vulnerable Passengers**
+
+● Elderly passengers, people with disabilities, pregnant women, and those with young children face particular challenges with overcrowded buses and lack of accessible information. 
+
+Passengers interact with the system primarily through drivers and terminal staff, with limited formal channels for feedback or complaints. 
+
+**E. Support and Maintenance Staff**
+
+**I. Mechanics and Technicians**
+
+Maintenance staff keep the fleet operational through:
+
+● Routine servicing based on mileage or time intervals
+
+● Responding to driver-reported problems
+
+● Emergency roadside assistance for breakdowns
+
+They rely on driver logbooks and maintenance request forms to prioritize work but often lack complete vehicle history due to poor record-keeping. 
+
+**II. Terminal Staff**
+
+Workers at major terminals include:
+
+● Security personnel who manage vehicle and passenger movement
+
+● Information desk staff who answer passenger questions
+
+● Cleaners who maintain facility hygiene
+
+Terminal staff observe daily operations but have no formal role in service planning or improvement. 
+
+**III. Informal Players**
+
+**Street Marshals \(Lebash\)**
+
+— 47 —
+
+Informal coordinators at some bus stops help direct passengers to the correct buses and manage queuing. They are not officially employed by operators but perform a valuable service that passengers recognize and sometimes compensate voluntarily. 
+
+Parts Suppliers and Service Providers
+
+Local businesses supply spare parts, fuel, tires, and other necessary inputs. Relationships with reliable suppliers are critical for maintaining fleet availability. 
+
+**Summary of Stakeholder Interactions**
+
+The current system involves complex interactions among these players:
+
+● AARTB issues directives → Operators implement services → Drivers execute routes →
+
+Passengers use buses
+
+● Drivers report problems → Supervisors coordinate responses → Maintenance staff repair vehicles
+
+● Operators compile reports → Submit to AARTB → Bureau monitors compliance
+
+● Passengers provide informal feedback → Drivers relay concerns → Rarely reaches management
+
+The lack of integrated digital systems means these interactions rely heavily on manual communication, paper forms, and personal relationships. Information flow is slow, often incomplete, and difficult to verify. A digital tracking and scheduling platform could formalize many of these interactions while maintaining the human relationships that make the system function. 
+
+**2.3. Requirements Definition**
+
+Requirements Definition describes the detailed specifications of what the proposed system must do and the quality standards it must satisfy. This section translates stakeholder needs into clear, structured system requirements that guide the design, development, and evaluation of the Public Bus Tracking and Scheduling System. The requirements are categorized into **functional **and **non-functional **requirements to ensure both system capabilities and quality attributes are addressed. 
+
+**2.3.1. Functional Requirements**
+
+Functional requirements define the specific operations and services that the system must provide to users. These requirements describe how different system actors—administrators, drivers, and passengers—interact with the system to perform tasks related to bus management, scheduling, monitoring, and service improvement. 
+
+— 48 —
+
+The Public Bus Tracking and Scheduling System for Ethiopian Cities is designed to address the operational and service delivery gaps found in existing public transportation management. The system must provide the following functional capabilities to ensure seamless administration, monitoring, and service enhancement across bus operators such as Anbessa, Sheger, and Velocity. 
+
+ **Bus and Driver Registration: **Maintain accurate digital records of buses \(plate number, capacity, operator type\) and drivers \(license number, contact information, assigned routes\). 
+
+ **Route and Schedule Management: **Provide CRUD operations for routes and schedules, static map visualization, and automated conflict detection for overlapping time allocations. 
+
+ **Driver Dashboard: **Offer a mobile-friendly interface allowing drivers to update stop progression, submit incident reports, update trip information, and communicate with administrators. 
+
+ **Passenger Dashboard: **Enable passengers to search routes or schedules, view static route maps, estimate arrival times based on schedule, and submit service feedback. 
+
+ **Administrative Dashboard: **Present real-time summaries of buses, active routes, unreported vehicles, delays, and overall fleet performance indicators. 
+
+ **Analytics and Reports: **Generate daily, weekly, and monthly summaries for operations planning, delay analysis, feedback trends, and route performance evaluation. 
+
+ **Incident Management System: **Allow drivers to log breakdowns, accidents, heavy traffic, or delays with **severity **levels, notifying administrators instantly for immediate action. 
+
+ **Passenger Feedback Categorization: **Classify passenger complaints into categories \(delay, overcrowding, safety issue\) and produce visual summaries for administrators. 
+
+ **Terminal and Stop Management: **Register bus terminals, stops, and capacity details to enhance route and passenger flow planning. 
+
+ **Integration with Mapping Services: **Provide static map-based route visualization using mapping APIs with support for stop markers and route outlines. 
+
+ **Audit Trail and Logging: **Record all user activities \(admin changes, driver updates, schedule modifications\) to ensure transparency and accountability. 
+
+ **Static Bus Status Tracking: **Display buses marked as 'On Route', 'Delayed', 'Under Maintenance', or 'Awaiting Dispatch' without live GPS tracking. 
+
+— 49 —
+
+**2.3.2. Non-Functional Requirements** Non-functional requirements define the quality attributes and operational constraints of the system. 
+
+These requirements ensure that the system is reliable, secure, scalable, and suitable for real-world deployment in Ethiopian public transport environments. 
+
+The system must meet specific quality standards to ensure performance, usability, and compliance. 
+
+These non-functional requirements define the essential attributes that guarantee reliability, security, and long-term scalability of the platform. 
+
+ **Usability: **User interfaces must be simple, intuitive, and optimized for both desktop and mobile access. 
+
+ **Reliability: **The system must maintain consistent operation with at least 95% uptime and dependable functionality. 
+
+ **Scalability: **The architecture should support expansion to additional Ethiopian cities and increased bus fleet sizes. 
+
+ **Security: **Authentication, authorization \(RBAC\), and encryption must protect sensitive data from unauthorized access. 
+
+ **Performance: **All dashboards should load within 3 seconds on a 4G connection; database queries must execute efficiently. 
+
+ **Maintainability: **The system must be built with modular architecture \(frontend, backend, database\) to support updates and new integrations. 
+
+ **Accessibility: **Interfaces must support mobile-friendly layouts and be usable on low-bandwidth connections. 
+
+ **Portability: **The web-based system must run effectively across multiple browsers and low-end smartphones. 
+
+ **Data Integrity: **All records must prevent duplication and ensure consistent, accurate data storage. 
+
+ **Compliance: **The system must align with Ethiopian digital governance standards and transport sector regulations. 
+
+ **Interoperability: **The system should support integration with future GPS modules or external transport data sources. 
+
+ **Backup and Recovery: **Automatic daily backups must be supported to prevent loss of operational data. 
+
+— 50 —
+
+ **Localization: **Date formats, languages, and location naming conventions must follow Ethiopian context standards. 
+
+**Chapter 3**
+
+**3. Object Oriented Analysis**
+
+**3.1. Overview**
+
+This chapter presents the Object-Oriented Analysis \(OOA\) for the Public Bus Tracking and Scheduling System for Ethiopian Cities. Object-Oriented Analysis is a crucial methodology used to define the software requirements by modeling the system as a group of interacting objects. The primary goal of this phase is to identify and formally describe the system's core functional requirements, business rules, and its static and dynamic structures from the user's perspective. 
+
+For this project, the OOA phase is instrumental in transforming the identified problems of urban mobility—such as unpredictable bus arrivals, inefficient scheduling, and lack of real- time information for passengers and managers—into a clear, structured, and unambiguous software specification. The models developed in this chapter will serve as the foundational blueprint, ensuring that the subsequent design and implementation stages are aligned with the specific needs of Ethiopian cities' public transport ecosystem. This analysis is structured into three key modeling activities: Use Case Modeling to capture functional requirements, Conceptual Modeling to define the static structure, and Sequence Diagramming to illustrate dynamic interactions. 
+
+**3.2. Use Case Modeling**
+
+Use Case Modeling is a foundational technique in object-oriented analysis that serves to capture the functional requirements of a system from an external perspective. It focuses on what the system should do, rather than how it will do it, by defining the interactions between users and the system to achieve specific, valuable goals. For the Public Bus Tracking and Scheduling System, this process is instrumental in translating the complex, real-world challenges of urban Ethiopian transport—such as information asymmetry, scheduling inefficiencies, and operational opacity—
+
+into a clear, structured set of system behaviors. By systematically identifying user interfaces, defining governing business rules, categorizing actors, and modeling their interactions, use case
+
+— 51 —
+
+modeling ensures the resulting platform is both functionally robust and deeply aligned with the needs of its diverse stakeholders, from daily commuters to city transport manages. 
+
+**3.2.1. UI Identification**
+
+User Interface \(UI\) Identification is the process of enumerating and defining the primary points of interaction between the actors and the system. It moves beyond abstract functionality to conceptualize the tangible screens and components through which users will accomplish their goals. This step is not concerned with visual design elements like color or typography, but rather with the functional layout, information architecture, and navigational flow. For this system, UI identification is critical due to the varied contexts of its users: a passenger on a mobile device needs quick, glanceable information, while a system administrator at a desktop requires comprehensive data management tools. Identifying these interfaces early ensures that the system's architecture supports a seamless, intuitive, and context-aware user experience, bridging the gap between high-level use cases and the final, deployable application. 
+
+ID
+
+User Interface
+
+Used By
+
+Description/Purpose
+
+UI\_01
+
+System Login Page
+
+Admin, Driver, 
+
+A secure authentication gateway for
+
+Passenge
+
+all users to access their respective
+
+dashboards. 
+
+UI\_02
+
+Admin Dashboard
+
+Admin
+
+The main admin portal showing KPIs
+
+Home
+
+\(On-time Performance, Active Buses, 
+
+etc.\) and system health alerts. 
+
+UI\_03
+
+Bus Fleet Management Admin
+
+Interface for registering new buses, 
+
+Page
+
+editing details \(license plate, 
+
+capacity\), and decommissioning
+
+buses. 
+
+UI\_04
+
+Driver Management
+
+Admin
+
+Interface for registering new drivers, 
+
+Page
+
+assigning them to buses, and
+
+managing their accounts. 
+
+UI\_05
+
+Route Management
+
+Admin
+
+Interface for creating new bus routes, 
+
+Page
+
+defining stop sequences, and
+
+— 52 —
+
+modifying existing routes. 
+
+UI\_06
+
+Schedule Management Admin
+
+Interface for creating and modifying
+
+Page
+
+departure/arrival timetables for buses
+
+on specific routes. 
+
+UI\_07
+
+Feedback & 
+
+Admin
+
+A dedicated interface to view, filter, 
+
+Complaints Inbox
+
+and respond to feedback and
+
+complaints submitted by passengers. 
+
+UI\_08
+
+Incident Resolution
+
+Admin
+
+A console to view reported incidents
+
+Dashboard
+
+\(delays, emergencies\), assign
+
+resources, and mark them as
+
+resolved. 
+
+UI\_09
+
+Analytics & Reporting Admin
+
+Interface to generate, view, and
+
+Page
+
+export performance reports \(e.g., 
+
+punctuality, passenger load\). 
+
+UI\_10
+
+System Monitoring
+
+Admin
+
+A real-time view of system status, 
+
+Page
+
+including server health and GPS data
+
+feed integrity. 
+
+UI\_11
+
+Driver Login Screen
+
+Driver
+
+A simple, secure login screen for the
+
+driver's mobile/tablet application. 
+
+UI\_12
+
+Driver Trip Dashboard Driver
+
+The main screen for drivers, showing
+
+their daily schedule, a "Start/End
+
+Trip" button, and next stop
+
+information. 
+
+UI\_13
+
+Incident Reporting
+
+Driver
+
+A form-based interface for drivers to
+
+Screen
+
+report incidents \(breakdowns, 
+
+accidents\) with reason and optional
+
+notes. 
+
+UI\_14
+
+Delay Reporting
+
+Driver
+
+A quick-access screen \(often a
+
+— 53 —
+
+Screen
+
+modal\) to report a delay, typically
+
+with pre-set reasons like "Heavy
+
+Traffic." 
+
+UI\_15
+
+Emergency Alert
+
+Driver
+
+A single, highly prominent button to
+
+Screen
+
+trigger an immediate emergency alert
+
+to system administrators. 
+
+UI\_16
+
+Passenger App Home
+
+Passenger
+
+The default screen featuring an
+
+\(Live Map\)
+
+interactive map showing the user's
+
+location and real-time positions of
+
+buses. 
+
+UI\_17
+
+Route Search & 
+
+Passenger
+
+Interface for passengers to enter a
+
+Results Page
+
+start and destination to find available
+
+routes and see estimated arrival
+
+times. 
+
+UI\_18
+
+Feedback Submission
+
+Passenger
+
+A form accessible from the passenger
+
+Form
+
+app to submit feedback, complaints, 
+
+or suggestions. 
+
+UI\_19
+
+Real-time Notification Passenger
+
+A screen within the app to view and
+
+Panel
+
+manage push alerts for bus arrivals, 
+
+delays, and system announcements
+
+UI\_20
+
+System Broadcast
+
+System
+
+A backend interface \(used by the
+
+Console
+
+system/WebSocket service\) to
+
+manage and push real-time alerts to
+
+all connected clients. 
+
+UI\_21
+
+Conflict Detection Log System / Admin
+
+An administrative interface that
+
+displays automatically detected
+
+scheduling conflicts or resource
+
+allocation issues for review. 
+
+— 54 —
+
+Table 3.1. User Interface of our system **3.2.2. Business Rules Identification**
+
+The Public Bus Tracking and Scheduling System is obliged to operate under a clearly defined set of business rules that standardize data management and how operational decisions are enforced. 
+
+The following business rules ensure consistency, accountability, and regulatory compliance across all participating operators \(Anbessa, Sheger, Velocity\), as well as the Addis Ababa Road and Transport Bureau \(AARTB\). 
+
+**A. Bus and Driver Management Rules**
+
+1. Each bus must be uniquely registered using a valid plate number, operator type, and capacity before it can be assigned to any route. 
+
+2. A driver may only be assigned to one bus at a time, and each trip can only be operated by a single active driver. 
+
+3. Driver assignments must respect licensing requirements, meaning only drivers with valid and verified licenses can operate buses. 
+
+4. Buses marked as “Under Maintenance” cannot be scheduled until maintenance status is updated to “Operational.” 
+
+5. Driver shift changes must be logged and time-stamped to ensure accountability and schedule traceability. 
+
+**B. Route and Scheduling Rules**
+
+1. A bus cannot be scheduled on overlapping routes or times, ensuring no double- allocation occurs. 
+
+2. Each route must have clearly defined stops and terminals, and these cannot be modified without administrative approval. 
+
+3. Schedules must follow the valid operational hours of the assigned route, as defined by operator policy. 
+
+4. Any schedule change must be automatically logged, including the administrator who performed the modification. 
+
+**C. Incident and Maintenance Rules**
+
+1. Drivers must report incidents \(breakdown, accident, delay\) immediately using the system’s incident reporting feature. 
+
+— 55 —
+
+2. Incident severity levels determine notification priority, with critical incidents triggering instant alerts to administrators. 
+
+3. A maintenance request must be created before a bus can be moved to “Under Repair” 
+
+status. 
+
+4. Completed maintenance must be verified by a maintenance supervisor before the bus is returned to service. 
+
+5. Historical incident and maintenance records must remain uneditable, preserving data integrity. 
+
+**D. Passenger Information and Service Rules**
+
+1. Passengers must be able to view schedules, routes, and static arrival estimates, and these must reflect the latest approved data. 
+
+2. Passenger feedback must be categorized \(delay, overcrowding, safety, etc.\) and assigned a status such as “Pending,” “Reviewed,” or “Resolved.” 
+
+3. Feedback cannot be deleted, only archived or closed by authorized administrators. 
+
+4. Service information visible to passengers must remain consistent across all operators, following AARTB communication standards. 
+
+**E. System Access and Control Rules**
+
+1. User authentication is required for all administrative and operational functions, including schedule editing and bus status updates. 
+
+2. Role-Based Access Control \(RBAC\) must be enforced, with distinct permission levels for drivers, operators, and AARTB administrators. 
+
+3. Every change or update within the system must generate an entry in the audit log, including date, user, and action performed. 
+
+4. Only AARTB administrators may approve or deactivate routes, while operators manage bus and driver assignments. 
+
+5. Drivers may only update trip progress and report incidents, not modify routes or schedules. 
+
+**F. Reporting and Data Rules**
+
+1. Daily, weekly, and monthly reports must automatically compile data from the system, replacing manual reporting workflows. 
+
+2. Data used for reports must originate only from verified internal sources \(driver logs, assignments, incident reports\). 
+
+3. Reports submitted to AARTB must follow standard templates for performance monitoring. 
+
+— 56 —
+
+4. Historical data must be retained for audit and regulatory purposes, following national digital governance standards
+
+5. Duplicate entries \(bus registration, driver ID, route ID\) must be prevented at the database level. 
+
+**3.2.3. Actor Identification**
+
+Actors are external entities such as users, operational staff, and automated system components that interact with the Public Bus Scheduling and Tracking System to accomplish various transportation-related tasks. Identifying these actors is a crucial part of system analysis because it establishes the boundaries of the system, highlights who depends on the system’s services, and clarifies how each actor contributes to the overall operation of the bus network. 
+
+In the context of a bus scheduling and real-time tracking environment, the system supports multiple categories of actors, each with unique goals and responsibilities. Administrators are responsible for managing operational data such as buses, drivers, routes, and schedules; drivers rely on the system to perform live trip updates and incident reporting; passengers use the system to access route information and track buses in real time; and internal automated services ensure continuous communication and conflict detection. 
+
+By identifying and understanding these different actors, the system can be designed to meet operational requirements, improve transportation efficiency, and provide a seamless experience for all users. 
+
+Actor
+
+Instruction
+
+Interaction with the System
+
+Admin
+
+System administrator responsible for
+
+Manages bus and driver
+
+managing fleet data, drivers, routes, 
+
+records, creates and updates
+
+schedules, and monitoring operational
+
+routes and schedules, resolves
+
+performance. 
+
+incidents, responds to feedback, 
+
+and generates performance and
+
+analytics reports. 
+
+Driver
+
+Authorized bus operator responsible for
+
+Logs into the driver
+
+carrying out scheduled trips and reporting dashboard, views assigned operational statuses during
+
+schedules, starts and ends
+
+trips, sends real-time stop
+
+transit. 
+
+— 57 —
+
+updates,reportsdelays/incident
+
+s, and triggers emergency
+
+alerts. 
+
+Passenger
+
+Public transport user searching for route
+
+Searches routes and ETAs, 
+
+information, tracking bus movements, 
+
+views real-time bus locations, 
+
+and submitting feedback. 
+
+and submits feedback about
+
+services. 
+
+System Services
+
+Automated background services
+
+Broadcasts Web Socket real-
+
+\(Internal Actor\)
+
+responsible for managing real-time
+
+time updates to passengers and
+
+communication and validating scheduling admins, performs automated constraints. 
+
+conflict detection during
+
+route/schedule creation, and
+
+ensures data consistency
+
+across modules. 
+
+— 58 —
+
+Table 3.2 : Actors of the System
+
+**3.2.4. Designing the Use Case Diagram**
+
+A use case represents a specific interaction between an actor and the system that enables the achievement of a meaningful goal. In the context of the Public Bus Scheduling and Tracking System, use cases help describe how different users such as administrators, drivers, and passengers interact with the system to perform essential transportation-related tasks. These interactions include activities like managing bus schedules, reporting incidents, tracking bus locations, and accessing route information. 
+
+Use case diagrams serve as an effective method for capturing and communicating the functional requirements of the system. They provide a visual overview of how external entities depend on the system’s capabilities and how the system must respond to achieve operational goals. By designing a comprehensive use case diagram for the Public Bus Scheduling and Tracking System, we can clearly define system boundaries,identify all key actors, and document the required functionalities in a structured and easily understandable form. 
+
+— 59 —
+
+
+
+Figure 3.1 : Use Case Diagram for Public Bus Scheduling and Tracking System
+
+— 60 —
+
+**3.2.5. Use Case Description**
+
+Name
+
+System login
+
+Identifier
+
+UC-001
+
+Actors
+
+Admin, Driver, Passenger
+
+Description
+
+This use case allows all system users
+
+administrators, drivers, and passengers to
+
+securely authenticate and access their
+
+respective system dashboards. Each actor logs
+
+in to access features that correspond to their
+
+role within the Public Bus Scheduling and
+
+Tracking System. 
+
+● User has a registered account in the system. 
+
+Precondition
+
+● The system is online and accessible. 
+
+3 User is successfully authenticated. 
+
+Postcondition
+
+4 The system redirects the user to their role-
+
+based dashboard \(Admin Dashboard, Driver
+
+Dashboard, or Passenger Dashboard\). 
+
+Trigger
+
+User enters their username/ID and password
+
+in the login form. 
+
+Normal Flow
+
+A. User navigates to the login page. 
+
+B. User enters credentials \(username/ID and
+
+password\). 
+
+C. System validates the input format. 
+
+D. System checks user information in the
+
+authentication database. 
+
+E. If valid, system identifies the user’s role
+
+\(Admin, Driver, Passenger\). 
+
+F. System loads the appropriate dashboard
+
+based on role. 
+
+G. User gains access to system services. 
+
+— 61 —
+
+Alternative Flow
+
+**AF-01**: Invalid Credentials – System displays an error message and prompts the user to re-enter correct login information. 
+
+**AF-02**: Incorrect Role Credentials – User
+
+attempts to access a restricted dashboard →
+
+System denies access and redirects to role-
+
+appropriate dashboard. 
+
+**AF-03**: Account Locked – After multiple
+
+failed attempts, account is locked → User
+
+must contact admin/support. 
+
+**AF-04**: Missing Fields – System detects
+
+empty username or password field →
+
+Prompts user to fill in required fields. 
+
+**AF-05**: Network/Server Error – System
+
+cannot connect to authentication service →
+
+Displays temporary access error message. 
+
+Table 3.3 Use Case: System Login
+
+Name
+
+Bus Registration
+
+Identifier
+
+UC-002
+
+Actors
+
+Admin
+
+Description
+
+Admin registers new buses into the fleet
+
+system
+
+Precondition
+
+Admin is logged in. 
+
+Postcondition
+
+Bus details saved and available for
+
+scheduling. 
+
+Trigger
+
+Admin selects “Register Bus”. 
+
+— 62 —
+
+1\) Admin opens the bus registration form. 
+
+Normal Flow
+
+2\) Admin enters all required fields \(plate
+
+number, capacity, model, etc.\). 
+
+3\) System validates inputs. 
+
+4\) System checks for duplicate plate number. 
+
+5\) System saves the bus to the database. 
+
+6\) System displays success message. 
+
+Alternative Flow
+
+AF-01: Missing Required Fields → System
+
+requests admin to complete missing
+
+information. 
+
+AF-02: Duplicate Bus Plate → System warns
+
+and prevents registration. 
+
+AF-03: Validation Error → System highlights
+
+incorrect fields. 
+
+Table 3.4 Use Case: Bus Registration
+
+Name
+
+Driver Management
+
+Identifier
+
+UC-003
+
+Actors
+
+Admin
+
+Description
+
+Admin adds, updates, or removes drivers
+
+from the system. 
+
+Precondition
+
+Admin is authenticated. 
+
+Postcondition
+
+Driver account created/updated/deleted. 
+
+Trigger
+
+Admin selects driver management option. 
+
+— 63 —
+
+1. Admin opens driver management panel. 
+
+Normal Flow
+
+2. Admin creates or selects a driver. 
+
+3. Admin enters or edits driver details. 
+
+4. System validates license number and
+
+inputs. 
+
+5. System saves driver data. 
+
+6. System confirms success. 
+
+Alternative Flow
+
+AF-01: Invalid License Number → System
+
+rejects entry. 
+
+AF-02: Driver Already Exists → System
+
+prompts update instead. 
+
+Table 3.5.Use Case: Driver Management
+
+Name
+
+Route Creation
+
+Identifier
+
+UC-004
+
+Actors
+
+Admin
+
+Description
+
+Create a new bus route with stops and route
+
+details. 
+
+Precondition
+
+Admin is logged in. 
+
+Postcondition
+
+New route stored in system. 
+
+Trigger
+
+Admin selects "Create Route". 
+
+1. Admin opens route creation form. 
+
+Normal Flow
+
+2. Admin enters route number, 
+
+stops, direction, and map details. 
+
+3. System validates stops and route format. 
+
+4. System checks for conflicts \(extend:
+
+UC- 023\). 
+
+5. System saves route. 
+
+6. System confirms creation. 
+
+— 64 —
+
+Alternative Flow
+
+AF-01: Conflict Detected → System suggests
+
+correction. 
+
+AF-02: Missing Stop Locations → Admin
+
+must complete data. 
+
+Table 3.6. Use Case: Route Creating
+
+Name
+
+Route Modification
+
+Identifier
+
+UC-005
+
+Actors
+
+Admin
+
+Description
+
+Edit an existing bus route. 
+
+Precondition
+
+Route exists in system. 
+
+Postcondition
+
+Route updated. 
+
+Trigger
+
+Admin selects "Edit Route". 
+
+1. Admin selects route to edit. 
+
+Normal Flow
+
+2. Admin modifies stops or direction. 
+
+3. System validates updates. 
+
+4. Conflict Detection runs \(extend\)
+
+Alternative Flow
+
+AF-01: Invalid Route Data → System
+
+prevents saving. 
+
+AF-02: Conflict Found → Admin must
+
+resolve issues. 
+
+Table 3.7 Use Case: Route Modification
+
+Name
+
+Schedule Creation
+
+Identifier
+
+UC-006
+
+Actors
+
+Admin
+
+Description
+
+Create new schedules for buses and drivers. 
+
+Precondition
+
+Bus, route, and driver exist. 
+
+Postcondition
+
+Schedule saved. 
+
+Trigger
+
+Admin selects “Create Schedule”. 
+
+— 65 —
+
+1. Admin selects route and bus. 
+
+Normal Flow
+
+2. Admin assigns driver. 
+
+3. Admin sets departure & arrival time. 
+
+4. System validates schedule. 
+
+5. Conflict Detection runs \(extend\). 
+
+6. System saves schedule. 
+
+Alternative Flow
+
+AF-01: Driver/Bus Overlap → System alerts
+
+admin. 
+
+AF-02: Invalid Times → System asks
+
+correction. 
+
+Table 3.8 Use Case: Schedule Creation
+
+Name
+
+Schedule Modification
+
+Identifier
+
+UC-007
+
+Actors
+
+Admin
+
+Description
+
+Modify existing bus schedule. 
+
+Precondition
+
+Schedule exists. 
+
+Postcondition
+
+Schedule updated. 
+
+Trigger
+
+Admin selects “Edit Schedule”. 
+
+Normal Flow
+
+Similar to UC-006 but editing instead of
+
+creating. 
+
+Alternative Flow
+
+Same alternatives as UC-06. 
+
+Table 3.7 Use Case: Schedule Modification
+
+Name
+
+Feedback Management
+
+Identifier
+
+UC-008
+
+Actors
+
+Admin
+
+Description
+
+View and handle passenger feedback. 
+
+Precondition
+
+Feedback exists. 
+
+Postcondition
+
+Feedback marked handled/responded. 
+
+Trigger
+
+Admin opens feedback page. 
+
+— 66 —
+
+1. Admin views feedback list. 
+
+Normal Flow
+
+2. Admin reads details. 
+
+3. Admin responds or resolves. 
+
+4. System stores action. 
+
+Alternative Flow
+
+AF-01: No Feedback → System shows
+
+empty list. 
+
+Table 3.8 Use Case: Feedback Management
+
+Name
+
+Incident Resolution
+
+Identifier
+
+UC-009
+
+Actors
+
+Admin
+
+Description
+
+Admin resolves incidents submitted by
+
+drivers. 
+
+Precondition
+
+Incident report exists. 
+
+Postcondition
+
+Incident marked resolved. 
+
+Trigger
+
+Driver submits incident. 
+
+Normal Flow
+
+1. Admin opens incident list. 
+
+2. Admin reviews details. 
+
+3. Admin resolves incident or requests info. 
+
+System saves status. 
+
+Alternative Flow
+
+AF-01: Insufficient Info → Admin requests
+
+details. 
+
+Table 3.9 Use Case: Incident Resolution
+
+Name
+
+Analytics Reports
+
+Identifier
+
+UC-010
+
+Actors
+
+Admin
+
+Description
+
+This use case enables the admin to generate
+
+analytical reports based on bus operations, 
+
+schedules, delays, incidents, feedback, and
+
+driver performance. These reports help in
+
+monitoring system efficiency and making data
+
+— 67 —
+
+driven decisions. 
+
+1. Admin is logged in. 
+
+Precondition
+
+2. System contains collected trip data, 
+
+incident logs, delays, and feedback
+
+records. 
+
+1. Analytics report is generated successfully. 
+
+Postcondition
+
+2. Admin can view, download, or export
+
+the report. 
+
+Trigger
+
+Admin selects "Generate Analytics Report" 
+
+from the dashboard. 
+
+Normal Flow
+
+1. Admin navigates to the analytics module. 
+
+2. Admin chooses report type \(daily, 
+
+weekly, monthly, custom\). 
+
+3. Admin selects required parameters
+
+\(route, driver, bus, date range, etc.\). 
+
+4. System retrieves relevant operational
+
+data. 
+
+5. System analyzes and compiles results
+
+into charts, tables, KPIs, and
+
+summaries. 
+
+6. System displays the generated report to
+
+The
+
+7. admin
+
+Alternative Flow
+
+ AF-01: No Data Available → System
+
+notifies admin that the selected date
+
+range has insufficient data. 
+
+ AF-02: Invalid Filter Selection → System
+
+prompts admin to correct filters \(e.g., 
+
+invalid date range\). 
+
+ AF-03: Processing Timeout → System
+
+fails to process large datasets and
+
+suggests narrowing the report scope. 
+
+— 68 —
+
+Table 3.10 Use Case: Analytics Reports Name
+
+Performance Monitoring
+
+Identifier
+
+UC-011
+
+Actors
+
+Admin
+
+Description
+
+Allows the admin to monitor real-time and
+
+historical operational performance of buses, 
+
+drivers, and the scheduling system. This
+
+includes delays, route efficiency, on-time
+
+performance, passenger feedback trends, 
+
+and incident frequency
+
+Precondition
+
+1. Admin is authenticated. 
+
+System has collected recent operational
+
+metrics. 
+
+Postcondition
+
+Admin views performance indicators displayed
+
+in charts, tables, or alerts. 
+
+Trigger
+
+Admin opens the “Performance Monitoring” 
+
+dashboard. 
+
+1. Admin opens the performance dashboard. 
+
+Normal Flow
+
+2. System loads KPIs such as average
+
+delay time, on-time statistics, incidents
+
+per route, passenger satisfaction scores, 
+
+and driver efficiency. 
+
+3. Admin filters or selects specific metrics. 
+
+System updates dashboard visuals based on
+
+selected filters. 
+
+Alternative Flow
+
+AF-01: Real-Time Data Not Available →
+
+System displays last updated snapshot
+
+AF-02: Metric Calculation Error → System
+
+notifies admin and hides incomplete KPIs. 
+
+Table 3.11 Use Case: performance Monitoring
+
+— 69 —
+
+Name
+
+View Daily Schedule
+
+Identifier
+
+UC-012
+
+Actors
+
+Driver
+
+Description
+
+Driver views all assigned trips for the day, 
+
+including departure times, route details, and
+
+bus information. 
+
+Precondition
+
+Driver is logged in and has assigned trips. 
+
+Postcondition
+
+Schedule is displayed. 
+
+Trigger
+
+Driver selects “View Daily Schedule”. 
+
+1. System retrieves the driver’s assigned
+
+Normal Flow
+
+trips. 
+
+2. System displays each trip with
+
+departure and route details. 
+
+3. Driver selects a trip to view more
+
+information. 
+
+Alternative Flow
+
+AF-01: No Assigned Trips → System
+
+displays “No trips found for today”. 
+
+Table 3.12 Use Case: View Daily Schedule
+
+Name
+
+Start Trip
+
+Identifier
+
+UC-013
+
+Actors
+
+Driver
+
+Description
+
+Driver begins an assigned trip, activating
+
+real-
+
+time tracking and enabling stop updates. 
+
+Precondition
+
+Trip exists and is assigned to the driver. 
+
+Postcondition
+
+Driver taps the “Start Trip” button. 
+
+Trigger
+
+Admin opens feedback page. 
+
+— 70 —
+
+1. Driver selects a trip. 
+
+Normal Flow
+
+2. Driver starts trip. 
+
+3. System validates driver/bus assignment. 
+
+4. System changes trip status to In Progress. 
+
+5. System includes Real-time Stop
+
+Updates \(UC-014\). 
+
+6. Web Socket Broadcast \(UC-022\) extends
+
+this step, sending real-time updates to
+
+passengers. 
+
+Alternative Flow
+
+AF-01: Trip Not Assigned → System denies
+
+trip start. 
+
+Table 3.13 Use Case: Start Trip
+
+Name
+
+Real-Time Stop Updates
+
+Identifier
+
+UC-014
+
+Actors
+
+Driver
+
+Description
+
+Driver updates each stop \(Arrived/Departed\), 
+
+enabling real-time location tracking for
+
+passengers. 
+
+Precondition
+
+Trip must be in progress. 
+
+Postcondition
+
+Location and stop status are updated. 
+
+Trigger
+
+Driver taps “Arrived” or “Departed” at each
+
+stop. 
+
+1. Driver selects the stop. 
+
+Normal Flow
+
+2. Driver updates arrival/departure. 
+
+3. System records timestamp and
+
+GPS location. 
+
+4. Web Socket Broadcast \(UC-022\) sends
+
+update to passengers. 
+
+Table 3.14 Use Case: Real-Time Stop Updates
+
+— 71 —
+
+Name
+
+End Trip
+
+Identifier
+
+UC-015
+
+Actors
+
+Driver
+
+Description
+
+Driver completes a trip, allowing the system
+
+to finalize logs and stop real-time tracking. 
+
+Precondition
+
+Trip is in progress
+
+Postcondition
+
+Driver taps “End Trip”. 
+
+Trigger
+
+Admin opens feedback page. 
+
+1. Driver ends trip. 
+
+Normal Flow
+
+2. System finalizes timestamps. 
+
+3. Real-Time Stop Updates included. 
+
+3. Web Socket Broadcast extended to notify
+
+passengers. 
+
+Alternative Flow
+
+AF-01: Trip Already Completed → System
+
+prevents duplicate ending. 
+
+Table 3.15 Use Case: End Trip
+
+Name
+
+Incident Reporting
+
+Identifier
+
+UC-016
+
+Actors
+
+Driver
+
+Description
+
+Driver reports any incident occurring
+
+during
+
+the trip. 
+
+Precondition
+
+Driver is logged in. 
+
+Postcondition
+
+Incident is recorded. 
+
+Trigger
+
+Driver selects “Report Incident”. 
+
+1. Driver opens incident form. 
+
+Normal Flow
+
+2. Driver enters details. 
+
+3. System stores incident. 
+
+4. Incident Resolution \(UC-009\) is included. 
+
+— 72 —
+
+Alternative Flow
+
+AF-01: Missing Details → Prompt driver to
+
+fill required fields. 
+
+Table 3.16 Use Case: Incident Reporting
+
+Name
+
+Delay Reporting
+
+Identifier
+
+UC-017
+
+Actors
+
+Driver
+
+Description
+
+Driver reports unexpected delays during a
+
+trip. 
+
+Precondition
+
+Trip is in progress. 
+
+Postcondition
+
+Delay reason logged. 
+
+Trigger
+
+Driver taps “Report Delay”. 
+
+1. Driver selects delay reason. 
+
+Normal Flow
+
+System records delay. Admin dashboard is
+
+updated. 
+
+Alternative Flow
+
+AF-01: No Delay Reason Selected → System
+
+prompts selection. 
+
+Table 3.17 Delay Reporting
+
+Name
+
+Emergency Alert
+
+Identifier
+
+UC-018
+
+Actors
+
+Driver
+
+Description
+
+Driver triggers an emergency alert for
+
+severe
+
+incidents. 
+
+Normal Flow
+
+System sends high-priority alert to admin. 
+
+Table 3.18 Emergency Alert
+
+— 73 —
+
+Name
+
+Search Routes & ETA
+
+Identifier
+
+UC-019
+
+Actors
+
+Passenger
+
+Description
+
+Passengers search routes and view
+
+estimated
+
+arrival times. 
+
+Table 3.19 Search Routes & ETA
+
+Name
+
+Submit Feedback
+
+Identifier
+
+UC-020
+
+Actors
+
+Passenger
+
+Description
+
+Passengers submit feedback; included by
+
+admin feedback handling. 
+
+Table 3.20 Submit Feedback
+
+Name
+
+View Real-Time Bus Location
+
+Identifier
+
+UC-021
+
+Actors
+
+Passenger
+
+Description
+
+Passengers view real-time bus location. 
+
+Table 3.21 View Real-Time Bus Location
+
+Name
+
+Web Socket Broadcast
+
+Identifier
+
+UC-022
+
+Actors
+
+System
+
+Description
+
+System broadcasts real-time driver updates to
+
+all users. 
+
+Table 3.22 Web Socket Broadcast
+
+Name
+
+Automated Conflict Detection
+
+Identifier
+
+UC-023
+
+— 74 —
+
+Actors
+
+System
+
+Description
+
+System automatically detects scheduling, 
+
+routing, and resource conflicts. 
+
+Table 3.23 Automated Conflict Detection
+
+**3.3. Conceptual Modeling**
+
+**3.3.1 Class Diagram**
+
+The class diagram shows the structure of the Public Bus Tracking and Scheduling System by defining the main entities, their properties, relationships, and operations. This diagram guides the database design and helps developers understand how different parts of the system connect and work together. 
+
+— 75 —
+
+
+
+— 76 —
+
+Figure 3.2 : Class Diagram for Public Bus Scheduling and Tracking Syste **3.3.2 Class Descriptions**
+
+This section provides detailed descriptions of each class in the system, including attributes, methods, and responsibilities. 
+
+**User Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Serves as the parent class for all system users, providing common authentication and profile management functionality. 
+
+Name
+
+Data type
+
+Description
+
+userId
+
+String, Primary
+
+Unique identifier for each user
+
+Key
+
+Attributes
+
+username
+
+String, Unique
+
+Login username
+
+passwordHash
+
+String
+
+Encrypted password for security
+
+email
+
+String, Unique
+
+User email address
+
+phoneNumber
+
+String
+
+Contact phone number
+
+role
+
+Enum
+
+User type: ADMIN, DRIVER, 
+
+or PASSENGER
+
+createdAt
+
+DateTime
+
+Account creation timestamp
+
+lastLogin
+
+DateTime
+
+Last successful login time
+
+Name
+
+Parameters
+
+Description
+
+login\(\)
+
+username, 
+
+Authenticates user credentials
+
+— 77 —
+
+**User Class**
+
+password
+
+and returns JWT token
+
+Methods
+
+logout\(\)
+
+None
+
+Invalidates current session
+
+updateProfile\(\)
+
+data
+
+Updates user information
+
+resetPassword\(\)
+
+newPassword
+
+Changes user password with
+
+validation
+
+Relationships
+
+Parent class to Administrator, Driver, and Passenger \(inheritance\) Responsibilities
+
+• User authentication and session management
+
+• Common profile data storage
+
+• Password security handling
+
+Table 3.24: User Class \(Abstract Base Class\)
+
+**Administrator Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Manages system configuration, oversees operations, and monitors performance across all transport services. 
+
+Inherits From
+
+User class \(all User attributes and methods\)
+
+Name
+
+Data type
+
+Description
+
+Additional
+
+attributes
+
+department
+
+String
+
+Administrative department
+
+\(Operations, Fleet, Planning\)
+
+accessLevel
+
+Integer
+
+Permission level \(1-3, with 3
+
+being highest\)
+
+Name
+
+Parameters
+
+Description
+
+createBus\(\)
+
+busData
+
+Registers new bus in the system
+
+Methods
+
+createRoute\(\)
+
+routeData
+
+Defines new route with stops
+
+— 78 —
+
+**Administrator Class**
+
+createSchedule\(\)
+
+scheduleData
+
+Assigns bus to route with timing
+
+viewDashboard\(\)
+
+None
+
+Accesses real-time system
+
+statistics
+
+generateReport\(\)
+
+type, dateRange
+
+Creates operational reports
+
+reviewFeedback\(\)
+
+None
+
+Views and categorizes passenger
+
+feedback
+
+manageIncidents\(\)
+
+None
+
+Monitors and resolves reported
+
+incidents
+
+Relationships
+
+• Creates multiple Buses \(1:N\)
+
+• Creates multiple Routes \(1:N\)
+
+• Creates multiple Schedules \(1:N\)
+
+• Reviews multiple Feedback entries \(1:N\)
+
+• Manages multiple Incidents \(1:N\)
+
+Responsibilities • Fleet and route configuration
+
+• Schedule creation and conflict resolution
+
+• System monitoring and reporting
+
+• Incident management and feedback review
+
+Table 3.25: Administrator Class
+
+**Driver Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Operates buses, updates trip progress, and reports operational issues during service delivery. 
+
+Inherits From
+
+User class \(all User attributes and methods\)
+
+Name
+
+Data type
+
+Description
+
+Additional
+
+attributes
+
+licenseNumber
+
+String, Unique
+
+Driver's license identifier
+
+licenseExpiry
+
+Date
+
+License validity end date
+
+— 79 —
+
+**Driver Class**
+
+assignedBusId
+
+String, Foreign
+
+Currently assigned bus
+
+Key
+
+status
+
+Enum
+
+ON\_DUTY, OFF\_DUTY, or
+
+ON\_BREAK
+
+Name
+
+Parameters
+
+Description
+
+viewSchedule\(\)
+
+None
+
+Retrieves assigned routes and
+
+timing
+
+Methods
+
+startTrip\(\)
+
+scheduleId
+
+Initiates trip recording
+
+updateCurrentStop\(\)
+
+stopId
+
+Updates location progress
+
+completeTrip\(\)
+
+scheduleId
+
+Marks trip as finished
+
+reportIncident
+
+incidentData
+
+Submits incident report
+
+viewRouteMap\(\)
+
+routeId
+
+Displays route visualization
+
+Relationships
+
+• Assigned to one Bus \(1:1\)
+
+• Has multiple Schedules over time \(1:N\)
+
+• Reports multiple Incidents \(1:N\)
+
+• Executes multiple Trips \(1:N\)
+
+Responsibilities • Following assigned routes and schedules
+
+• Real-time trip status updates
+
+• Incident reporting and communication
+
+• Passenger safety and service delivery
+
+Table 3.26: Driver Class
+
+**Passenger Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Accesses route information, views schedules, and provides feedback about service quality. 
+
+— 80 —
+
+**Passenger Class**
+
+Inherits From
+
+User class \(all User attributes and methods\)
+
+Name
+
+Data type
+
+Description
+
+Additional
+
+attributes
+
+preferredRoutes
+
+Array of Strings
+
+Saved favorite routes for quick
+
+access
+
+Name
+
+Parameters
+
+Description
+
+searchRoutes\(\)
+
+origin, destination Finds available routes between locations
+
+Methods
+
+viewSchedule\(\)
+
+routeId
+
+Checks bus timing for specific
+
+route
+
+viewRouteMap\(\)
+
+routeId
+
+Displays static route visualization
+
+submitFeedback\(\)
+
+feedbackData
+
+Reports issues or suggestions
+
+saveRoute\(\)
+
+routeId
+
+Adds route to favorites list
+
+Relationships
+
+• Submits multiple Feedback entries \(1:N\)
+
+Responsibilities • Accessing travel information
+
+• Planning journeys using route data
+
+• Providing service feedback for improvements
+
+Table 3.27: Passenger Class
+
+**Bus Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Represents physical vehicles in the transport fleet with operational and maintenance details. 
+
+Name
+
+Data type
+
+Description
+
+busId
+
+String, Primary
+
+Unique bus identifier
+
+Key
+
+— 81 —
+
+**Bus Class**
+
+plateNumber
+
+String, Unique
+
+Vehicle registration number
+
+Attributes
+
+capacity
+
+Integer
+
+Maximum passenger count
+
+manufacturer
+
+String
+
+Vehicle make and model
+
+yearOfManufacture
+
+Integer
+
+Production year
+
+operator
+
+Enum
+
+ANBESSA, SHEGER, or
+
+VELOCITY
+
+status
+
+Enum
+
+ACTIVE, 
+
+UNDER\_MAINTENANCE, or
+
+RETIRED
+
+lastMaintenanceDate
+
+Date
+
+Most recent service date
+
+currentDriverId
+
+String, Foreign
+
+Assigned driver
+
+Key
+
+Name
+
+Parameters
+
+Description
+
+updateStatus\(\)
+
+newStatus
+
+Changes operational status
+
+Methods
+
+assignDriver\(\)
+
+driverId
+
+Links bus to driver
+
+recordMaintenance\(\)
+
+maintenanceData Logs service activities
+
+checkAvailability\(\)
+
+date,time
+
+Verifies if bus is free for scheduling
+
+Relationships
+
+• Assigned to one Driver at a time \(1:1\)
+
+• Used in multiple Schedules \(1:N\)
+
+• Involved in multiple Incidents \(1:N\)
+
+• Created by one Administrator \(N:1\)
+
+Responsibilities • Fleet inventory management
+
+• Maintenance tracking and scheduling
+
+— 82 —
+
+**Bus Class**
+
+• Driver assignment coordination
+
+• Operational status monitoring
+
+Table 3.28: Bus Class
+
+**Route Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Defines bus paths through the city with all stopping points, timing, and distance information. 
+
+Name
+
+Data type
+
+Description
+
+routeId
+
+String, Primary Key Unique route identifier
+
+Attributes
+
+routeName
+
+String
+
+Descriptive route name
+
+startTerminalId
+
+String, Foreign Key Origin terminal
+
+endTerminalId
+
+String, Foreign Key Destination terminal
+
+estimatedDuration
+
+Integer
+
+Expected travel time in minutes
+
+totalDistance
+
+Float
+
+Route length in kilometers
+
+isActive
+
+Boolean
+
+Whether route is currently
+
+operational
+
+createdBy
+
+Date
+
+Most recent service date
+
+Name
+
+Parameters
+
+Description
+
+addStop\(\)
+
+stopId, sequence, 
+
+Adds intermediate stop to route
+
+estimatedTime
+
+— 83 —
+
+**Route Class**
+
+removeStop\(\)
+
+stopId
+
+Removes stop from route
+
+Methods
+
+calculateDuration\(\)
+
+None
+
+Computes total estimated travel
+
+time
+
+getStopSequence\(\)
+
+None
+
+Returns ordered list of all stops
+
+toggleStatus\(\)
+
+date,time
+
+Activates or deactivates route
+
+Relationships
+
+• Contains multiple RouteStops \(1:N composition\)
+
+• Starts at one Terminal \(N:1\)
+
+• Ends at one Terminal \(N:1\)
+
+• Has multiple Schedules \(1:N\)
+
+• Referenced in multiple Feedback entries \(1:N\)
+
+• Created by one Administrator \(N:1\)
+
+Responsibilities • Route definition and structure
+
+• Stop sequence management
+
+• Distance and duration calculation
+
+• Route activation/deactivation control
+
+Table 3.29: Route Class
+
+**RouteStop Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Links routes to physical bus stops with sequence and timing information for ordered navigation. 
+
+Name
+
+Data type
+
+Description
+
+routeStopId
+
+String, Primary Key
+
+Unique identifier
+
+Attributes
+
+routeId
+
+String, Foreign Key
+
+Associated route
+
+stopId
+
+String, Foreign Key
+
+Physical bus stop
+
+— 84 —
+
+**RouteStop Class**
+
+stopSequence
+
+Integer
+
+Order in route \(1, 2, 3. .\)
+
+estimatedTimeFromStart Integer
+
+Minutes from route start
+
+isSkippable
+
+Boolean
+
+Whether stop can be bypassed
+
+during delays
+
+Name
+
+Parameters
+
+Description
+
+getNextStop\(\)
+
+None
+
+Returns following stop in
+
+sequence
+
+Methods
+
+getPreviousStop\(\)
+
+None
+
+Returns preceding stop in
+
+sequence
+
+updateTiming\(\)
+
+newTime
+
+Adjusts estimated arrival time
+
+Relationships
+
+• Belongs to one Route \(N:1\)
+
+• References one BusStop \(N:1\)
+
+Responsibilities • Maintaining stop order along routes
+
+• Timing calculations for each stop
+
+• Route navigation support
+
+• Stop sequence integrity
+
+Table 3.30: RouteStop Class
+
+**BusStop Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Represents physical bus stop locations throughout the city with amenity and geographic information. 
+
+Name
+
+Data type
+
+Description
+
+stopId
+
+String, Primary Key
+
+Unique stop identifier
+
+Attributes
+
+stopName
+
+String
+
+Display name of stop
+
+— 85 —
+
+**BusStop Class**
+
+latitude
+
+Float
+
+Geographic coordinate
+
+longitude
+
+Float
+
+Geographic coordinate
+
+hasShelter
+
+Boolean
+
+Whether stop has covered
+
+waiting area
+
+hasSeating
+
+Boolean
+
+Whether benches are available
+
+address
+
+String
+
+Street address or landmark
+
+description
+
+Name
+
+Parameters
+
+Description
+
+getNearbyStops\(\)
+
+radius
+
+Finds stops within specified
+
+distance
+
+Methods
+
+getRoutesServing\(\)
+
+None
+
+Lists all routes that stop here
+
+updateLocation\(\)
+
+lat, long
+
+Modifies coordinates
+
+Relationships
+
+• Used in multiple RouteStops \(1:N\)
+
+• Referenced as current location in Trips \(1:N\)
+
+Responsibilities • Stop location management
+
+• Amenity information tracking
+
+• Geographic search support
+
+• Stop identification and naming
+
+Table 3.31: BusStop Class
+
+— 86 —
+
+**Terminal Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Represents major bus stations where routes originate and terminate, with capacity and facility information. 
+
+Name
+
+Data type
+
+Description
+
+terminalId
+
+String, Primary Key
+
+Unique terminal identifier
+
+Attributes
+
+terminalName
+
+String
+
+Official terminal name
+
+address
+
+String
+
+Full street address
+
+latitude
+
+Float
+
+Geographic coordinate
+
+longitude
+
+Float
+
+Geographic coordinate
+
+capacity
+
+Integer
+
+Number of bus parking bays
+
+hasTicketOffice
+
+Boolean
+
+Whether ticket counter is
+
+present
+
+operatingHours
+
+String
+
+Service hours \(e.g., "05:00-
+
+22:00"\)
+
+Name
+
+Parameters
+
+Description
+
+getActiveRoutes\(\)
+
+None
+
+Lists routes currently operating
+
+from terminal
+
+Methods
+
+checkCapacity\(\)
+
+None
+
+Returns available parking
+
+spaces
+
+getBusesPresent\(\)
+
+None
+
+Shows buses currently at
+
+terminal
+
+Relationships
+
+• Serves as start point for multiple Routes \(1:N\)
+
+• Serves as end point for multiple Routes \(1:N\)
+
+— 87 —
+
+**Terminal Class**
+
+Responsibilities • Terminal facility management
+
+• Capacity monitoring and allocation
+
+• Route coordination point
+
+• Operating hours enforcement
+
+Table 3.32: Terminal Class
+
+**Schedule Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Links buses to routes for specific time periods and tracks assignment details to prevent conflicts. 
+
+Name
+
+Data type
+
+Description
+
+scheduleId
+
+String, Primary Key
+
+Unique schedule identifier
+
+Attributes
+
+busId
+
+String, Foreign Key
+
+Assigned bus
+
+routeId
+
+String, Foreign Key
+
+Assigned route
+
+driverId
+
+String, Foreign Key
+
+Assigned driver
+
+scheduledDepartureTim DateTime
+
+Planned start time
+
+e
+
+scheduledArrivalTime
+
+DateTime
+
+Planned end time
+
+status
+
+Enum
+
+SCHEDULED, IN\_PROGRESS, 
+
+COMPLETED, or CANCELLED
+
+createdBy
+
+String, Foreign Key
+
+Administrator who created
+
+schedule
+
+createdAt
+
+DateTime
+
+Schedule creation timestamp
+
+— 88 —
+
+**Schedule Class**
+
+Name
+
+Parameters
+
+Description
+
+checkConflict\(\)
+
+busId, timeRange
+
+Detects scheduling conflicts
+
+Methods
+
+assignDriver\(\)
+
+driverId
+
+Links driver to schedule
+
+cancelSchedule\(\)
+
+reason
+
+Marks schedule as cancelled
+
+updateStatus\(\)
+
+newStatus
+
+Changes schedule status
+
+getEstimatedCompletion None
+
+Calculates expected arrival time
+
+\(\)
+
+Relationships
+
+• Assigns one Bus \(N:1\)
+
+• Assigns one Route \(N:1\)
+
+• Assigns one Driver \(N:1\)
+
+• Has one Trip \(1:1\)
+
+• Created by one Administrator \(N:1\)
+
+Responsibilities • Bus-route-driver coordination
+
+• Time slot management
+
+• Conflict detection and prevention
+
+• Schedule status tracking and updates
+
+Table 3.33: Schedule Class
+
+**Trip Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Records actual execution of scheduled bus journeys with real-time updates and performance tracking. 
+
+Name
+
+Data type
+
+Description
+
+tripId
+
+String, Primary Key
+
+Unique trip identifier
+
+Attributes
+
+scheduleId
+
+String, Foreign Key
+
+Associated schedule
+
+— 89 —
+
+**Trip Class**
+
+actualDepartureTime
+
+DateTime
+
+Actual start time
+
+actualArrivalTime
+
+DateTime
+
+Actual completion time
+
+currentStopId
+
+String, Foreign Key
+
+Current location along route
+
+distanceCovered
+
+Float
+
+Kilometers traveled so far
+
+delayMinutes
+
+Integer
+
+Difference from scheduled timing
+
+status
+
+Enum
+
+NOT\_STARTED, 
+
+IN\_PROGRESS, or
+
+COMPLETED
+
+Name
+
+Parameters
+
+Description
+
+startTrip\(\)
+
+None
+
+Records departure and sets status
+
+to IN\_PROGRESS
+
+Methods
+
+updateLocation\(\)
+
+stopId
+
+Updates current position
+
+completeTrip\(\)
+
+None
+
+Records arrival time and
+
+calculates delay
+
+calculateDelay\(\)
+
+None
+
+Computes difference from
+
+schedule
+
+getProgress
+
+None
+
+Returns percentage completion
+
+getEstimatedArrival\(\)
+
+None
+
+Predicts completion time based
+
+on current position
+
+Relationships
+
+• Belongs to one Schedule \(N:1\)
+
+• References current BusStop \(N:1\)
+
+• May have associated Incidents \(1:N\)
+
+Responsibilities • Real-time trip tracking
+
+• Location updates and progress monitoring
+
+• Delay calculation and reporting
+
+• Historical trip data collection for analytics
+
+— 90 —
+
+Table 3.34: Trip Class
+
+**Incident Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Captures and manages operational problems reported by drivers during service with priority handling. 
+
+Name
+
+Data type
+
+Description
+
+incidentId
+
+String, Primary Key
+
+Unique incident identifier
+
+Attributes
+
+reportedBy
+
+String, Foreign Key
+
+Driver who reported incident
+
+busId
+
+String, Foreign Key
+
+Affected bus
+
+tripId
+
+String, Foreign Key
+
+Associated trip \(if applicable\)
+
+incidentType
+
+Enum
+
+BREAKDOWN, ACCIDENT, 
+
+TRAFFIC\_DELAY, or
+
+ROUTE\_BLOCKAGE
+
+severity
+
+Enum
+
+LOW, MEDIUM, or HIGH
+
+location
+
+String
+
+Incident location description
+
+description
+
+String
+
+Detailed incident report
+
+reportedAt
+
+DateTime
+
+Timestamp of report
+
+status
+
+Enum
+
+REPORTED, IN\_PROGRESS, or
+
+RESOLVED
+
+resolvedAt
+
+DateTime
+
+Resolution timestamp
+
+resolvedBy
+
+String, Foreign Key
+
+Administrator who resolved
+
+incident
+
+— 91 —
+
+**Incident Class**
+
+Name
+
+Parameters
+
+Description
+
+updateStatus\(\)
+
+newStatus
+
+Changes incident status
+
+Methods
+
+assignPriority\(\)
+
+None
+
+Determines urgency based on
+
+type and severity
+
+notifyAdministrators\(\)
+
+None
+
+Sends alerts to relevant staff
+
+logResolution\(\)
+
+notes
+
+Records resolution details
+
+calculateResponseTime\(\) None
+
+Measures time from report to
+
+resolution
+
+Relationships
+
+• Reported by one Driver \(N:1\)
+
+• Involves one Bus \(N:1\)
+
+• May relate to one Trip \(N:1\)
+
+• Resolved by one Administrator \(N:1\)
+
+Responsibilities • Incident documentation and tracking
+
+• Priority assignment and routing
+
+• Administrator notification and alerting
+
+• Resolution monitoring and response time tracking Table 3.35: Incident Class
+
+**Feedback Class**
+
+Aspect
+
+Details
+
+Purpose
+
+Collects and organizes passenger input about service quality for continuous improvement analysis. 
+
+Name
+
+Data type
+
+Description
+
+feedbackId
+
+String, Primary Key
+
+Unique feedback identifier
+
+Attributes
+
+submittedBy
+
+String, Foreign Key
+
+Passenger who submitted
+
+feedback
+
+— 92 —
+
+**Feedback Class**
+
+category
+
+Enum
+
+DELAY, OVERCROWDING, 
+
+SAFETY\_ISSUE, 
+
+DRIVER\_BEHAVIOR, or
+
+GENERAL
+
+routeId
+
+String, Foreign Key
+
+Related route \(if applicable\)
+
+busId
+
+String, Foreign Key
+
+Related bus \(if applicable\)
+
+description
+
+String
+
+Feedback text
+
+rating
+
+Integer
+
+Service rating \(1-5, optional\)
+
+submittedAt
+
+DateTime
+
+Submission timestamp
+
+status
+
+Enum
+
+UNREAD, UNDER\_REVIEW, 
+
+or ADDRESSED
+
+status
+
+Enum
+
+REPORTED, IN\_PROGRESS, or
+
+RESOLVED
+
+reviewedBy
+
+String, Foreign Key
+
+Administrator who reviewed
+
+feedback
+
+Name
+
+Parameters
+
+Description
+
+categorize\(\)
+
+None
+
+Automatically assigns category
+
+based on keywords
+
+Methods
+
+flagUrgent\(\)
+
+None
+
+Marks safety-related feedback for
+
+immediate review
+
+updateStatus\(\)
+
+newStatus
+
+Changes review status
+
+generateSummary\(\)
+
+dateRange
+
+Creates feedback analytics report
+
+getTrends\(\)
+
+None
+
+Identifies common complaint
+
+patterns
+
+Relationships
+
+• Submitted by one Passenger \(N:1\)
+
+• May reference one Route \(N:1\)
+
+— 93 —
+
+
+
+**Feedback Class**
+
+• May reference one Bus \(N:1\)
+
+• Reviewed by one Administrator \(N:1\)
+
+Responsibilities • Passenger feedback collection
+
+• Categorization and prioritization
+
+• Trend analysis and reporting
+
+• Service improvement insights generation
+
+Table 3.36: Feedback Class
+
+**3.4. Sequence diagramming**
+
+— 94 —
+
+
+
+Figure 3.3 . Sequence Diagram: Admin Login
+
+— 95 —
+
+
+
+Figure 3.4 . Sequence Diagram: bus registration
+
+— 96 —
+
+
+
+Figure 3.5 . Sequence Diagram: driver registration
+
+— 97 —
+
+
+
+Figure 3.6 . Sequence Diagram: route creation
+
+— 98 —
+
+
+
+Figure 3.7 . Sequence Diagram: route modification
+
+— 99 —
+
+
+
+
+
+Figure 3.8 . Sequence Diagram: schedule creation
+
+— 100 —
+
+
+
+Figure 3.9 . Sequence Diagram: schedule update
+
+Figure 3.10 . Sequence Diagram: feedback management
+
+— 101 —
+
+
+
+Figure 3.11 . Sequence Diagram: Incident resoultion
+
+— 102 —
+
+
+
+
+
+Figure 3.12. Sequence Diagram: analytic report generation Figure 3.13 . Sequence Diagram: performance monitoring
+
+— 103 —
+
+
+
+Figure 3.14 . Sequence Diagram: driver authentication
+
+— 104 —
+
+
+
+
+
+Figure 3.15 . Sequence Diagram: view daily schedule Figure 3.16. Sequence Diagram: start trip
+
+— 105 —
+
+
+
+Figure 3.17 . Sequence Diagram: update stop
+
+— 106 —
+
+
+
+
+
+Figure 3.18 . Sequence Diagram: end trip
+
+Figure 3.19 . Sequence Diagram:incident report
+
+— 107 —
+
+
+
+
+
+Figure 3.20 . Sequence Diagram: emergency alert
+
+— 108 —
+
+
+
+Figure 3.21 . Sequence Diagram: search and view arrival route Figure 3.22 . Sequence Diagram: submit feedback
+
+— 109 —
+
+
+
+Figure 3.23 . Sequence Diagram: track bus
+
+— 110 —
+
+
+
+Figure 3.24 . Sequence Diagram: broadcast update
+
+— 111 —
+
+
+
+Figure 3.25 . Sequence Diagram: conflict detection
+
+— 112 —
+
+
+
+**3.5. User Interface Prototyping**
+
+User interface prototyping, as described by Scott Ambler, involves creating a preliminary version of an application's interface to test its design and functionality \(Ambler, 2012\). This process aims to ensure a user-friendly, efficient, and aesthetically pleasing interface that meets user needs. It allows for early issue identification, user feedback, and iterative design improvements, before full implementation. 
+
+This section presents the visual layout and design of the system through the UI prototype images illustrated below. 
+
+Figure 3.26 . Home page- for passenger
+
+— 113 —
+
+
+
+Figure 3.27 . feedback page - for passenger
+
+— 114 —
+
+
+
+Figure 3.28 . Interactive map - for passenger
+
+— 115 —
+
+
+
+Figure 3.29 . Bus tracking page - for passenger
+
+— 116 —
+
+
+
+Figure 3.30. Driver Login - for driver
+
+— 117 —
+
+
+
+Figure 3.31 . Driver dashboard - for driver
+
+— 118 —
+
+
+
+— 119 —
+
+
+
+Figure 3.32. Incident report page - for driver
+
+Figure 3.33 . admin login - for admin
+
+— 120 —
+
+
+
+Figure 3.34 . admin dashboard - for admin
+
+— 121 —
+
+
+
+Figure 3.35 . bus management - for admin
+
+— 122 —
+
+
+
+Figure 3.36 . driver management - for admin
+
+— 1 —
+
+
+# Document Outline
+
++ Examination Board  
++ Acknowledgment 
++ Table of content 
++ List of Tables 
++ List of figures 
++ List of Acronym 
++ List of Terminologies 
++ CHAPTER ONE 
++ 1. Introduction 
++ 1.1. Overview 
++ 1.2. Background of the Organization  
+	+ 1.2.1. Addis Ababa Road & Transport Bureau \(AARTB\) 
+	+ 1.2.2. Anbessa City Bus Service Enterprise \(ACBSE\) 
+	+ 1.2.3. Sheger Mass Transit Enterprise \(SMTE\) 
+	+ 1.2.4 Private Bus Operators \( Velocity Bus\) 
+
++ 1.3.Statement of the Problem  
+	+ 1.3.1.Passenger Challenges 
+	+ 1.3.2. Driver and Supervisor Challenges 
+	+ 1.3.3.Administrative Challenges 
+	+ 1.3.4.City-Level Challenges 
+
++ 1.4.Objectives of the Project  
+	+ 1.4.1. General Objective 
+
++ The general objective of this project is to design  
+	+ 1.4.2. Specific Objectives of the Project 
+
++ 1.5. Feasibility Study  
+	+ 1.5.1.Technical Feasibility 
+	+ 1.5.2.Economic Feasibility  
+		+ The project is economically feasible due to low co 
+
+	+ 1.5.3.Operational Feasibility 
+
++ 1.6.Significance of the Project 
++ 1.7. Beneficiaries of the Project 
++ 1.8. Methodology  
+	+ This project employs a mixed-methods approach for  
+	+ 1.8.1. Data Sources and Collection Methods  
+		+ 1.8.1.1.Primary Data Sources  
+			+ Primary Data Collection Methods 
+
+		+ 1.8.1.2. Secondary Data Sources  
+			+ Secondary Data Collection Methods 
+
+
+	+ 1.8.2.System Development Methodology 
+
++ 1.9.Development Tools and Technologies  
+	+ 1.9.1.Frontend Technologies 
+	+ 1.9.2.Backend Technologies 
+	+ 1.9.3. Database Technologies 
+	+ 1.9.4.Documentation & Modeling Tools 
+	+ 1.9.5.Deployment Environment 
+	+ 1.9.6. Development Environment / IDE 
+
++ 1.10.Scope of the Project  
+	+ The scope defines the boundaries of the Public Bus 
+
++ 1.11. Risks, Assumptions, and Constraints 
++ Table 1.4 – Risk Matrix \(Likelihood vs Impact\) 
++ 1.12.Phases and Deliverables 
++ 1.13.Work Breakdown Structure \(WBS\) 
++ 1.14.Project Schedule 
++ Chapter Two 
++ 2.Business Area Analysis and Requirement Definition 
++ 2.1.Overview 
++ 2.2.Business area analysis  
+	+ 2.2.1. Activities / functions of the organization  
+		+ I.Addis Ababa Road & Transport Bureau — AARTB 
+
+	+ B.Bus Operating Enterprises and Associations  
+		+ C.Bus Drivers and Conductors 
+		+ D.Passengers  
+
+	+ 2.2.2.Problems of the current system\(Using the PIECES Fr  
+		+ 1\)Performance Issues 
+		+ 2\)Information Deficiencies 
+		+ 3\)Economic Inefficiencies 
+		+ 4\)Control Weaknesses 
+		+ 5\)Efficiency Problems 
+		+ 6\)Service Quality Shortcomings 
+
+	+ 2.2.3. Forms and Reports of the Existing System 
+	+ 2.2.4. Players of the Existing System 
+	+ B.Bus Operating Enterprises and Associations 
+	+ C.Drivers and Conductors  
+		+ I.Bus Drivers 
+		+ II.Conductors 
+
+	+ D.Passengers  
+		+ I.Regular Passengers 
+		+ II.Occasional Passengers 
+		+ III.Vulnerable Passengers 
+
+	+ E.Support and Maintenance Staff  
+		+ I.Mechanics and Technicians 
+		+ II.Terminal Staff 
+		+ III. Informal Players 
+
+	+ Summary of Stakeholder Interactions 
+
++ 2.3.Requirements Definition  
+	+ 2.3.1.Functional Requirements 
+	+ 2.3.2. Non-Functional Requirements 
+
++ Chapter 3 
++ 3.Object Oriented Analysis 
++ 3.1. Overview 
++ 3.2.Use Case Modeling  
+	+ 3.2.1.UI Identification 
+	+ 3.2.2.Business Rules Identification 
+	+ 3.2.3.Actor Identification 
+	+ 3.2.4.Designing the Use Case Diagram 
+	+ 3.2.5.Use Case Description 
+
++ 3.3. Conceptual Modeling  
+	+ 3.3.1 Class Diagram 
+	+ 3.3.2 Class Descriptions 
+	+  User Class 
+	+  Administrator Class 
+	+  Driver Class 
+	+  Passenger Class 
+	+  Bus Class 
+	+  Route Cla 
+	+  RouteStop 
+	+  BusStop C 
+	+  Terminal  
+	+  Schedule  
+	+  Trip Clas 
+	+  Incident  
+	+  Feedback  
+
++ 3.4. Sequence diagramming 
++ 3.5. User Interface Prototyping
+
+
+

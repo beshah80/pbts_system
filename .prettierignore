@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+.next/
+build/
+
+# Cache
+.cache/
+
+# Environment files
+.env*
+
+# Misc
+.DS_Store
+*.md
+*.mdx
+
+# Testing
+coverage/
+__tests__/__snapshots__/
+
+# Next.js
+.next/
+out/
+
+# Turbo
+.turbo/
+
+# Package managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

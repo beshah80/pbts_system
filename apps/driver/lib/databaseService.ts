@@ -1,9 +1,4 @@
-import shegerRoutes from '../../../asset/sheger_bus/routes.txt';
-import shegerStops from '../../../asset/sheger_bus/stops.txt';
-import shegerTrips from '../../../asset/sheger_bus/trips.txt';
-import anbesaRoutes from '../../../asset/anbesa_bus/routes.txt';
-import anbesaStops from '../../../asset/anbesa_bus/stops.txt';
-import anbesaTrips from '../../../asset/anbesa_bus/trips.txt';
+// Database service for loading GTFS data from text files
 
 interface DatabaseRoute {
   routeId: string;

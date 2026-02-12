@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminStore } from '@/lib/store';
 import { Driver } from '@/types';
+import { useState } from 'react';
 
 interface DriverFormProps {
   driver?: Driver;
@@ -62,12 +61,7 @@ export function DriverForm({ driver, onClose }: DriverFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-2xl">
-      <CardHeader>
-        <CardTitle>{driver ? 'Edit Driver' : 'Add New Driver'}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">First Name</label>
@@ -215,16 +209,14 @@ export function DriverForm({ driver, onClose }: DriverFormProps) {
             </div>
           </div>
           
-          <div className="flex gap-2 pt-4">
-            <Button type="submit" className="flex-1">
-              {driver ? 'Update' : 'Add'} Driver
-            </Button>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+      <div className="flex gap-2 pt-4 sticky bottom-0 bg-white pb-2">
+        <Button type="submit" className="flex-1">
+          {driver ? 'Update' : 'Add'} Driver
+        </Button>
+        <Button type="button" variant="outline" onClick={onClose}>
+          Cancel
+        </Button>
+      </div>
+    </form>
   );
 }

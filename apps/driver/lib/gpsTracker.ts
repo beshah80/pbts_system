@@ -129,7 +129,7 @@ class GPSTracker {
       status: this.determineStatus(gpsData.speed)
     };
 
-    const response = await fetch('http://localhost:3001/api/gps/location', {
+    const response = await fetch('http://localhost:3005/api/gps/location', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

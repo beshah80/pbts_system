@@ -1,18 +1,18 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  Bus, 
-  Users, 
-  Route, 
-  AlertTriangle,
-  Clock,
-  DollarSign
-} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminStore } from '@/lib/store';
+import {
+    AlertTriangle,
+    Bus,
+    Clock,
+    DollarSign,
+    Route,
+    TrendingDown,
+    TrendingUp,
+    Users
+} from 'lucide-react';
 import { useMemo } from 'react';
 
 export function RealTimeDashboard() {
@@ -32,6 +32,7 @@ export function RealTimeDashboard() {
     return {
       totalBuses: buses.length,
       activeBuses: buses.filter(b => b.status === 'ACTIVE').length,
+      unreportedBuses: buses.filter(b => b.status === 'UNREPORTED').length,
       totalRoutes: routes.length,
       activeRoutes: routes.filter(r => r.isActive).length,
       todayTrips: todaySchedules.length,
@@ -43,7 +44,7 @@ export function RealTimeDashboard() {
       revenue: 45600,
       efficiency: 92.5
     };
-  }, [buses, drivers, routes, schedules, incidents, feedback]);
+  }, [buses, routes, schedules, incidents, feedback]);
 
   const kpis = [
     {
@@ -138,6 +139,10 @@ export function RealTimeDashboard() {
               <div className="flex justify-between">
                 <span className="text-sm text-gray-600">Maintenance</span>
                 <span className="font-medium">{buses.filter(b => b.status === 'MAINTENANCE').length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-600">Unreported</span>
+                <span className="font-medium text-red-600">{analytics.unreportedBuses}</span>
               </div>
             </div>
           </CardContent>

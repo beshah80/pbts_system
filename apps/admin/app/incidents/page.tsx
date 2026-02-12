@@ -1,23 +1,17 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { IncidentForm } from '@/components/forms/incident-form';
+import { ProtectedRoute } from '@/components/protected-route';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, AlertTriangle, Clock, MapPin, Plus, Edit, CheckCircle } from 'lucide-react';
 import { useAdminStore } from '@/lib/store';
-import { ProtectedRoute } from '@/components/protected-route';
-import { IncidentForm } from '@/components/forms/incident-form';
-import { AdvancedSearch } from '@/components/advanced-search';
-import { BulkOperations } from '@/components/bulk-operations';
+import { AlertTriangle, Clock, MapPin } from 'lucide-react';
+import { useMemo, useState } from 'react';
 
 export default function IncidentsPage() {
   const incidents = useAdminStore((state) => state.incidents);
   const updateIncident = useAdminStore((state) => state.updateIncident);
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const [filter, setFilter] = useState('ALL');
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [searchFilters, setSearchFilters] = useState<any>({});
 
   const getSeverityColor = (severity: string) => {
@@ -42,11 +36,6 @@ export default function IncidentsPage() {
 
   const filteredIncidents = useMemo(() => {
     return incidents.filter(incident => {
-      // Legacy filter
-      if (filter !== 'ALL' && incident.status !== filter) {
-        return false;
-      }
-      
       // Text search
       if (searchFilters.query) {
         const query = searchFilters.query.toLowerCase();
@@ -86,15 +75,7 @@ export default function IncidentsPage() {
       
       return true;
     });
-  }, [incidents, filter, searchFilters]);
-
-  const handleSelectionChange = (id: string, checked: boolean) => {
-    if (checked) {
-      setSelectedIds([...selectedIds, id]);
-    } else {
-      setSelectedIds(selectedIds.filter(selectedId => selectedId !== id));
-    }
-  };
+  }, [incidents, searchFilters]);
 
   const resolveIncident = (id: string) => {
     updateIncident(id, { 
@@ -103,163 +84,95 @@ export default function IncidentsPage() {
     });
   };
 
-  return (
-    <ProtectedRoute requiredPermission="incidents.read">
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => window.history.back()}>
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Incident Management</h1>
-              <p className="text-gray-600">Track and resolve incidents</p>
-            </div>
-          </div>
-          <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="w-4 h-4 mr-2" />
-                Report Incident
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <IncidentForm onClose={() => setShowAddDialog(false)} />
-            </DialogContent>
-          </Dialog>
-        </div>
+  const timeAgo = (iso?: string) => {
+    if (!iso) return '';
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const minutes = Math.floor(diffMs / 60000);
+    if (minutes < 60) return `${minutes} min ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    const days = Math.floor(hours / 24);
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  };
 
-        <div className="flex gap-2">
-          {['ALL', 'REPORTED', 'IN_PROGRESS', 'RESOLVED'].map((status) => (
-            <Button
-              key={status}
-              variant={filter === status ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilter(status)}
+  const Column = ({
+    title,
+    color,
+    status,
+  }: {
+    title: string;
+    color: string;
+    status: 'REPORTED' | 'IN_PROGRESS' | 'RESOLVED';
+  }) => {
+    const items = filteredIncidents.filter(i => i.status === status);
+    return (
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className={`px-4 py-2 text-white font-semibold ${color}`}>{title}</div>
+        <div className="p-3 space-y-3 min-h-[320px]">
+          {items.length === 0 && (
+            <p className="text-sm text-slate-500">No incidents</p>
+          )}
+          {items.map((incident) => (
+            <div
+              key={incident.id}
+              className={`rounded-lg border ${
+                status === 'REPORTED' ? 'bg-red-50 border-red-100' :
+                status === 'IN_PROGRESS' ? 'bg-amber-50 border-amber-100' :
+                'bg-emerald-50 border-emerald-100'
+              } p-3`}
             >
-              {status.replace('_', ' ')}
-            </Button>
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-2">
+                  <AlertTriangle className="w-4 h-4 text-red-600 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold">
+                      {`Incident #${incident.id?.slice(-4)} - ${incident.type?.replace('_', ' ')}`}
+                    </p>
+                    <p className="text-xs text-slate-600">{incident.description}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-slate-600">
+                <div className="flex items-center gap-1">
+                  <MapPin className="w-3 h-3" />
+                  <span>{incident.busId ? `Bus ID: ${incident.busId}` : 'Bus: -'}</span>
+                </div>
+                <div className="flex items-center gap-1 justify-end">
+                  <Clock className="w-3 h-3" />
+                  <span>{timeAgo(incident.reportedAt)}</span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button size="sm" variant="secondary">View Proof</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <IncidentForm incident={incident} onClose={() => {}} />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
           ))}
         </div>
+      </div>
+    );
+  };
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-red-600">{incidents.filter(i => i.status === 'REPORTED').length}</p>
-                <p className="text-sm text-gray-600">Reported</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-yellow-600">{incidents.filter(i => i.status === 'IN_PROGRESS').length}</p>
-                <p className="text-sm text-gray-600">In Progress</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-green-600">{incidents.filter(i => i.status === 'RESOLVED').length}</p>
-                <p className="text-sm text-gray-600">Resolved</p>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-purple-600">{incidents.filter(i => i.severity === 'CRITICAL').length}</p>
-                <p className="text-sm text-gray-600">Critical</p>
-              </div>
-            </CardContent>
-          </Card>
+  return (
+    <ProtectedRoute requiredPermission="incidents.read">
+      <div className="space-y-6 mt-4 mx-4 md:mx-6 lg:mx-8">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Incident Command Center</h1>
+          </div>
         </div>
 
-        <AdvancedSearch
-          entityType="incidents"
-          onFiltersChange={setSearchFilters}
-          onClearFilters={() => setSearchFilters({})}
-        />
-
-        <BulkOperations
-          entityType="incidents"
-          selectedIds={selectedIds}
-          onSelectionChange={setSelectedIds}
-        />
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Incidents ({filteredIncidents.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {filteredIncidents.map((incident) => (
-                <div key={incident.id} className="border rounded-lg p-4">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Checkbox
-                      checked={selectedIds.includes(incident.id)}
-                      onCheckedChange={(checked) => handleSelectionChange(incident.id, checked as boolean)}
-                    />
-                    <div className="flex items-start justify-between flex-1">
-                      <div className="flex items-center gap-3">
-                        <AlertTriangle className="w-5 h-5 text-red-500" />
-                        <div>
-                          <h3 className="font-semibold">{incident.type}</h3>
-                          <p className="text-sm text-gray-600">{incident.description}</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(incident.severity)}`}>
-                          {incident.severity}
-                        </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(incident.status)}`}>
-                          {incident.status}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      {incident.location}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      {new Date(incident.reportedAt).toLocaleString()}
-                    </div>
-                  </div>
-                  
-                  {incident.status !== 'RESOLVED' && (
-                    <div className="flex gap-2">
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => resolveIncident(incident.id)}
-                      >
-                        <CheckCircle className="w-3 h-3 mr-1" />
-                        Mark Resolved
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button size="sm" variant="outline">
-                            <Edit className="w-3 h-3 mr-1" />
-                            Edit
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-2xl">
-                          <IncidentForm incident={incident} onClose={() => {}} />
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Column title="Reported" color="bg-red-600" status="REPORTED" />
+          <Column title="Investigating" color="bg-amber-500" status="IN_PROGRESS" />
+          <Column title="Resolved" color="bg-emerald-600" status="RESOLVED" />
+        </div>
       </div>
     </ProtectedRoute>
   );

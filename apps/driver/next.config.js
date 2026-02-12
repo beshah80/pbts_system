@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remove deprecated appDir option
+  outputFileTracingRoot: require('path').join(__dirname, '../..'),
 }
 
 module.exports = nextConfig

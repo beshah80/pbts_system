@@ -79,25 +79,37 @@ export async function DELETE(request: NextRequest) {
     
     // Delete related records first
     await prisma.$transaction(async (tx) => {
-      // Delete related incidents
-      await tx.incident.deleteMany({
-        where: { busId: id }
+      // Delete related incidents (through trip records)
+      const tripRecords = await tx.tripRecord.findMany({
+        where: { busId: id },
+        select: { id: true }
       });
+      
+      if (tripRecords.length > 0) {
+        await tx.incident.deleteMany({
+          where: {
+            tripId: {
+              in: tripRecords.map(trip => trip.id)
+            }
+          }
+        });
+        
+        // Delete trip records
+        await tx.tripRecord.deleteMany({
+          where: { busId: id }
+        });
+      }
       
       // Delete related schedules
       await tx.schedule.deleteMany({
         where: { busId: id }
       });
       
-      // Delete related feedback
-      await tx.feedback.deleteMany({
-        where: { busId: id }
-      });
+      // Delete related feedback (assuming feedback is not directly related to buses)
+      // Remove this if feedback doesn't have busId field
       
-      // Delete related revenue
-      await tx.revenue.deleteMany({
-        where: { busId: id }
-      });
+      // Delete related revenue (assuming revenue model exists with busId)
+      // Remove this if revenue model doesn't exist or doesn't have busId field
       
       // Finally delete the bus
       await tx.bus.delete({

@@ -1,55 +1,83 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  content: ['./src/**/*.{ts,tsx}', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
-        border: 'hsl(214.3 31.8% 91.4%)',
-        input: 'hsl(214.3 31.8% 91.4%)',
-        ring: 'hsl(221.2 83.2% 53.3%)',
-        background: 'hsl(0 0% 100%)',
-        foreground: 'hsl(222.2 84% 4.9%)',
+        // Exact Moovit Color Palette
+        'moovit-orange': '#FF6600',
+        'moovit-blue': '#1A73E8',
+        'moovit-bg': '#FAFAFA',
+        'moovit-card': '#FFFFFF',
+        'moovit-input': '#F5F5F5',
+        'moovit-hover': '#F0F0F0',
+        'moovit-text': '#202124',
+        'moovit-secondary': '#5F6368',
+        'moovit-tertiary': '#80868B',
+        'moovit-border': '#DADCE0',
+        'moovit-light': '#E8EAED',
+
+        // Tailwind UI colors (updated to match Moovit)
+        border: '#DADCE0',
+        input: '#F5F5F5',
+        ring: '#FF6600',
+        background: '#FAFAFA',
+        foreground: '#202124',
         primary: {
-          DEFAULT: 'hsl(221.2 83.2% 53.3%)',
-          foreground: 'hsl(210 40% 98%)',
-          dark: 'hsl(224 76% 48%)', // Added darker shade
+          DEFAULT: '#FF6600',
+          foreground: '#FFFFFF',
+          dark: '#E65C00',
         },
         secondary: {
-          DEFAULT: 'hsl(45 93% 47%)', // Changed to a vibrant yellow/amber for contrast
-          foreground: 'hsl(222.2 84% 4.9%)',
+          DEFAULT: '#1A73E8',
+          foreground: '#FFFFFF',
         },
         destructive: {
-          DEFAULT: 'hsl(0 84.2% 60.2%)',
-          foreground: 'hsl(210 40% 98%)',
+          DEFAULT: '#D93025',
+          foreground: '#FFFFFF',
         },
         muted: {
-          DEFAULT: 'hsl(210 40% 96%)',
-          foreground: 'hsl(215.4 16.3% 46.9%)',
+          DEFAULT: '#F5F5F5',
+          foreground: '#5F6368',
         },
         accent: {
-          DEFAULT: 'hsl(210 40% 96%)',
-          foreground: 'hsl(222.2 84% 4.9%)',
+          DEFAULT: '#FF6600',
+          foreground: '#FFFFFF',
         },
         popover: {
-          DEFAULT: 'hsl(0 0% 100%)',
-          foreground: 'hsl(222.2 84% 4.9%)',
+          DEFAULT: '#FFFFFF',
+          foreground: '#202124',
         },
         card: {
-          DEFAULT: 'hsl(0 0% 100%)',
-          foreground: 'hsl(222.2 84% 4.9%)',
+          DEFAULT: '#FFFFFF',
+          foreground: '#202124',
         },
       },
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+      },
       borderRadius: {
-        lg: '0.5rem',
-        md: '0.375rem',
+        lg: '0.75rem',
+        md: '0.5rem',
         sm: '0.25rem',
-        xl: '1rem', // Added xl
-        '2xl': '1.5rem', // Added 2xl
+        xl: '1rem',
+        '2xl': '1.5rem',
+        '3xl': '1.75rem',
+        'pill': '9999px',
+      },
+      boxShadow: {
+        'moovit-sm': '0 1px 2px rgba(0, 0, 0, 0.05)',
+        'moovit-md': '0 2px 8px rgba(0, 0, 0, 0.1)',
+        'moovit-lg': '0 4px 16px rgba(0, 0, 0, 0.12)',
+        'header': '0 1px 3px rgba(0, 0, 0, 0.08)',
+        'soft': '0 1px 2px rgba(0, 0, 0, 0.05)',
+        'medium': '0 2px 8px rgba(0, 0, 0, 0.1)',
+        'strong': '0 4px 16px rgba(0, 0, 0, 0.12)',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
+        'fade-in': 'fadeIn 0.3s ease-out',
+        'slide-up': 'slideUp 0.3s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -57,7 +85,7 @@ const config: Config = {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },

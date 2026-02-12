@@ -7,144 +7,388 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Admin {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
   email     String   @unique
   password  String
-  role      UserRole
-  phone     String?
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  driver    Driver?
-  logs      AuditLog[]
-}
 
-enum UserRole {
-  ADMIN
-  DRIVER
+  resolvedIncidents Incident[]
+
+  @@map("admins")
 }
 
 model Driver {
-  id              String       @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String       @unique @db.ObjectId
-  user            User         @relation(fields: [userId], references: [id])
-  employeeId      String       @unique
-  licenseNo       String
-  licenseExpiry   DateTime
-  experienceYears Int
-  depot           String?
-  photoUrl        String?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  trips           TripRecord[]
-  incidents       IncidentReport[]
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  employeeId        String       @unique
+  firstName         String
+  lastName          String
+  licenseNumber     String       @unique
+  phoneNumber       String
+  email             String?
+  password          String
+  address           String
+  dateOfBirth       DateTime
+  hireDate          DateTime
+  status            DriverStatus @default(ACTIVE)
+  experience        Int          @default(0)
+  rating            Float        @default(0)
+  totalTrips        Int          @default(0)
+  emergencyName     String
+  emergencyPhone    String
+  emergencyRelation String
+  photoUrl          String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  buses     Bus[]
+  schedules Schedule[]
+  trips     TripRecord[]
+
+  @@map("drivers")
 }
 
+model Bus {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  plateNumber       String    @unique
+  busNumber         String    @unique
+  fleetNumber       String?
+  busType           BusType
+  status            BusStatus @default(ACTIVE)
+  capacity          Int
+  standingCapacity  Int?
+  currentPassengers Int       @default(0)
+  currentRouteId    String?
+  driverId          String?   @db.ObjectId
+  lastMaintenance   DateTime?
+  nextMaintenance   DateTime?
+  mileage           Int?
+  fuelLevel         Int?
+  gpsEnabled        Boolean   @default(true)
+  manufacturer      String?
+  modelYear         Int?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
+  driver    Driver?     @relation(fields: [driverId], references: [id])
+  schedules Schedule[]
+  trips     TripRecord[]
+
+  @@map("buses")
+}
 
 model Schedule {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  routeId         String   // Reference to JSON route ID
-  dayOfWeek       Int      // 0=Sunday..6=Saturday
-  departureTime   String   // HH:mm
-  arrivalTime     String?  // HH:mm
-  frequencyMinutes Int?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  routeStaticId  String
+  routeId        String?        @db.ObjectId
+  busId          String         @db.ObjectId
+  driverId       String         @db.ObjectId
+  departureTime  DateTime
+  arrivalTime    DateTime?
+  status         ScheduleStatus @default(SCHEDULED)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  bus            Bus            @relation(fields: [busId], references: [id])
+  driver         Driver         @relation(fields: [driverId], references: [id])
+  route          Route?         @relation(fields: [routeId], references: [id])
+  tripRecords    TripRecord[]   @relation("ScheduleTripRecords")
+
+  @@map("schedules")
 }
 
 model TripRecord {
-  id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  routeId        String         // Reference to JSON route ID
-  driverId       String         @db.ObjectId
-  driver         Driver         @relation(fields: [driverId], references: [id])
-  scheduledStart DateTime
-  actualStart    DateTime?
-  status         TripStatus     @default(PLANNED)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  incidents      IncidentReport[]
-  feedbacks      Feedback[]
+  id                 String      @id @default(auto()) @map("_id") @db.ObjectId
+  scheduleId         String      @db.ObjectId
+  busId              String      @db.ObjectId
+  driverId           String      @db.ObjectId
+  routeStaticId      String
+  routeId            String?     @db.ObjectId
+  startedAt          DateTime    @default(now())
+  endedAt            DateTime?
+  status             TripStatus  @default(IN_PROGRESS)
+  currentStopStaticId String?
+  currentLatitude    Float?
+  currentLongitude   Float?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  schedule           Schedule    @relation("ScheduleTripRecords", fields: [scheduleId], references: [id])
+  bus                Bus         @relation(fields: [busId], references: [id])
+  driver             Driver      @relation(fields: [driverId], references: [id])
+  route              Route?      @relation(fields: [routeId], references: [id])
+  incidents          Incident[]
+  stopUpdates        StopUpdate[]
+
+  @@map("trip_records")
+}
+
+model FeedbackVerification {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  email       String
+  otpHash     String
+  expiresAt   DateTime
+  verifiedAt  DateTime?
+  attempts    Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([email])
+  @@map("feedback_verifications")
+}
+
+model PassengerFeedback {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  email          String
+  rating         Int              @default(5)
+  category       FeedbackCategory @default(OTHER)
+  message        String
+  status         FeedbackStatus   @default(PENDING)
+  routeStaticId  String?
+  stopStaticId   String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([email])
+  @@map("passenger_feedback")
+}
+
+enum DriverStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  ON_LEAVE
+}
+
+enum BusType {
+  ANBESSA
+  SHEGER
+  VELOCITY
+  PRIVATE
+  MINI_BUS
+}
+
+enum BusStatus {
+  ACTIVE
+  MAINTENANCE
+  INACTIVE
+  OUT_OF_SERVICE
+}
+
+enum ScheduleStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DELAYED
 }
 
 enum TripStatus {
-  PLANNED
   IN_PROGRESS
   COMPLETED
   CANCELLED
 }
 
-
-
-model IncidentReport {
-  id           String          @id @default(auto()) @map("_id") @db.ObjectId
-  tripRecordId String?         @db.ObjectId
-  tripRecord   TripRecord?     @relation(fields: [tripRecordId], references: [id])
-  routeId      String?         // Reference to JSON route ID
-  driverId     String?         @db.ObjectId
-  driver       Driver?         @relation(fields: [driverId], references: [id])
-  category     IncidentCategory
-  severity     String?
-  description  String
-  status       IncidentStatus  @default(OPEN)
-  reportedAt   DateTime        @default(now())
-  resolvedAt   DateTime?
-}
-
-enum IncidentCategory {
-  BREAKDOWN
-  HEAVY_TRAFFIC
-  BLOCKAGE
-  ACCIDENT
-  SAFETY
-  OTHER
-}
-
-enum IncidentStatus {
-  OPEN
-  IN_PROGRESS
+enum FeedbackStatus {
+  PENDING
+  REVIEWED
   RESOLVED
-}
-
-model Feedback {
-  id           String           @id @default(auto()) @map("_id") @db.ObjectId
-  category     FeedbackCategory
-  routeId      String?          // Reference to JSON route ID
-  tripRecordId String?          @db.ObjectId
-  tripRecord   TripRecord?      @relation(fields: [tripRecordId], references: [id])
-  comment      String
-  rating       Int?
-  contactInfo  String?
-  status       FeedbackStatus   @default(NEW)
-  submittedAt  DateTime         @default(now())
+  DISMISSED
 }
 
 enum FeedbackCategory {
-  DELAY
-  OVERCROWDING
+  SERVICE
+  CLEANLINESS
+  PUNCTUALITY
   SAFETY
   DRIVER_BEHAVIOR
-  CLEANLINESS
   OTHER
 }
 
-enum FeedbackStatus {
-  NEW
-  IN_REVIEW
+// New models for route search functionality
+model Route {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  staticId          String   @unique // From info.json id
+  routeNumber       String   // From info.json shortName
+  name              String   // From info.json longName
+  startLocation     String   // From info.json from
+  endLocation       String   // From info.json to
+  distance          Float    // Calculated from stop distances
+  estimatedDuration Int      // Estimated based on distance
+  farePrice         Float    // Default fare, can be overridden
+  isActive          Boolean  @default(false)
+  stops             RouteStop[]
+  schedules         Schedule[]
+  tripRecords       TripRecord[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("routes")
+}
+
+model Stop {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  staticId    String   @unique // From info.json stop id
+  name        String
+  latitude    Float
+  longitude   Float
+  type        StopType @default(BUS_STOP)
+  isActive    Boolean  @default(true)
+  routes      RouteStop[]
+  createdAt   DateTime @default(now())
+
+  @@map("stops")
+}
+
+model RouteStop {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  routeId        String @db.ObjectId
+  route          Route  @relation(fields: [routeId], references: [id])
+  stopId         String @db.ObjectId
+  stop           Stop   @relation(fields: [stopId], references: [id])
+  order          Int    // From info.json sequence
+  timeFromStart  Int    // Calculated minutes from route start
+  createdAt      DateTime @default(now())
+
+  @@map("route_stops")
+}
+
+
+enum StopType {
+  BUS_STOP
+  TERMINAL
+  STATION
+}
+
+// Analytics for tracking route popularity
+model RouteAnalytics {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  routeId     String   @unique // Links to info.json route id
+  searchCount Int      @default(0)
+  lastSearched DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("route_analytics")
+}
+
+// Incident Management
+model Incident {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  tripId      String           @db.ObjectId
+  trip        TripRecord       @relation(fields: [tripId], references: [id])
+  type        IncidentType
+  severity    IncidentSeverity
+  description String
+  location    String?
+  status      IncidentStatus   @default(REPORTED)
+  reportedAt  DateTime         @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?          @db.ObjectId
+  resolver    Admin?           @relation(fields: [resolvedBy], references: [id])
+  notes       String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([tripId])
+  @@index([status])
+  @@index([reportedAt])
+  @@map("incidents")
+}
+
+enum IncidentType {
+  BREAKDOWN
+  ACCIDENT
+  DELAY
+  EMERGENCY
+  TRAFFIC
+  OTHER
+}
+
+enum IncidentSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  REPORTED
+  ACKNOWLEDGED
+  IN_PROGRESS
+  RESOLVED
   CLOSED
 }
 
+// Stop Updates for Trip Tracking
+model StopUpdate {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  tripId    String     @db.ObjectId
+  trip      TripRecord @relation(fields: [tripId], references: [id])
+  stopId    String     // Reference to info.json stop id
+  status    StopStatus
+  timestamp DateTime   @default(now())
+  latitude  Float?
+  longitude Float?
+
+  @@index([tripId])
+  @@index([timestamp])
+  @@map("stop_updates")
+}
+
+enum StopStatus {
+  ARRIVED
+  DEPARTED
+}
+
+// Audit Logging
 model AuditLog {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String?  @db.ObjectId
-  user      User?    @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  userType  UserType
   action    String
-  entityType String
+  entity    String
   entityId  String?
   changes   Json?
-  ip        String?
+  ipAddress String?
   userAgent String?
-  createdAt DateTime @default(now())
+  timestamp DateTime @default(now())
+
+  @@index([userId])
+  @@index([entity])
+  @@index([timestamp])
+  @@map("audit_logs")
+}
+
+enum UserType {
+  ADMIN
+  DRIVER
+  SYSTEM
+}
+
+// Notifications
+model Notification {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  type      NotificationType
+  title     String
+  message   String
+  routeId   String?
+  tripId    String?
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  @@index([createdAt])
+  @@index([read])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  BUS_ARRIVAL
+  DELAY
+  ROUTE_CHANGE
+  INCIDENT
+  SYSTEM
 }
 

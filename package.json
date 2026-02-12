@@ -4,24 +4,37 @@
   "workspaces": [
     "apps/*",
     "shared",
-    "packages/*"
+    "packages/*",
+    "backend"
   ],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "db:generate": "cd shared && npm run db:generate",
-    "db:push": "cd shared && npm run db:push",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "db:generate": "cd backend && npm run db:generate",
+    "db:push": "cd backend && npm run db:push",
     "dev:admin": "cd apps/admin && npm run dev",
-    "dev:driver": "cd apps/driver && npm run dev", 
+    "dev:driver": "cd apps/driver && npm run dev",
     "dev:passenger": "cd apps/passenger && npm run dev",
     "dev:all": "concurrently \"npm run dev:admin\" \"npm run dev:driver\" \"npm run dev:passenger\""
   },
   "devDependencies": {
-    "turbo": "^1.10.0",
-    "concurrently": "^8.2.0",
     "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.49.0",
+    "@typescript-eslint/parser": "^8.49.0",
+    "concurrently": "^8.2.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "prettier": "^3.7.4",
+    "turbo": "^1.10.0",
     "typescript": "^5.0.0"
   }
 }

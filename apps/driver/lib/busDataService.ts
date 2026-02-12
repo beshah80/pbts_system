@@ -53,8 +53,8 @@ export interface Shift {
 }
 
 class BusDataService {
-  private routes: Route[] = busData.routes;
-  private buses: Bus[] = busData.buses;
+  private routes: Route[] = busData.routes as Route[];
+  private buses: Bus[] = busData.buses as Bus[];
   private stops: Stop[] = busData.stops;
 
   // Generate realistic schedules for Ethiopian time slots

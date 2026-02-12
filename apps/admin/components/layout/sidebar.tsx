@@ -1,69 +1,98 @@
 'use client';
 
+import { useAuthStore } from '@/lib/auth';
+import { cn } from '@/lib/utils';
+import {
+    AlertTriangle,
+    Bus,
+    Calendar,
+    LayoutDashboard,
+    LogOut,
+    MessageSquare,
+    Route as RouteIcon,
+    Settings,
+    Users
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import { 
-  LayoutDashboard, 
-  Bus, 
-  Users, 
-  Route, 
-  MessageSquare, 
-  AlertTriangle, 
-  BarChart3,
-  Settings,
-  Calendar
-} from 'lucide-react';
 
-const navigation = [
+export interface SidebarProps {
+  isOpen: boolean;
+}
+
+const SIDEBAR_ITEMS = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Transport', href: '/buses', icon: Bus },
-  { name: 'Drivers', href: '/drivers', icon: Users },
+  { name: 'Routes & Stops', href: '/routes', icon: RouteIcon },
   { name: 'Schedules', href: '/schedules', icon: Calendar },
+  { name: 'Drivers', href: '/drivers', icon: Users },
+  { name: 'Buses', href: '/buses', icon: Bus },
+  { name: 'Incidents', href: '/incidents', icon: AlertTriangle, badge: 3 },
   { name: 'Feedback', href: '/feedback', icon: MessageSquare },
-  { name: 'Incidents', href: '/incidents', icon: AlertTriangle },
-  { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
-export function Sidebar() {
+export function Sidebar({ isOpen }: SidebarProps) {
   const pathname = usePathname();
+  const { logout } = useAuthStore();
 
   return (
-    <div className="w-64 bg-white shadow-sm border-r border-gray-200">
-      <div className="p-6">
-        <div className="flex items-center gap-2">
-          <Bus className="w-8 h-8 text-blue-600" />
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">PBTS Admin</h1>
-            <p className="text-xs text-gray-500">Transport System</p>
-          </div>
-        </div>
+    <aside className={cn(
+      "bg-[#3A608F] text-white flex flex-col transition-all duration-300 fixed h-full z-20",
+      isOpen ? "w-64" : "w-20"
+    )}>
+      {/* Logo / Header */}
+      <div className="p-6 h-20 flex items-center">
+        {isOpen ? (
+            <div className="flex flex-col">
+              <h1 className="text-xl font-bold tracking-wide">Addis</h1>
+              <h1 className="text-xl font-bold tracking-wide -mt-1">Transport</h1>
+            </div>
+        ) : (
+          <span className="text-xl font-bold">AT</span>
+        )}
       </div>
-      
-      <nav className="px-3 pb-6">
-        <ul className="space-y-1">
-          {navigation.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    'flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors',
-                    isActive
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+
+      {/* Navigation */}
+      <nav className="flex-1 px-4 space-y-2 mt-4 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-400/30 scrollbar-track-transparent">
+        {SIDEBAR_ITEMS.map((item) => {
+          const isActive = pathname === item.href; 
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors relative",
+                isActive 
+                  ? "bg-[#2C4A70] text-white shadow-sm" 
+                  : "text-blue-100 hover:bg-[#4A73A5] hover:text-white"
+              )}
+            >
+              <item.icon className="w-5 h-5" />
+              {isOpen && (
+                <>
+                  <span className="flex-1">{item.name}</span>
+                  {item.badge && (
+                    <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                      {item.badge}
+                    </span>
                   )}
-                >
-                  <item.icon className="w-5 h-5" />
-                  {item.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                </>
+              )}
+            </Link>
+          );
+        })}
       </nav>
-    </div>
+
+      {/* Bottom Settings/Logout */}
+      <div className="p-4 mt-auto space-y-2 border-t border-blue-400/30">
+          <Link href="/integration" className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-blue-100 hover:bg-[#4A73A5] hover:text-white transition-colors">
+            <Settings className="w-5 h-5" />
+            {isOpen && <span>Settings</span>}
+          </Link>
+          <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-blue-100 hover:bg-[#4A73A5] hover:text-white transition-colors text-left">
+            <LogOut className="w-5 h-5" />
+            {isOpen && <span>Logout</span>}
+          </button>
+      </div>
+    </aside>
   );
 }

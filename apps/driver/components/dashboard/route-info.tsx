@@ -148,7 +148,7 @@ export function RouteInfo({ routeId }: RouteInfoProps) {
             <h3 className="text-sm font-semibold text-gray-700 mb-3">All Stops ({stops.length})</h3>
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {stops.map((stop, index) => (
-                <div key={stop.stopId} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <div key={stop.stop_id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                   <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-medium text-gray-600">
                     {index + 1}
                   </div>

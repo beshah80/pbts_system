@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminStore } from '@/lib/store';
-import { RouteService } from '@/lib/route-service';
 import { Bus } from '@/types';
 
 interface BusFormProps {
@@ -21,17 +20,33 @@ export function BusForm({ bus, onClose }: BusFormProps) {
     plateNumber: bus?.plateNumber || '',
     busNumber: bus?.busNumber || '',
     capacity: bus?.capacity || 45,
-    busType: bus?.busType || 'ANBESSA',
+    type: bus?.type || 'ANBESSA',
     status: bus?.status || 'ACTIVE',
-    assignedRouteId: bus?.currentRouteId || '',
+    assignedRouteId: bus?.routeId || '',
     driverId: bus?.driverId || ''
   });
 
   useEffect(() => {
-    // Load available routes from JSON
-    RouteService.getRoutes().then(routes => {
-      setAvailableRoutes(routes);
-    });
+    const controller = new AbortController();
+    const loadRoutes = async () => {
+      try {
+        const res = await fetch('http://localhost:3005/api/routes', {
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          throw new Error(`Failed to fetch routes: ${res.status}`);
+        }
+        const routes = await res.json();
+        setAvailableRoutes(routes || []);
+      } catch (err) {
+        if ((err as any)?.name !== 'AbortError') {
+          console.error('Failed to load routes from backend', err);
+          setAvailableRoutes([]);
+        }
+      }
+    };
+    loadRoutes();
+    return () => controller.abort();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -45,7 +60,15 @@ export function BusForm({ bus, onClose }: BusFormProps) {
           id: Date.now().toString(),
           ...formData,
           capacity: Number(formData.capacity),
-          currentRouteId: formData.assignedRouteId || undefined
+          routeId: formData.assignedRouteId || undefined,
+          currentPassengers: 0,
+          lastMaintenance: new Date().toISOString().split('T')[0],
+          nextMaintenance: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          mileage: 0,
+          fuelLevel: 100,
+          gpsEnabled: true,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         };
         await addBus(newBus);
       }
@@ -103,8 +126,8 @@ export function BusForm({ bus, onClose }: BusFormProps) {
           <div>
             <label className="block text-sm font-medium mb-1">Bus Type</label>
             <select
-              value={formData.busType}
-              onChange={(e) => setFormData({ ...formData, busType: e.target.value as Bus['busType'] })}
+              value={formData.type}
+              onChange={(e) => setFormData({ ...formData, type: e.target.value as Bus['type'] })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="ANBESSA">Anbessa</option>
@@ -137,7 +160,7 @@ export function BusForm({ bus, onClose }: BusFormProps) {
               <option value="">No Route Assigned</option>
               {availableRoutes.map((route) => (
                 <option key={route.id} value={route.id}>
-                  {route.shortName} - {route.longName}
+                  {(route.routeNumber ?? route.shortName) ?? ''} - {(route.routeName ?? route.longName) ?? ''}
                 </option>
               ))}
             </select>

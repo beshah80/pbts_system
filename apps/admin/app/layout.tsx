@@ -1,3 +1,4 @@
+import { MainLayout } from '@/components/layout/main-layout';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-50">
-        {children}
+        <MainLayout>
+          {children}
+        </MainLayout>
       </body>
     </html>
   );
